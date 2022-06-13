@@ -59,7 +59,7 @@ $(document).ready(function () {
 document.addEventListener('visibilitychange',
     function () {
         if (document.visibilityState === "visible") {
-            document.title = "Portfolio | Lutfi Sable";
+            document.title = "Portfolio | Lutfi Ihsan";
             $("#favicon").attr("href", "assets/images/favicon.png");
         }
         else {
