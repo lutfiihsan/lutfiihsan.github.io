@@ -1557,13 +1557,4 @@ form .button-area {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-
-  /* Reset bentrokan posisi panah timeline di mobile */
-  .experience .left::before, 
-  .experience .right::before {
-    left: 61px;
-    right: auto; /* Reset posisi 'right' dari versi desktop */
-    border-width: 10px 10px 10px 0;
-    border-color: transparent #f68c09 transparent transparent;
-  }
 }
