@@ -816,37 +816,67 @@
     <h2 class="heading">
       <i class="fas fa-headset"></i> Get in <span>Touch</span>
     </h2>
-    <div class="container">
-      <div class="content">
-        <div class="image-box">
-          <img draggable="false" src="./assets/images/contact1.png" alt="Contact Me">
+
+    <div class="contact-container">
+
+      <div class="contact-info">
+        <h3>Let's Talk!</h3>
+        <p>Have a project in mind, need a consultation, or just want to say hi? Feel free to reach out to me directly.
+        </p>
+
+        <div class="info-item">
+          <i class="fas fa-envelope"></i>
+          <div>
+            <span>Email</span>
+            <a href="mailto:lutficreativesys@gmail.com">lutficreativesys@gmail.com</a>
+          </div>
         </div>
+
+        <div class="info-item">
+          <i class="fas fa-phone-alt"></i>
+          <div>
+            <span>Phone / WhatsApp</span>
+            <a href="https://wa.me/6281226260649" target="_blank">+62 812-2626-0649</a>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <div>
+            <span>Location</span>
+            <p>Bogor, Indonesia - 16360</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form-container">
         <form id="contact-form">
-          <div class="form-group">
-            <div class="field">
-              <input type="text" name="name" placeholder="Name" required>
-              <i class='fas fa-user'></i>
-            </div>
-            <div class="field">
-              <input type="email" name="email" placeholder="Email" required>
-              <i class='fas fa-envelope'></i>
-            </div>
-            <div class="field">
-              <input type="text" name="phone" placeholder="Phone">
-              <i class='fas fa-phone-alt'></i>
-            </div>
-            <div class="message">
-              <textarea placeholder="Message" name="message" required></textarea>
-              <i class="fas fa-comment-dots"></i>
-            </div>
+          <div class="input-box">
+            <input type="text" name="name" required>
+            <label>Full Name</label>
           </div>
-          <div class="button-area">
-            <button type="submit">
-              Submit <i class="fas fa-paper-plane"></i>
-            </button>
+
+          <div class="input-box">
+            <input type="email" name="email" required>
+            <label>Email Address</label>
           </div>
+
+          <div class="input-box">
+            <input type="text" name="phone" required>
+            <label>Phone Number</label>
+          </div>
+
+          <div class="input-box">
+            <textarea name="message" required></textarea>
+            <label>Your Message</label>
+          </div>
+
+          <button type="submit" class="btn">
+            Send Message <i class="fas fa-paper-plane"></i>
+          </button>
         </form>
       </div>
+
     </div>
   </section>
   <!-- contact section ends -->
