@@ -351,88 +351,123 @@ header .navbar ul li a:hover {
 .about .row {
   display: flex;
   flex-direction: row;
-  gap: 2rem;
+  gap: 4rem;
   flex-wrap: wrap;
   padding: 4rem;
+  align-items: center;
 }
 .about .row .image {
   text-align: center;
   flex: 1 1 35rem;
 }
 .about .row .image img {
-  margin: 4rem;
-  width: 30rem;
+  width: 100%;
+  max-width: 400px; /* Membatasi agar gambar tidak terlalu raksasa */
   height: auto;
   border-radius: 5%;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
   mix-blend-mode: luminosity;
   transition: 0.3s;
   cursor: pointer;
 }
 .about .row .image img:hover {
   mix-blend-mode: normal;
+  transform: translateY(-5px);
 }
 .about .row .content {
   flex: 1 1 45rem;
-  padding: 3rem;
 }
 .about .row .content h3 {
-  color: rgb(27, 27, 27);
-  font-size: 2.5rem;
+  color: #02094b; /* Biru gelap tema baru */
+  font-size: 3rem;
+  font-weight: 800;
 }
 .about .row .content .tag {
   font-size: 1.4rem;
-  color: #020133;
-  font-weight: 600;
-  margin-top: 1rem;
+  color: #f68c09; /* Warna oranye agar senada dengan experience */
+  font-weight: 700;
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  background: rgba(246, 140, 9, 0.1); /* Background oranye transparan */
+  border-radius: 50px;
 }
 .about .row .content p {
   font-size: 1.5rem;
-  margin-top: 1.5rem;
-  font-family: "Nunito";
-  font-weight: 600;
-  text-transform: none;
+  margin-top: 2rem;
+  line-height: 1.8;
+  color: #555;
+  font-weight: 500;
 }
-.about .row .content .box-container {
+.about .row .content p strong {
+  color: #02094b;
+}
+
+/* Layout Kotak Info Pribadi yang Baru */
+.about .row .content .personal-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+  border-top: 1px solid #eee;
+  padding-top: 3rem;
+}
+.about .row .content .personal-info .info-box {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  font-family: "Nunito";
-  font-weight: 600;
+  align-items: center;
+  font-size: 1.4rem;
+  color: #444;
+  line-height: 1.5;
 }
-.about .row .content .box-container .box p {
-  text-transform: none;
+.about .row .content .personal-info .info-box i {
+  font-size: 1.8rem;
+  color: #f68c09;
+  margin-right: 1.5rem;
+  background: #fff4e6; /* Bulatan latar belakang ikon */
+  width: 4.5rem;
+  height: 4.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
-.about .row .content .box-container .box p span {
-  color: #011aff;
+.about .row .content .personal-info .info-box span strong {
+  color: #02094b;
+  font-size: 1.5rem;
 }
+
+/* Tombol Resume */
 .resumebtn {
-  margin-top: 6rem;
+  margin-top: 4rem;
 }
 .resumebtn .btn {
-  padding: 1.7rem 3rem;
-  border-radius: 0.5em;
+  padding: 1.5rem 3rem;
+  border-radius: 50px; /* Bentuk pil agar modern */
   transition: 0.3s;
   color: #fff;
-  background: #2506ad;
-  box-shadow: 0px 5px 10px rgba(48, 68, 247, 0.6);
+  background: #02094b;
+  box-shadow: 0px 5px 15px rgba(2, 9, 75, 0.4);
   font-family: "Nunito", sans-serif;
+  display: inline-flex;
+  align-items: center;
 }
 .resumebtn .btn span {
-  font-weight: 600;
-  font-size: 1.8rem;
+  font-weight: 700;
+  font-size: 1.6rem;
   letter-spacing: 0.1rem;
 }
 .resumebtn .btn i {
-  margin-left: 0.3rem;
-  font-size: 1.2rem;
+  margin-left: 1rem;
+  font-size: 1.5rem;
   transition: 0.3s;
 }
 .resumebtn .btn:hover {
-  background: #1a047e;
+  background: #f68c09;
+  box-shadow: 0px 5px 15px rgba(246, 140, 9, 0.4);
 }
 .resumebtn .btn:hover i {
-  transform: translateX(5px);
+  transform: translateY(3px); /* Panah bergerak ke bawah karena ikonnya download */
 }
 /* about media queries starts*/
 @media screen and (max-width: 600px) {
@@ -1117,35 +1152,51 @@ header .navbar ul li a:hover {
 
 /* contact section starts */
 .contact {
-  background: #e5ecfb;
+  background: #fdfdfd; /* Background putih bersih */
   min-height: 60vh;
+  padding-bottom: 5rem;
+}
+.contact .heading {
+  color: #02094b; /* Navy Blue */
+}
+.contact .heading span {
+  color: #f68c09; /* Orange */
 }
 .contact .container {
   max-width: 1050px;
   width: 100%;
   background: #fff;
   border-radius: 1.5rem;
-  margin: 2rem 5rem;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  margin: 4rem auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Shadow lebih halus */
+  border-top: 5px solid #02094b; /* Garis aksen Navy di atas form */
 }
 .contact .container .content {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2.5rem 2rem;
+  padding: 4rem 3rem;
 }
+
+/* Animasi Gambar Melayang */
 .contact .content .image-box {
-  max-width: 60%;
-  margin-left: 4rem;
+  max-width: 50%;
+  text-align: center;
 }
 .contact .content .image-box img {
   width: 100%;
-  height: 40rem;
-  position: relative;
+  max-width: 400px;
+  height: auto;
+  animation: floatImage 3s ease-in-out infinite; /* Efek melayang */
 }
+@keyframes floatImage {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* Form Styling */
 .contact .content form {
   width: 45%;
-  margin-right: 3.5rem;
 }
 form .form-group {
   display: flex;
@@ -1156,17 +1207,18 @@ form .form-group {
   height: 50px;
   display: flex;
   position: relative;
-  margin: 1rem;
+  margin-bottom: 2rem;
   width: 100%;
 }
 form i {
   position: absolute;
   top: 50%;
   left: 18px;
-  color: rgb(51, 51, 51);
-  font-size: 17px;
+  color: #888;
+  font-size: 1.6rem;
   pointer-events: none;
   transform: translateY(-50%);
+  transition: 0.3s ease;
 }
 form .field input,
 form .message textarea {
@@ -1174,99 +1226,106 @@ form .message textarea {
   height: 100%;
   outline: none;
   padding: 0 16px 0 48px;
-  font-size: 16px;
+  font-size: 1.5rem;
   font-family: "Poppins", sans-serif;
-  border-radius: 5px;
-  border: 1px solid rgb(51, 51, 51);
-  background: #e5ecfb;
+  border-radius: 8px; /* Sudut input membulat halus */
+  border: 1px solid #ddd;
+  background: #f9f9f9;
+  transition: 0.3s ease;
+  color: #333;
 }
 .field input::placeholder,
 .message textarea::placeholder {
-  color: rgb(51, 51, 51);
+  color: #aaa;
 }
+
+/* Efek saat diklik (Focus) -> Berubah jadi Orange */
 .field input:focus,
 .message textarea:focus {
-  padding-left: 47px;
-  border: 2px solid rgb(115, 3, 167);
+  border: 2px solid #f68c09;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(246, 140, 9, 0.1);
 }
 .field input:focus ~ i,
 .message textarea:focus ~ i {
-  color: rgb(115, 3, 167);
+  color: #f68c09;
 }
+
+/* Textarea khusus Message */
 form .message {
   position: relative;
-  margin: 1rem;
+  margin-bottom: 2rem;
   width: 100%;
 }
 form .message i {
   top: 25px;
-  font-size: 20px;
-  left: 15px;
+  font-size: 1.8rem;
 }
 form .message textarea {
-  min-height: 130px;
-  max-height: 230px;
+  min-height: 150px;
+  max-height: 250px;
   max-width: 100%;
   min-width: 100%;
-  padding: 12px 20px 0 48px;
+  padding: 15px 20px 0 48px;
+  resize: vertical; /* User hanya bisa resize ke bawah */
 }
-form .message textarea::-webkit-scrollbar {
-  width: 0px;
-}
+
+/* Tombol Submit */
 form .button-area {
   display: flex;
-  float: right;
-  flex-direction: row-reverse;
+  justify-content: flex-end; /* Tombol rata kanan */
 }
 .button-area button {
   color: #fff;
   border: none;
   outline: none;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   cursor: pointer;
-  border-radius: 5px;
-  padding: 13px 25px;
-  background: #2506ad;
-  box-shadow: 0px 5px 10px rgba(48, 68, 247, 0.6);
+  border-radius: 50px; /* Bentuk pil */
+  padding: 1.2rem 3.5rem;
+  background: #02094b; /* Navy */
+  box-shadow: 0px 5px 15px rgba(2, 9, 75, 0.3);
   transition: 0.3s ease;
   font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
 }
 .button-area button:hover {
-  background: #421cecf5;
-}
-.button-area span {
-  font-size: 17px;
-  padding: 1rem;
-  display: none;
+  background: #f68c09; /* Berubah Orange saat dihover */
+  box-shadow: 0px 5px 15px rgba(246, 140, 9, 0.4);
+  transform: translateY(-2px);
 }
 .button-area button i {
-  position: relative;
-  top: 6px;
-  left: 2px;
   font-size: 1.5rem;
   transition: 0.3s;
-  color: #fff;
 }
 .button-area button:hover i {
-  left: 8px;
+  transform: translateX(5px) scale(1.1); /* Ikon pesawat kertas terbang */
 }
+
 /* contact section media queries starts */
 @media (max-width: 900px) {
   .contact {
     min-height: 70vh;
   }
   .contact .container {
-    margin: 3rem 0 2rem 0;
+    margin: 3rem 1.5rem;
+    width: auto;
   }
   .contact .container .content {
-    padding: 18px 12px;
+    padding: 3rem 2rem;
+    flex-direction: column;
   }
   .contact .content .image-box {
-    display: none;
+    display: none; /* Sembunyikan gambar di HP agar form langsung terlihat */
   }
   .contact .content form {
     width: 100%;
-    margin-right: 2rem;
+  }
+  form .button-area {
+    justify-content: center; /* Tombol ke tengah di HP */
   }
 }
 /* contact section media queries ends */
