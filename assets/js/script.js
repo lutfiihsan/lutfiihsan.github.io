@@ -146,6 +146,29 @@ function showProjects(projects) {
 
 }
 
+// ==========================================
+// FUNGSI ZOOM IMAGE (MODAL) UNTUK PORTFOLIO
+// ==========================================
+function openModal(imgSrc) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    
+    modal.style.display = "block";
+    modalImg.src = imgSrc;
+}
+
+function closeModal() {
+    document.getElementById('imageModal').style.display = "none";
+}
+
+// Tutup modal jika user klik di luar area gambar
+window.onclick = function(event) {
+    const modal = document.getElementById('imageModal');
+    if (event.target == modal) {
+        closeModal();
+    }
+}
+
 // fetchData().then(data => {
 //     showSkills(data);
 // });
