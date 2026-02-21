@@ -1,5 +1,8 @@
-$(document).ready(function () {
+// Deklarasi variabel global untuk menyimpan data portfolio
+let globalPortfolioData = null;
 
+$(document).ready(function () {
+    // --- UI Interactions ---
     $('#menu').click(function () {
         $(this).toggleClass('fa-times');
         $('.navbar').toggleClass('nav-toggle');
@@ -8,20 +11,18 @@ $(document).ready(function () {
     $(window).on('scroll load', function () {
         $('#menu').removeClass('fa-times');
         $('.navbar').removeClass('nav-toggle');
-
         if (window.scrollY > 60) {
-            document.querySelector('#scroll-top').classList.add('active');
+            $('#scroll-top').addClass('active');
         } else {
-            document.querySelector('#scroll-top').classList.remove('active');
+            $('#scroll-top').removeClass('active');
         }
 
-        // scroll spy
+        // Scroll spy
         $('section').each(function () {
             let height = $(this).height();
             let offset = $(this).offset().top - 200;
             let top = $(window).scrollTop();
             let id = $(this).attr('id');
-
             if (top > offset && top < offset + height) {
                 $('.navbar ul li a').removeClass('active');
                 $('.navbar').find(`[href="#${id}"]`).addClass('active');
@@ -29,7 +30,7 @@ $(document).ready(function () {
         });
     });
 
-    // smooth scrolling
+    // Smooth scrolling
     $('a[href*="#"]').on('click', function (e) {
         e.preventDefault();
         $('html, body').animate({
@@ -37,343 +38,333 @@ $(document).ready(function () {
         }, 500, 'linear')
     });
 
-    // <!-- emailjs to mail contact form data -->
+    // EmailJS
     $("#contact-form").submit(function (event) {
+        event.preventDefault();
         emailjs.init("user_TTDmetQLYgWCLzHTDgqxm");
-
         emailjs.sendForm('contact_service', 'template_contact', '#contact-form')
             .then(function (response) {
-                console.log('SUCCESS!', response.status, response.text);
                 document.getElementById("contact-form").reset();
                 alert("Form Submitted Successfully");
             }, function (error) {
-                console.log('FAILED...', error);
                 alert("Form Submission Failed! Try Again");
             });
-        event.preventDefault();
     });
-    // <!-- emailjs to mail contact form data -->
 
-    // Jumlah item yang ingin ditampilkan pertama kali
+    // Fetch dan render data dari JSON
+    fetchDataAndRender();
+});
+
+// --- FETCH & RENDER LOGIC ---
+async function fetchDataAndRender() {
+    try {
+        const response = await fetch("./assets/data/data.json");
+        const data = await response.json();
+        globalPortfolioData = data; // Simpan untuk PDF Generator
+
+        renderSkills(data.skills);
+        renderProjects(data.projects);
+        renderExperience(data.experience);
+        renderCertifications(data.certifications);
+
+        // Init animasi VanillaTilt & fitur View More setelah DOM diisi
+        VanillaTilt.init(document.querySelectorAll(".tilt"), { max: 15 });
+        initViewMoreLogic();
+        initScrollReveal();
+    } catch (error) {
+        console.error("Error loading portfolio data:", error);
+    }
+}
+
+function renderSkills(skills) {
+    let html = "";
+    skills.forEach(cat => {
+        let itemsHtml = "";
+        cat.items.forEach(item => {
+            if (item.img) {
+                itemsHtml += `<span class="tag"><img src="${item.img}" alt="${item.name}"> ${item.name}</span>`;
+            } else {
+                let style = item.style ? ` style="${item.style}"` : "";
+                itemsHtml += `<span class="tag"><i class="${item.icon}"${style}></i> ${item.name}</span>`;
+            }
+        });
+
+        html += `
+        <div class="skill-category">
+            <div class="category-header">
+                <i class="${cat.icon}"></i>
+                <h3>${cat.category}</h3>
+            </div>
+            <div class="skill-tags">${itemsHtml}</div>
+        </div>`;
+    });
+    document.getElementById("skills-grid").innerHTML = html;
+}
+
+function renderProjects(projects) {
+    let html = "";
+    projects.forEach(proj => {
+        let btnsHtml = "";
+        
+        if (proj.viewLink) {
+            btnsHtml += `<a href="${proj.viewLink}" class="btn" target="_blank"><i class="fas fa-eye"></i> Visit</a>`;
+        } else {
+            let label = proj.status === 'Offline' ? '<i class="fas fa-laptop-house"></i> Local Only' : '<i class="fas fa-eye-slash"></i> No Demo';
+            btnsHtml += `<a href="javascript:void(0)" class="btn btn-disabled">${label}</a>`;
+        }
+
+        if (proj.codeLink) {
+            btnsHtml += `<a href="${proj.codeLink}" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>`;
+        } else {
+            btnsHtml += `<a href="javascript:void(0)" class="btn btn-disabled">Code <i class="fas fa-lock"></i></a>`;
+        }
+
+        html += `
+        <div class="box tilt">
+            <div class="image-wrapper">
+                <img draggable="false" src="${proj.image}" alt="${proj.title}" />
+                <button class="zoom-btn" onclick="openModal('${proj.image}')"><i class="fas fa-search-plus"></i></button>
+            </div>
+            <div class="content">
+                <div class="title-wrap">
+                    <h3>${proj.title}</h3>
+                    <span class="status-badge ${proj.statusClass}">${proj.status}</span>
+                </div>
+                <div class="desc">
+                    <p>${proj.desc}</p>
+                </div>
+                <div class="btns">${btnsHtml}</div>
+            </div>
+        </div>`;
+    });
+    document.getElementById("projects-container").innerHTML = html;
+}
+
+function renderExperience(experiences) {
+    let html = "";
+    experiences.forEach(exp => {
+        let tasksHtml = exp.tasks.map(task => `<li><i class="fas fa-check-circle"></i> ${task}</li>`).join("");
+        html += `
+        <div class="container ${exp.align}">
+            <div class="content">
+                <div class="tag"><h2>${exp.company}</h2></div>
+                <div class="desc">
+                    <h3>${exp.role}</h3>
+                    <ul>${tasksHtml}</ul>
+                    <p>${exp.period}</p>
+                </div>
+            </div>
+        </div>`;
+    });
+    document.getElementById("experience-container").innerHTML = html;
+}
+
+function renderCertifications(certs) {
+    let html = "";
+    certs.forEach(cert => {
+        let credHtml = cert.id ? `<p class="credential-id">ID: ${cert.id}</p>` : "";
+        html += `
+        <div class="box">
+            <i class="fas fa-certificate icon"></i>
+            <div class="content">
+                <h3>${cert.name}</h3>
+                <p class="issuer">${cert.issuer}</p>
+                <p class="date">${cert.date}</p>
+                ${credHtml}
+            </div>
+        </div>`;
+    });
+    document.getElementById("certifications-container").innerHTML = html;
+}
+
+// --- VIEW MORE LOGIC ---
+function initViewMoreLogic() {
     const itemsToShow = 6; 
     
-    // --- 1. Logika untuk Projects ---
+    // Projects
     const projectItems = $('.work .box-container .box');
     const viewMoreProjectsBtn = $('#viewMoreProjects');
-    
     if (projectItems.length > itemsToShow) {
         projectItems.slice(itemsToShow).addClass('hidden-item');
     } else {
-        viewMoreProjectsBtn.parent().hide(); // Sembunyikan tombol jika item sedikit
+        viewMoreProjectsBtn.parent().hide();
     }
 
-    viewMoreProjectsBtn.click(function(){
+    viewMoreProjectsBtn.off('click').on('click', function(){
         const hiddenProjects = $('.work .box-container .box.hidden-item');
         if(hiddenProjects.length > 0) {
-            // Tampilkan semua
             hiddenProjects.removeClass('hidden-item');
             $(this).html('<span>View Less</span> <i class="fas fa-chevron-up"></i>');
         } else {
-            // Sembunyikan kembali
             projectItems.slice(itemsToShow).addClass('hidden-item');
             $(this).html('<span>View More</span> <i class="fas fa-chevron-down"></i>');
-            // Scroll otomatis ke atas bagian projects
-            $('html, body').animate({
-                scrollTop: $("#work").offset().top - 80
-            }, 500);
+            $('html, body').animate({ scrollTop: $("#work").offset().top - 80 }, 500);
         }
     });
 
-    // --- 2. Logika untuk Certifications ---
+    // Certifications
     const certItems = $('.certifications .box-container .box');
     const viewMoreCertsBtn = $('#viewMoreCerts');
-    
     if (certItems.length > itemsToShow) {
         certItems.slice(itemsToShow).addClass('hidden-item');
     } else {
         viewMoreCertsBtn.parent().hide();
     }
 
-    viewMoreCertsBtn.click(function(){
+    viewMoreCertsBtn.off('click').on('click', function(){
         const hiddenCerts = $('.certifications .box-container .box.hidden-item');
         if(hiddenCerts.length > 0) {
-            // Tampilkan semua
             hiddenCerts.removeClass('hidden-item');
             $(this).html('<span>View Less</span> <i class="fas fa-chevron-up"></i>');
         } else {
-            // Sembunyikan kembali
             certItems.slice(itemsToShow).addClass('hidden-item');
             $(this).html('<span>View More</span> <i class="fas fa-chevron-down"></i>');
-            // Scroll otomatis ke atas bagian certifications
-            $('html, body').animate({
-                scrollTop: $("#certifications").offset().top - 80
-            }, 500);
+            $('html, body').animate({ scrollTop: $("#certifications").offset().top - 80 }, 500);
         }
     });
-
-});
-
-document.addEventListener('visibilitychange',
-    function () {
-        if (document.visibilityState === "visible") {
-            document.title = "Portfolio | Lutfi Ihsan";
-            $("#favicon").attr("href", "assets/images/favicon.png");
-        }
-        else {
-            document.title = "Come Back To Portfolio";
-            $("#favicon").attr("href", "assets/images/favhand.png");
-        }
-    });
-
-
-// <!-- typed js effect starts -->
-var typed = new Typed(".typing-text", {
-    strings: ["frontend development", "backend development", "web development", "fullstack developer", "data science"],
-    loop: true,
-    typeSpeed: 50,
-    backSpeed: 25,
-    backDelay: 500,
-});
-// <!-- typed js effect ends -->
-
-async function fetchData(type = "skills") {
-    let response
-    type === "skills" ?
-        response = await fetch("skills.json")
-        :
-        response = await fetch("./projects/projects.json")
-    const data = await response.json();
-    return data;
 }
 
-function showSkills(skills) {
-    let skillsContainer = document.getElementById("skillsContainer");
-    let skillHTML = "";
-    skills.forEach(skill => {
-        skillHTML += `
-        <div class="bar">
-              <div class="info">
-                <img src=${skill.icon} alt="skill" />
-                <span>${skill.name}</span>
-              </div>
-            </div>`
-    });
-    skillsContainer.innerHTML = skillHTML;
-}
-
-function showProjects(projects) {
-    let projectsContainer = document.querySelector("#work .box-container");
-    let projectHTML = "";
-    projects.slice(0, 6).forEach(project => {
-        projectHTML += `
-        <div class="box tilt">
-      <img draggable="false" src="/assets/images/projects/${project.image}.png" alt="project" />
-      <div class="content">
-        <div class="tag">
-        <h3>${project.name}</h3>
-        </div>
-        <div class="desc">
-          <p>${project.desc}</p>
-          <div class="btns">
-            <a href="${project.links.view}" class="btn" target="_blank"><i class="fas fa-eye"></i> View</a>
-            <a href="${project.links.code}" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>`
-    });
-    projectsContainer.innerHTML = projectHTML;
-
-    // <!-- tilt js effect starts -->
-    VanillaTilt.init(document.querySelectorAll(".tilt"), {
-        max: 15,
-    });
-    // <!-- tilt js effect ends -->
-
-    /* ===== SCROLL REVEAL ANIMATION ===== */
-    const srtop = ScrollReveal({
-        origin: 'top',
-        distance: '80px',
-        duration: 1000,
-        reset: true
-    });
-
-    /* SCROLL PROJECTS */
-    srtop.reveal('.work .box', { interval: 200 });
-
-}
-
-// ==========================================
-// FUNGSI ZOOM IMAGE (MODAL) UNTUK PORTFOLIO
-// ==========================================
+// --- MODAL, TYPED JS, & MISC ---
 function openModal(imgSrc) {
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImg');
-    
-    modal.style.display = "block";
-    modalImg.src = imgSrc;
+    document.getElementById('imageModal').style.display = "block";
+    document.getElementById('modalImg').src = imgSrc;
 }
-
 function closeModal() {
     document.getElementById('imageModal').style.display = "none";
 }
-
-// Tutup modal jika user klik di luar area gambar
 window.onclick = function(event) {
-    const modal = document.getElementById('imageModal');
-    if (event.target == modal) {
-        closeModal();
-    }
+    if (event.target == document.getElementById('imageModal')) closeModal();
 }
 
-// ==========================================
-// FUNGSI GENERATE RESUME PDF DARI HTML
-// ==========================================
+document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === "visible") {
+        document.title = "Portfolio | Lutfi Ihsan";
+        $("#favicon").attr("href", "assets/images/favicon.png");
+    } else {
+        document.title = "Come Back To Portfolio";
+        $("#favicon").attr("href", "assets/images/favhand.png");
+    }
+});
+
+var typed = new Typed(".typing-text", {
+    strings: ["frontend development", "backend development", "web development", "fullstack developer", "data science"],
+    loop: true, typeSpeed: 50, backSpeed: 25, backDelay: 500,
+});
+
+// --- PDF GENERATOR (DYNAMIC) ---
 function generateResume() {
-    // 1. Ubah teks tombol menjadi "Generating..." agar user tahu proses sedang berjalan
+    if(!globalPortfolioData) {
+        alert("Data is still loading, please wait a moment.");
+        return;
+    }
+
     const btnSpan = document.querySelector('.resumebtn .btn span');
     const originalText = btnSpan.innerText;
     btnSpan.innerText = "Generating PDF...";
 
-    // 2. Buat elemen div sementara untuk menampung konten yang mau di-PDF-kan
-    const printContainer = document.createElement('div');
-    printContainer.style.padding = "20px";
-    printContainer.style.background = "#fff"; // Pastikan background putih
-    printContainer.style.color = "#000"; // Pastikan teks hitam
-    
-    // 3. Ambil (clone) bagian-bagian yang ingin dimasukkan ke CV
-    // Kita ambil About, Skills, Experience, dan Certifications
-    const aboutSection = document.querySelector('#about').cloneNode(true);
-    const skillsSection = document.querySelector('#skills').cloneNode(true);
-    const experienceSection = document.querySelector('#experience').cloneNode(true);
-    const certsSection = document.querySelector('#certifications').cloneNode(true);
+    try {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+        const pageW = 210, pageH = 297, marginL = 15, contentW = pageW - marginL - 15;
+        let y = 0;
 
-    // (Opsional) Hapus elemen yang tidak perlu ada di PDF, seperti tombol download itu sendiri
-    const btnInClone = aboutSection.querySelector('.resumebtn');
-    if (btnInClone) btnInClone.remove();
+        const COLOR_PRIMARY = [41, 182, 246], COLOR_DARK = [30, 30, 47], COLOR_GRAY = [100, 100, 120], COLOR_LIGHTGRAY = [230, 230, 240], COLOR_WHITE = [255, 255, 255];
 
-    // Masukkan hasil clone ke container sementara
-    printContainer.appendChild(aboutSection);
-    printContainer.appendChild(skillsSection);
-    printContainer.appendChild(experienceSection);
-    printContainer.appendChild(certsSection);
+        function checkPage(needed = 10) {
+            if (y + needed > pageH - 15) { doc.addPage(); y = 15; }
+        }
 
-    // 4. Konfigurasi html2pdf
-    const opt = {
-        margin:       [0.5, 0.5, 0.5, 0.5], // Margin atas, kiri, bawah, kanan (dalam inchi)
-        filename:     'Resume_Lutfi_Ihsan.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true, letterRendering: true }, // scale 2 agar resolusi tidak pecah
-        jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-    };
+        function drawSectionHeader(title) {
+            checkPage(14); y += 4;
+            doc.setFillColor(...COLOR_PRIMARY); doc.rect(marginL, y, contentW, 8, 'F');
+            doc.setTextColor(...COLOR_WHITE); doc.setFontSize(11); doc.setFont('helvetica', 'bold');
+            doc.text(title.toUpperCase(), marginL + 3, y + 5.5);
+            doc.setTextColor(...COLOR_DARK); y += 11;
+        }
 
-    // 5. Jalankan proses render ke PDF
-    html2pdf().set(opt).from(printContainer).save().then(() => {
-        // Kembalikan teks tombol seperti semula setelah selesai
+        // Header
+        doc.setFillColor(...COLOR_DARK); doc.rect(0, 0, pageW, 42, 'F');
+        doc.setTextColor(...COLOR_WHITE); doc.setFontSize(22); doc.setFont('helvetica', 'bold');
+        doc.text('LUTFI IHSAN', pageW / 2, 16, { align: 'center' });
+        doc.setFontSize(11); doc.setFont('helvetica', 'normal'); doc.setTextColor(...COLOR_PRIMARY);
+        doc.text('Full Stack Developer & SysAdmin', pageW / 2, 24, { align: 'center' });
+        doc.setTextColor(200, 200, 220); doc.setFontSize(8.5);
+        doc.text('lutfiihsan.web.id  |  +62 812-2626-0649  |  lutficreativesys@gmail.com  |  Bogor, Indonesia', pageW / 2, 32, { align: 'center' });
+        y = 50;
+
+        // Skills (Dynamic)
+        drawSectionHeader('Skills & Abilities');
+        globalPortfolioData.skills.forEach(cat => {
+            checkPage(10);
+            doc.setFontSize(9); doc.setFont('helvetica', 'bold'); doc.setTextColor(...COLOR_DARK);
+            doc.text(cat.category + ':', marginL, y);
+            doc.setFont('helvetica', 'normal'); doc.setTextColor(...COLOR_GRAY);
+            
+            let itemNames = cat.items.map(i => i.name).join('  ·  ');
+            const tagLines = doc.splitTextToSize(itemNames, contentW - 30);
+            doc.text(tagLines, marginL + 30, y);
+            y += Math.max(tagLines.length * 4.5, 5) + 2;
+        });
+        y += 2;
+
+        // Experience (Dynamic)
+        drawSectionHeader('Work Experience');
+        globalPortfolioData.experience.forEach(exp => {
+            checkPage(20);
+            doc.setFontSize(10); doc.setFont('helvetica', 'bold'); doc.setTextColor(...COLOR_DARK); doc.text(exp.company, marginL, y);
+            doc.setFontSize(8.5); doc.setFont('helvetica', 'italic'); doc.setTextColor(...COLOR_PRIMARY); doc.text(exp.period, marginL + contentW, y, { align: 'right' });
+            y += 5;
+            doc.setFontSize(9); doc.setFont('helvetica', 'bolditalic'); doc.setTextColor(...COLOR_GRAY); doc.text(exp.role, marginL, y);
+            y += 5;
+            doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5);
+            exp.tasks.forEach(task => {
+                checkPage(8);
+                const lines = doc.splitTextToSize('• ' + task, contentW - 5);
+                doc.text(lines, marginL + 3, y);
+                y += lines.length * 4.2 + 1;
+            });
+            y += 3; doc.setDrawColor(...COLOR_LIGHTGRAY); doc.line(marginL, y, marginL + contentW, y); y += 3;
+        });
+
+        // Certifications (Dynamic)
+        drawSectionHeader('Licenses & Certifications');
+        globalPortfolioData.certifications.forEach((cert, i) => {
+            checkPage(8);
+            if (i % 2 === 0) { doc.setFillColor(245, 247, 252); doc.rect(marginL, y - 3.5, contentW, 7, 'F'); }
+            doc.setFontSize(9); doc.setFont('helvetica', 'bold'); doc.setTextColor(...COLOR_DARK);
+            const nameLines = doc.splitTextToSize(cert.name, contentW - 40);
+            doc.text(nameLines, marginL + 2, y);
+            doc.setFont('helvetica', 'normal'); doc.setTextColor(...COLOR_GRAY); doc.setFontSize(8);
+            doc.text(cert.issuer, marginL + contentW - 38, y);
+            doc.setTextColor(...COLOR_PRIMARY); doc.text(cert.date, marginL + contentW, y, { align: 'right' });
+            y += nameLines.length > 1 ? nameLines.length * 4.5 : 7;
+        });
+
+        // Footer Pagination
+        const totalPages = doc.internal.getNumberOfPages();
+        for (let i = 1; i <= totalPages; i++) {
+            doc.setPage(i); doc.setFontSize(7.5); doc.setTextColor(180, 180, 200); doc.setFont('helvetica', 'italic');
+            doc.text(`Resume - Lutfi Ihsan  |  Page ${i} of ${totalPages}`, pageW / 2, pageH - 7, { align: 'center' });
+        }
+
+        doc.save('Resume_Lutfi_Ihsan.pdf');
         btnSpan.innerText = originalText;
-    });
-}
-
-// fetchData().then(data => {
-//     showSkills(data);
-// });
-
-// fetchData("projects").then(data => {
-//     showProjects(data);
-// });
-
-// <!-- tilt js effect starts -->
-VanillaTilt.init(document.querySelectorAll(".tilt"), {
-    max: 15,
-});
-// <!-- tilt js effect ends -->
-
-
-// pre loader start
-// function loader() {
-//     document.querySelector('.loader-container').classList.add('fade-out');
-// }
-// function fadeOut() {
-//     setInterval(loader, 500);
-// }
-// window.onload = fadeOut;
-// pre loader end
-
-// disable developer mode
-document.onkeydown = function (e) {
-    if (e.keyCode == 123) {
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-        return false;
+    } catch (err) {
+        console.error('Error generating PDF:', err);
+        alert('Gagal membuat PDF: ' + err.message);
+        btnSpan.innerText = 'Download Resume';
     }
 }
 
-// Start of Tawk.to Live Chat
-// var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-// (function () {
-//     var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-//     s1.async = true;
-//     s1.src = 'https://embed.tawk.to/60df10bf7f4b000ac03ab6a8/1f9jlirg6';
-//     s1.charset = 'UTF-8';
-//     s1.setAttribute('crossorigin', '*');
-//     s0.parentNode.insertBefore(s1, s0);
-// })();
-// End of Tawk.to Live Chat
-
-
-/* ===== SCROLL REVEAL ANIMATION ===== */
-const srtop = ScrollReveal({
-    origin: 'top',
-    distance: '80px',
-    duration: 1000,
-    reset: true
-});
-
-/* SCROLL HOME */
-srtop.reveal('.home .content h3', { delay: 200 });
-srtop.reveal('.home .content p', { delay: 200 });
-srtop.reveal('.home .content .btn', { delay: 200 });
-
-srtop.reveal('.home .image', { delay: 400 });
-srtop.reveal('.home .linkedin', { interval: 600 });
-srtop.reveal('.home .github', { interval: 800 });
-srtop.reveal('.home .twitter', { interval: 1000 });
-srtop.reveal('.home .telegram', { interval: 600 });
-srtop.reveal('.home .instagram', { interval: 600 });
-srtop.reveal('.home .dev', { interval: 600 });
-
-/* SCROLL ABOUT */
-srtop.reveal('.about .content h3', { delay: 200 });
-srtop.reveal('.about .content .tag', { delay: 200 });
-srtop.reveal('.about .content p', { delay: 200 });
-srtop.reveal('.about .content .box-container', { delay: 200 });
-srtop.reveal('.about .content .resumebtn', { delay: 200 });
-
-
-/* SCROLL SKILLS */
-srtop.reveal('.skills .container', { interval: 200 });
-srtop.reveal('.skills .container .bar', { delay: 400 });
-
-/* SCROLL EDUCATION */
-srtop.reveal('.education .box', { interval: 200 });
-
-/* SCROLL PROJECTS */
-srtop.reveal('.work .box', { interval: 200 });
-
-/* SCROLL EXPERIENCE */
-srtop.reveal('.experience .timeline', { delay: 400 });
-srtop.reveal('.experience .timeline .container', { interval: 400 });
-
-/* SCROLL CONTACT */
-srtop.reveal('.contact .container', { delay: 400 });
-srtop.reveal('.contact .container .form-group', { delay: 400 });
+function initScrollReveal() {
+    const srtop = ScrollReveal({ origin: 'top', distance: '80px', duration: 1000, reset: true });
+    srtop.reveal('.home .content h3, .home .content p, .home .content .btn', { delay: 200 });
+    srtop.reveal('.home .image', { delay: 400 });
+    srtop.reveal('.about .content h3, .about .content .tag, .about .content p, .about .content .box-container, .about .content .resumebtn', { delay: 200 });
+    srtop.reveal('.skills .container', { interval: 200 });
+    srtop.reveal('.education .box', { interval: 200 });
+    srtop.reveal('.work .box', { interval: 200 });
+    srtop.reveal('.experience .timeline', { delay: 400 });
+    srtop.reveal('.experience .timeline .container', { interval: 400 });
+    srtop.reveal('.contact .container', { delay: 400 });
+}

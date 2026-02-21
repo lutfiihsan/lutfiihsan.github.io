@@ -1,0 +1,446 @@
+{
+    "skills": [
+        {
+            "category": "BACKEND",
+            "icon": "fas fa-server",
+            "items": [
+                {
+                    "name": "PHP",
+                    "img": "https://img.icons8.com/offices/48/000000/php-logo.png"
+                },
+                {
+                    "name": "Laravel",
+                    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Laravel.svg/1200px-Laravel.svg.png"
+                },
+                {
+                    "name": "Golang",
+                    "img": "https://img.icons8.com/color/48/000000/golang.png"
+                },
+                {
+                    "name": "Rust",
+                    "icon": "fab fa-rust",
+                    "style": "font-size: 2.2rem;"
+                },
+                {
+                    "name": "NodeJS",
+                    "img": "https://img.icons8.com/color/48/000000/nodejs.png"
+                },
+                {
+                    "name": "Python",
+                    "img": "https://img.icons8.com/color/48/000000/python--v1.png"
+                },
+                {
+                    "name": "G.A.S",
+                    "img": "https://iconape.com/wp-content/files/np/64149/svg/google-apps-script.svg"
+                },
+                {
+                    "name": "REST API",
+                    "icon": "fas fa-network-wired"
+                }
+            ]
+        },
+        {
+            "category": "FRONTEND",
+            "icon": "fas fa-desktop",
+            "items": [
+                {
+                    "name": "JavaScript",
+                    "img": "https://img.icons8.com/color/48/000000/javascript--v1.png"
+                },
+                {
+                    "name": "HTML5",
+                    "img": "https://img.icons8.com/color/48/000000/html-5--v1.png"
+                },
+                {
+                    "name": "CSS3",
+                    "img": "https://img.icons8.com/color/48/000000/css3.png"
+                },
+                {
+                    "name": "jQuery",
+                    "img": "https://img.icons8.com/ios-filled/48/1169ae/jquery.png"
+                },
+                {
+                    "name": "Bootstrap",
+                    "img": "https://img.icons8.com/color/48/000000/bootstrap.png"
+                },
+                {
+                    "name": "AJAX",
+                    "icon": "fas fa-sync-alt"
+                }
+            ]
+        },
+        {
+            "category": "SECURITY",
+            "icon": "fas fa-shield-alt",
+            "items": [
+                {
+                    "name": "SQL Injection",
+                    "icon": "fas fa-user-secret"
+                },
+                {
+                    "name": "XSRF",
+                    "icon": "fas fa-exchange-alt"
+                },
+                {
+                    "name": "Data Leak",
+                    "icon": "fas fa-unlock-alt"
+                },
+                {
+                    "name": "Misconfiguration",
+                    "icon": "fas fa-exclamation-triangle"
+                }
+            ]
+        },
+        {
+            "category": "MOBILE",
+            "icon": "fas fa-mobile-alt",
+            "items": [
+                {
+                    "name": "Java",
+                    "img": "https://img.icons8.com/color/48/000000/java-coffee-cup-logo--v1.png"
+                },
+                {
+                    "name": "Kotlin",
+                    "img": "https://img.icons8.com/color/48/000000/kotlin.png"
+                },
+                {
+                    "name": "Android",
+                    "icon": "fab fa-android",
+                    "style": "font-size: 2.2rem;"
+                }
+            ]
+        },
+        {
+            "category": "DATABASE",
+            "icon": "fas fa-database",
+            "items": [
+                {
+                    "name": "MySQL",
+                    "img": "https://img.icons8.com/color/48/000000/mysql-logo.png"
+                },
+                {
+                    "name": "Firebase",
+                    "img": "https://img.icons8.com/color/48/000000/firebase.png"
+                }
+            ]
+        },
+        {
+            "category": "TOOLS",
+            "icon": "fas fa-tools",
+            "items": [
+                {
+                    "name": "Git",
+                    "img": "https://img.icons8.com/color/48/000000/git.png"
+                },
+                {
+                    "name": "GitHub",
+                    "img": "https://img.icons8.com/glyph-neue/48/ffffff/github.png"
+                },
+                {
+                    "name": "VS Code",
+                    "img": "https://img.icons8.com/color/48/000000/visual-studio-code-2019.png"
+                },
+                {
+                    "name": "Postman",
+                    "icon": "fas fa-space-shuttle"
+                },
+                {
+                    "name": "Burp Suite",
+                    "icon": "fas fa-bug"
+                },
+                {
+                    "name": "SQLMap",
+                    "icon": "fas fa-terminal"
+                }
+            ]
+        },
+        {
+            "category": "DEVOPS",
+            "icon": "fas fa-cloud",
+            "items": [
+                {
+                    "name": "Ubuntu",
+                    "img": "https://img.icons8.com/color/48/000000/ubuntu.png"
+                },
+                {
+                    "name": "Vercel",
+                    "img": "https://img.icons8.com/color/48/000000/vercel.png"
+                },
+                {
+                    "name": "Heroku",
+                    "img": "https://img.icons8.com/color/48/000000/heroku.png"
+                },
+                {
+                    "name": "VPS",
+                    "icon": "fas fa-server"
+                },
+                {
+                    "name": "Auto Scaling",
+                    "icon": "fas fa-tachometer-alt"
+                }
+            ]
+        },
+        {
+            "category": "APPROACH",
+            "icon": "fas fa-lightbulb",
+            "items": [
+                {
+                    "name": "Clean Code",
+                    "icon": "fas fa-code"
+                },
+                {
+                    "name": "MVC Pattern",
+                    "icon": "fas fa-sitemap"
+                },
+                {
+                    "name": "RESTful Design",
+                    "icon": "fas fa-project-diagram"
+                },
+                {
+                    "name": "Agile",
+                    "icon": "fas fa-tasks"
+                }
+            ]
+        }
+    ],
+    "projects": [
+        {
+            "title": "Cipta Inovasi",
+            "image": "./assets/images/projects/cipta-inovasi.png",
+            "status": "Online",
+            "statusClass": "status-online",
+            "desc": "Company profile website providing smarter business management solutions to achieve faster growth, combining efficiency and innovation. Built using WordPress.",
+            "viewLink": "#",
+            "codeLink": null
+        },
+        {
+            "title": "WhatsApp Launcher",
+            "image": "./assets/images/projects/whatsapp-launcher.jpg",
+            "status": "Private",
+            "statusClass": "status-private",
+            "desc": "A desktop application developed for PMY Net that allows users to seamlessly open and manage multiple WhatsApp accounts across several devices. Built with Laravel and Postman API.",
+            "viewLink": null,
+            "codeLink": null
+        },
+        {
+            "title": "Jakarta Marathon",
+            "image": "./assets/images/projects/jakarta-marathon.jpg",
+            "status": "Online",
+            "statusClass": "status-online",
+            "desc": "Successfully migrated the Jakarta Marathon website to improve performance and scalability. Included VPS setup, cPanel installation, email hosting migration, and testing optimization.",
+            "viewLink": "#",
+            "codeLink": null
+        },
+        {
+            "title": "SIS Dwita",
+            "image": "./assets/images/projects/sisdwita.jpeg",
+            "status": "Online",
+            "statusClass": "status-online",
+            "desc": "Adiwiyata Information System (Sisdwita) is a web-based app used to manage environmentally friendly program questionnaires sent by schools in Tangerang Regency.",
+            "viewLink": "https://sisdwita.tangerangkab.go.id/",
+            "codeLink": "#"
+        },
+        {
+            "title": "Siperling",
+            "image": "./assets/images/projects/siperling.jpeg",
+            "status": "Offline",
+            "statusClass": "status-offline",
+            "desc": "Environmental Reporting System (Siperling) to manage environmental permit reporting from companies to the Environmental Agency of Tangerang (DLHK).",
+            "viewLink": null,
+            "codeLink": "#"
+        },
+        {
+            "title": "SIM Kagegama",
+            "image": "./assets/images/projects/simkagegama.png",
+            "status": "Online",
+            "statusClass": "status-online",
+            "desc": "A web-based platform designed to manage and connect the alumni of Universitas Gadjah Mada (UGM), keeping them updated with news and events.",
+            "viewLink": "https://kagegama.id/simkagegama",
+            "codeLink": "#"
+        },
+        {
+            "title": "SIM Ummi Foundation",
+            "image": "./assets/images/projects/sim-ummi.png",
+            "status": "Online",
+            "statusClass": "status-online",
+            "desc": "A web application to manage Quran learning and training. The platform seamlessly connects students, teachers, and administrators to make learning efficient.",
+            "viewLink": "https://ummifoundation.com/simuf",
+            "codeLink": "#"
+        },
+        {
+            "title": "MC Ummifoundation",
+            "image": "./assets/images/projects/santri-ummi.png",
+            "status": "Private",
+            "statusClass": "status-private",
+            "desc": "A web-based admin dashboard designed to manage the Santri Ummi Mobile app, including notifications, student registrations, and teacher data.",
+            "viewLink": null,
+            "codeLink": null
+        },
+        {
+            "title": "Kelurahan Bencongan",
+            "image": "./assets/images/projects/bencongan.png",
+            "status": "Online",
+            "statusClass": "status-online",
+            "desc": "An informative and responsive landing page profile developed for Kelurahan Bencongan using HTML, CSS, and modern web standards.",
+            "viewLink": "#",
+            "codeLink": null
+        },
+        {
+            "title": "CV Saka Tunggal Jaya",
+            "image": "./assets/images/projects/sakatunggaljaya.jpg",
+            "status": "Online",
+            "statusClass": "status-online",
+            "desc": "A professional landing page profile designed to establish the online presence and showcase the services of CV Saka Tunggal Jaya.",
+            "viewLink": "#",
+            "codeLink": null
+        }
+    ],
+    "experience": [
+        {
+            "company": "BIG-N Group",
+            "role": "Back End Developer | Freelance",
+            "period": "Feb 2025 - Present",
+            "align": "left",
+            "tasks": [
+                "Architect and develop robust backend solutions utilizing Laravel and PHP.",
+                "Ensure system scalability, code maintainability, and optimal performance for ongoing digital projects."
+            ]
+        },
+        {
+            "company": "PMY Net",
+            "role": "Fullstack Laravel Developer | Freelance",
+            "period": "Jan 2024 - May 2025",
+            "align": "right",
+            "tasks": [
+                "Engineered and maintained a comprehensive internet billing information system to streamline operational workflows.",
+                "Designed and developed responsive, high-converting landing pages to enhance user engagement."
+            ]
+        },
+        {
+            "company": "Ummi Foundation",
+            "role": "System Administrator | Freelance",
+            "period": "Jan 2022 - Present",
+            "align": "left",
+            "tasks": [
+                "Administer and monitor server infrastructure to ensure high availability, optimal performance, and strict security compliance.",
+                "Coordinate and oversee programming tasks, facilitating seamless collaboration and efficient delivery within the development team."
+            ]
+        },
+        {
+            "company": "Kementerian Kelautan dan Perikanan RI",
+            "role": "Backend Programmer | Contract",
+            "period": "Aug 2021 - Present",
+            "align": "right",
+            "tasks": [
+                "Spearhead the development and maintenance of critical information systems, including illegal fishing monitoring and marine data management.",
+                "Design scalable database architectures and engineer secure APIs to enable seamless integration across internal and external platforms.",
+                "Implement robust security protocols, optimize system performance via caching and server tuning, and establish comprehensive technical documentation."
+            ]
+        },
+        {
+            "company": "PT. Gemilang Zona Karya",
+            "role": "Laravel Developer | Freelance",
+            "period": "Aug 2022 - Dec 2022",
+            "align": "left",
+            "tasks": [
+                "Delivered tailored web-based applications using the Laravel framework, translating complex client requirements into efficient and user-friendly digital solutions."
+            ]
+        },
+        {
+            "company": "Embeye Technology",
+            "role": "Full Stack Developer | Part-time",
+            "period": "Dec 2018 - Jan 2025",
+            "align": "right",
+            "tasks": [
+                "Developed and maintained dynamic web applications leveraging HTML, CSS, JavaScript, PHP, and MySQL.",
+                "Collaborated closely with design teams to translate UI/UX wireframes into functional, visually appealing features.",
+                "Conducted code reviews, optimized application performance, and ensured timely project delivery aligned with business objectives."
+            ]
+        },
+        {
+            "company": "Grab",
+            "role": "GIS Engineer & MapOps | Contract",
+            "period": "Mar 2018 - Aug 2021",
+            "align": "left",
+            "tasks": [
+                "Engineered and maintained WebGIS and advanced data analytics tools to streamline mapping operations and spatial data visualization.",
+                "Led quality control initiatives for Point of Interest (POI) data, ensuring high precision and reliability for Grab Maps.",
+                "Formulated Standard Operating Procedures (SOPs) and developed innovative automation tools to boost team productivity and data integrity."
+            ]
+        }
+    ],
+    "certifications": [
+        {
+            "name": "3 Pola Penerapan Auto Scaling pada Linux Server",
+            "issuer": "BrainmaticsID",
+            "date": "Apr 2023",
+            "id": "4161a8969295271d6209baea0f158e4f"
+        },
+        {
+            "name": "3 Pola Penerapan Git dan GitHub",
+            "issuer": "BrainmaticsID",
+            "date": "Mar 2023",
+            "id": "8015c91f062645824335101522743807"
+        },
+        {
+            "name": "3 Pola Deploy App Cepat dengan Gitlab CI/CD",
+            "issuer": "BrainmaticsID",
+            "date": "Mar 2023",
+            "id": "7f148c12d565ee345dbf93d72dba3265"
+        },
+        {
+            "name": "5 Kiat Mempercepat Query Database",
+            "issuer": "BrainmaticsID",
+            "date": "Mar 2023",
+            "id": "d002e9ed493b61f0fe00c25e8f62135c"
+        },
+        {
+            "name": "Golang Fundamental",
+            "issuer": "Progate",
+            "date": "Jul 2022",
+            "id": "44eb78b1c30868206b881d1ca2f7ec72"
+        },
+        {
+            "name": "Python for Data Professional Beginner",
+            "issuer": "DQLab",
+            "date": "Mar 2022",
+            "id": "DQLABINTP1UOWGLS"
+        },
+        {
+            "name": "Single Sign On Dengan Google Oauth2",
+            "issuer": "Eduparx",
+            "date": "Nov 2021",
+            "id": null
+        },
+        {
+            "name": "Dasar-dasar PHP untuk Pemula",
+            "issuer": "Udemy",
+            "date": "Nov 2019",
+            "id": "UC-VW4UIH4C"
+        },
+        {
+            "name": "Introductory To JavaScript",
+            "issuer": "Udemy",
+            "date": "Jul 2019",
+            "id": "UC-KLN5COCH"
+        },
+        {
+            "name": "Google Apps Script and SpreadsheetApp Project",
+            "issuer": "Udemy",
+            "date": "Jun 2019",
+            "id": "UC-NKY4LFPY"
+        },
+        {
+            "name": "Google Chrome Extension Development",
+            "issuer": "Udemy",
+            "date": "Mei 2019",
+            "id": "UC-E40QRYF1"
+        },
+        {
+            "name": "R Fundamental for Data Science",
+            "issuer": "DQLab",
+            "date": "Apr 2019",
+            "id": null
+        }
+    ]
+}
