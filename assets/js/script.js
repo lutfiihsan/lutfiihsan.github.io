@@ -356,6 +356,68 @@ function generateResume() {
     }
 }
 
+// ==========================================
+// EFEK MATRIX DIGITAL RAIN (HACKER VIBE)
+// ==========================================
+function initMatrixAnimation() {
+    const canvas = document.getElementById('matrix-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    // Menyesuaikan ukuran canvas dengan tinggi layar/section
+    canvas.width = window.innerWidth;
+    canvas.height = document.getElementById('home').offsetHeight;
+
+    // Karakter yang akan berjatuhan (Gabungan Katakana, Latin, dan Angka)
+    const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレゲゼデベペオォコソトノホモヨョロゴゾドボポヴッン';
+    const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const nums = '0123456789';
+    const alphabet = katakana + latin + nums;
+
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+
+    const drops = [];
+    // Set posisi awal (Y) untuk tiap kolom
+    for (let x = 0; x < columns; x++) {
+        drops[x] = 1;
+    }
+
+    function draw() {
+        // Jejak transparan dengan warna dasar Navy agar blending-nya mulus
+        ctx.fillStyle = 'rgba(2, 9, 75, 0.1)'; 
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.font = fontSize + 'px monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+            const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+            
+            // Warna font: Cyan (Biru Neon) khas tema cyber/backend
+            ctx.fillStyle = '#00b8ff'; 
+            
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            drops[i]++;
+        }
+    }
+
+    // Jalankan animasi (kecepatan jatuhnya kode)
+    setInterval(draw, 33);
+
+    // Pastikan ukuran tetap pas saat layar di-resize
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = document.getElementById('home').offsetHeight;
+    });
+}
+
+// Panggil fungsinya (Misal diletakkan di dalam fetchDataAndRender atau saat window load)
+window.addEventListener('load', initMatrixAnimation);
+
 function initScrollReveal() {
     const srtop = ScrollReveal({ origin: 'top', distance: '80px', duration: 1000, reset: true });
     srtop.reveal('.home .content h3, .home .content p, .home .content .btn', { delay: 200 });
