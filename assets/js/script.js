@@ -54,6 +54,63 @@ $(document).ready(function () {
     });
     // <!-- emailjs to mail contact form data -->
 
+    // Jumlah item yang ingin ditampilkan pertama kali
+    const itemsToShow = 6; 
+    
+    // --- 1. Logika untuk Projects ---
+    const projectItems = $('.work .box-container .box');
+    const viewMoreProjectsBtn = $('#viewMoreProjects');
+    
+    if (projectItems.length > itemsToShow) {
+        projectItems.slice(itemsToShow).addClass('hidden-item');
+    } else {
+        viewMoreProjectsBtn.parent().hide(); // Sembunyikan tombol jika item sedikit
+    }
+
+    viewMoreProjectsBtn.click(function(){
+        const hiddenProjects = $('.work .box-container .box.hidden-item');
+        if(hiddenProjects.length > 0) {
+            // Tampilkan semua
+            hiddenProjects.removeClass('hidden-item');
+            $(this).html('<span>View Less</span> <i class="fas fa-chevron-up"></i>');
+        } else {
+            // Sembunyikan kembali
+            projectItems.slice(itemsToShow).addClass('hidden-item');
+            $(this).html('<span>View More</span> <i class="fas fa-chevron-down"></i>');
+            // Scroll otomatis ke atas bagian projects
+            $('html, body').animate({
+                scrollTop: $("#work").offset().top - 80
+            }, 500);
+        }
+    });
+
+    // --- 2. Logika untuk Certifications ---
+    const certItems = $('.certifications .box-container .box');
+    const viewMoreCertsBtn = $('#viewMoreCerts');
+    
+    if (certItems.length > itemsToShow) {
+        certItems.slice(itemsToShow).addClass('hidden-item');
+    } else {
+        viewMoreCertsBtn.parent().hide();
+    }
+
+    viewMoreCertsBtn.click(function(){
+        const hiddenCerts = $('.certifications .box-container .box.hidden-item');
+        if(hiddenCerts.length > 0) {
+            // Tampilkan semua
+            hiddenCerts.removeClass('hidden-item');
+            $(this).html('<span>View Less</span> <i class="fas fa-chevron-up"></i>');
+        } else {
+            // Sembunyikan kembali
+            certItems.slice(itemsToShow).addClass('hidden-item');
+            $(this).html('<span>View More</span> <i class="fas fa-chevron-down"></i>');
+            // Scroll otomatis ke atas bagian certifications
+            $('html, body').animate({
+                scrollTop: $("#certifications").offset().top - 80
+            }, 500);
+        }
+    });
+
 });
 
 document.addEventListener('visibilitychange',
@@ -167,6 +224,54 @@ window.onclick = function(event) {
     if (event.target == modal) {
         closeModal();
     }
+}
+
+// ==========================================
+// FUNGSI GENERATE RESUME PDF DARI HTML
+// ==========================================
+function generateResume() {
+    // 1. Ubah teks tombol menjadi "Generating..." agar user tahu proses sedang berjalan
+    const btnSpan = document.querySelector('.resumebtn .btn span');
+    const originalText = btnSpan.innerText;
+    btnSpan.innerText = "Generating PDF...";
+
+    // 2. Buat elemen div sementara untuk menampung konten yang mau di-PDF-kan
+    const printContainer = document.createElement('div');
+    printContainer.style.padding = "20px";
+    printContainer.style.background = "#fff"; // Pastikan background putih
+    printContainer.style.color = "#000"; // Pastikan teks hitam
+    
+    // 3. Ambil (clone) bagian-bagian yang ingin dimasukkan ke CV
+    // Kita ambil About, Skills, Experience, dan Certifications
+    const aboutSection = document.querySelector('#about').cloneNode(true);
+    const skillsSection = document.querySelector('#skills').cloneNode(true);
+    const experienceSection = document.querySelector('#experience').cloneNode(true);
+    const certsSection = document.querySelector('#certifications').cloneNode(true);
+
+    // (Opsional) Hapus elemen yang tidak perlu ada di PDF, seperti tombol download itu sendiri
+    const btnInClone = aboutSection.querySelector('.resumebtn');
+    if (btnInClone) btnInClone.remove();
+
+    // Masukkan hasil clone ke container sementara
+    printContainer.appendChild(aboutSection);
+    printContainer.appendChild(skillsSection);
+    printContainer.appendChild(experienceSection);
+    printContainer.appendChild(certsSection);
+
+    // 4. Konfigurasi html2pdf
+    const opt = {
+        margin:       [0.5, 0.5, 0.5, 0.5], // Margin atas, kiri, bawah, kanan (dalam inchi)
+        filename:     'Resume_Lutfi_Ihsan.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true, letterRendering: true }, // scale 2 agar resolusi tidak pecah
+        jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
+
+    // 5. Jalankan proses render ke PDF
+    html2pdf().set(opt).from(printContainer).save().then(() => {
+        // Kembalikan teks tombol seperti semula setelah selesai
+        btnSpan.innerText = originalText;
+    });
 }
 
 // fetchData().then(data => {

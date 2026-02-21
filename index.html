@@ -149,7 +149,7 @@
         </div>
 
         <div class="resumebtn">
-          <a href="#" class="btn" target="_blank">
+          <a href="javascript:void(0)" onclick="generateResume()" class="btn">
             <span>Download Resume</span>
             <i class="fas fa-download"></i>
           </a>
@@ -163,112 +163,129 @@
     <h2 class="heading">
       <i class="fas fa-laptop-code"></i> Skills & <span>Abilities</span>
     </h2>
-    <div class="container">
-      <div class="row" id="skillsContainer">
-        <div class="bar">
-          <div class="info">
-            <img src="https://img.icons8.com/offices/48/000000/php-logo.png" alt="skill">
-            <span>PHP</span>
-          </div>
+
+    <div class="skills-grid">
+
+      <div class="skill-category">
+        <div class="category-header">
+          <i class="fas fa-server"></i>
+          <h3>BACKEND</h3>
         </div>
-        <div class="bar">
-          <div class="info">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Laravel.svg/1200px-Laravel.svg.png"
-              width="40%" alt="skill">
-            <span>Laravel</span>
-          </div>
-        </div>
-        <div class="bar">
-          <div class="info">
-            <img src="https://img.icons8.com/color/48/000000/javascript--v1.png" alt="skill">
-            <span>JavaScript</span>
-          </div>
-        </div>
-        <div class="bar">
-          <div class="info">
-            <img src="https://img.icons8.com/ios-filled/48/1169ae/jquery.png" alt="skill">
-            <span>jQuery</span>
-          </div>
-        </div>
-        <div class="bar">
-          <div class="info">
-            <img src="https://img.icons8.com/color/48/000000/nodejs.png" alt="skill">
-            <span>NodeJS</span>
-          </div>
-        </div>
-        <div class="bar">
-          <div class="info">
-            <img src="https://iconape.com/wp-content/files/np/64149/svg/google-apps-script.svg" width="40%" alt="skill">
-            <span>G.A.S</span>
-          </div>
-        </div>
-        <!-- <div class="bar">
-            <div class="info">
-              <img src="https://img.icons8.com/color/48/000000/java-coffee-cup-logo--v1.png" alt="skill">
-              <span>Java</span>
-            </div>
-          </div>           -->
-        <div class="bar">
-          <div class="info">
-            <img src="https://img.icons8.com/color/48/000000/python--v1.png" alt="skill">
-            <span>Python</span>
-          </div>
-        </div>
-        <div class="bar">
-          <div class="info">
-            <img src="https://img.icons8.com/color/48/000000/firebase.png" alt="skill">
-            <span>Firebase</span>
-          </div>
-        </div>
-        <div class="bar">
-          <div class="info">
-            <img src="https://img.icons8.com/color/48/000000/bootstrap.png" alt="skill">
-            <span>Bootstrap</span>
-          </div>
-        </div>
-        <div class="bar">
-          <div class="info">
-            <img src="https://img.icons8.com/color/48/000000/html-5--v1.png" alt="skill">
-            <span>HTML5</span>
-          </div>
-        </div>
-        <div class="bar">
-          <div class="info">
-            <img src="https://img.icons8.com/color/48/000000/css3.png" alt="skill">
-            <span>CSS3</span>
-          </div>
-        </div>
-        <div class="bar">
-          <div class="info">
-            <img src="https://img.icons8.com/color/48/000000/mysql-logo.png" alt="skill">
-            <span>MySQL</span>
-          </div>
-        </div>
-        <!-- <div class="bar">
-            <div class="info">
-              <img src="https://img.icons8.com/color/48/000000/postgreesql.png" alt="skill">
-              <span>PostgreSQL</span>
-            </div>
-          </div> -->
-        <div class="bar">
-          <div class="info">
-            <img src="https://img.icons8.com/color/48/000000/heroku.png" alt="skill">
-            <span>Heroku</span>
-          </div>
-        </div>
-        <div class="bar">
-          <div class="info">
-            <img src="https://img.icons8.com/color/48/000000/git.png" alt="skill">
-            <span>Git VCS</span>
-          </div>
-        </div>
-        <div class="bar">
-          <div class="info">
-            <img src="https://img.icons8.com/glyph-neue/48/ffffff/github.png" alt="skill">
-            <span>GitHub</span>
-          </div>
+        <div class="skill-tags">
+          <span class="tag"><img src="https://img.icons8.com/offices/48/000000/php-logo.png" alt="PHP"> PHP</span>
+          <span class="tag"><img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Laravel.svg/1200px-Laravel.svg.png"
+              alt="Laravel"> Laravel</span>
+          <span class="tag"><img src="https://img.icons8.com/color/48/000000/golang.png" alt="Golang"> Golang</span>
+          <span class="tag"><i class="fab fa-rust" style="font-size: 2.2rem;"></i> Rust</span>
+          <span class="tag"><img src="https://img.icons8.com/color/48/000000/nodejs.png" alt="NodeJS"> NodeJS</span>
+          <span class="tag"><img src="https://img.icons8.com/color/48/000000/python--v1.png" alt="Python"> Python</span>
+          <span class="tag"><img src="https://iconape.com/wp-content/files/np/64149/svg/google-apps-script.svg"
+              alt="GAS"> G.A.S</span>
+          <span class="tag"><i class="fas fa-network-wired"></i> REST API</span>
         </div>
       </div>
+
+      <div class="skill-category">
+        <div class="category-header">
+          <i class="fas fa-desktop"></i>
+          <h3>FRONTEND</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="tag"><img src="https://img.icons8.com/color/48/000000/javascript--v1.png" alt="JS">
+            JavaScript</span>
+          <span class="tag"><img src="https://img.icons8.com/color/48/000000/html-5--v1.png" alt="HTML5"> HTML5</span>
+          <span class="tag"><img src="https://img.icons8.com/color/48/000000/css3.png" alt="CSS3"> CSS3</span>
+          <span class="tag"><img src="https://img.icons8.com/ios-filled/48/1169ae/jquery.png" alt="jQuery">
+            jQuery</span>
+          <span class="tag"><img src="https://img.icons8.com/color/48/000000/bootstrap.png" alt="Bootstrap">
+            Bootstrap</span>
+          <span class="tag"><i class="fas fa-sync-alt"></i> AJAX</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="category-header">
+          <i class="fas fa-shield-alt"></i>
+          <h3>SECURITY</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="tag"><i class="fas fa-user-secret"></i> SQL Injection</span>
+          <span class="tag"><i class="fas fa-exchange-alt"></i> XSRF</span>
+          <span class="tag"><i class="fas fa-unlock-alt"></i> Data Leak</span>
+          <span class="tag"><i class="fas fa-exclamation-triangle"></i> Misconfiguration</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="category-header">
+          <i class="fas fa-mobile-alt"></i>
+          <h3>MOBILE</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="tag"><img src="https://img.icons8.com/color/48/000000/java-coffee-cup-logo--v1.png" alt="Java">
+            Java</span>
+          <span class="tag"><img src="https://img.icons8.com/color/48/000000/kotlin.png" alt="Kotlin"> Kotlin</span>
+          <span class="tag"><i class="fab fa-android" style="font-size: 2.2rem;"></i> Android</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="category-header">
+          <i class="fas fa-database"></i>
+          <h3>DATABASE</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="tag"><img src="https://img.icons8.com/color/48/000000/mysql-logo.png" alt="MySQL"> MySQL</span>
+          <span class="tag"><img src="https://img.icons8.com/color/48/000000/firebase.png" alt="Firebase">
+            Firebase</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="category-header">
+          <i class="fas fa-tools"></i>
+          <h3>TOOLS</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="tag"><img src="https://img.icons8.com/color/48/000000/git.png" alt="Git"> Git</span>
+          <span class="tag"><img src="https://img.icons8.com/glyph-neue/48/ffffff/github.png" alt="GitHub">
+            GitHub</span>
+          <span class="tag"><img src="https://img.icons8.com/color/48/000000/visual-studio-code-2019.png" alt="VS Code">
+            VS Code</span>
+          <span class="tag"><i class="fas fa-space-shuttle"></i> Postman</span>
+          <span class="tag"><i class="fas fa-bug"></i> Burp Suite</span>
+          <span class="tag"><i class="fas fa-terminal"></i> SQLMap</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="category-header">
+          <i class="fas fa-cloud"></i>
+          <h3>DEVOPS</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="tag"><img src="https://img.icons8.com/color/48/000000/ubuntu.png" alt="Ubuntu"> Ubuntu</span>
+          <span class="tag"><img src="https://img.icons8.com/color/48/000000/vercel.png" alt="Vercel"> Vercel</span>
+          <span class="tag"><img src="https://img.icons8.com/color/48/000000/heroku.png" alt="Heroku"> Heroku</span>
+          <span class="tag"><i class="fas fa-server"></i> VPS</span>
+          <span class="tag"><i class="fas fa-tachometer-alt"></i> Auto Scaling</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="category-header">
+          <i class="fas fa-lightbulb"></i>
+          <h3>APPROACH</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="tag"><i class="fas fa-code"></i> Clean Code</span>
+          <span class="tag"><i class="fas fa-sitemap"></i> MVC Pattern</span>
+          <span class="tag"><i class="fas fa-project-diagram"></i> RESTful Design</span>
+          <span class="tag"><i class="fas fa-tasks"></i> Agile</span>
+        </div>
+      </div>
+
     </div>
   </section>
   <!-- skills section ends -->
@@ -520,6 +537,13 @@
         </div>
       </div>
 
+    </div>
+
+    <div class="morebtn" style="margin-top: 4rem;">
+      <button class="btn" id="viewMoreProjects">
+        <span>View More</span>
+        <i class="fas fa-chevron-down"></i>
+      </button>
     </div>
   </section>
   <!-- work project section ends -->
@@ -790,6 +814,13 @@
       </div>
 
     </div>
+
+    <div class="morebtn" style="margin-top: 4rem;">
+      <button class="btn" id="viewMoreCerts">
+        <span>View More</span>
+        <i class="fas fa-chevron-down"></i>
+      </button>
+    </div>
   </section>
   <!-- certifications section ends -->
   <!-- contact section starts -->
@@ -911,6 +942,10 @@
   <!-- scroll reveal anim -->
   <script src="https://unpkg.com/scrollreveal"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <!-- html2pdf cdn -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+    integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- ==== ALL MAJOR JAVASCRIPT CDNS ENDS ==== -->
   <script src="./assets/js/script.js"></script>
 </body>

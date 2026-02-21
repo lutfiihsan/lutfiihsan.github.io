@@ -495,76 +495,117 @@ header .navbar ul li a:hover {
 
 /* skills section starts */
 .skills {
+  background: #02094b; /* Background Navy gelap seperti IDE/Terminal */
   min-height: 90vh;
-  background: linear-gradient(to bottom, #57059e, #4a00e0);
+  padding-bottom: 5rem;
 }
-.skills h2 {
-  color: #fff;
+.skills .heading {
+  color: #ffffff;
 }
 .skills .heading span {
-  color: rgb(255, 230, 0);
+  color: #f68c09; /* Aksen Orange */
 }
-.skills .container {
-  background: rgba(0, 0, 22, 0.4);
-  color: #fff;
-  border-radius: 1rem;
-  padding: 2rem;
-  width: 90%;
-  margin: auto;
-  margin-top: 2rem;
-}
-.skills .container .row {
+
+/* Layout Grid Kategori */
+.skills-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  flex-wrap: wrap;
-  gap: 1.8rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  margin-top: 5rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
-.skills .container .bar {
-  margin-bottom: 15px;
-  padding: 10px;
-  border-radius: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  background: rgba(0, 0, 22, 0.9);
-  transition: 0.2s;
+
+/* Kotak Kategori (Card) */
+.skill-category {
+  background: #060e5e; /* Navy sedikit lebih terang untuk Card */
+  border: 1px solid #1c2680; /* Border garis tipis */
+  border-radius: 12px;
+  padding: 3rem 2.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
-.skills .container .bar:hover {
-  box-shadow: 0 8px 10px rgba(0, 2, 68, 0.8) !important;
-  background-color: rgba(0, 0, 0, 0.9) !important;
+.skill-category:hover {
+  border-color: #f68c09; /* Menyala oranye saat kursor mendekat */
+  box-shadow: 0 0 20px rgba(246, 140, 9, 0.15);
+  transform: translateY(-5px);
 }
-.skills .container .bar .info {
+
+/* Header Kategori (Judul & Ikon) */
+.category-header {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  margin-top: 1rem;
+  margin-bottom: 2.5rem;
 }
-.skills .container .bar .info i {
-  font-size: 4rem;
-}
-.skills .container .bar .info span {
+.category-header i {
   font-size: 2rem;
+  color: #f68c09; /* Ikon Oranye */
+  margin-right: 1.5rem;
+}
+.category-header h3 {
+  font-size: 1.6rem;
+  color: #ffffff;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+/* Tag/Pill Skills */
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+.skill-tags .tag {
+  background: #02094b; 
+  color: #d1d5db; 
+  padding: 0.8rem 1.8rem;
+  border-radius: 8px; 
+  font-size: 1.4rem;
   font-weight: 500;
-  font-family: "Poppins";
-  margin-left: 0.5rem;
+  display: flex;
+  align-items: center;
+  border: 1px solid #1c2680;
+  transition: 0.3s ease;
+  cursor: default;
 }
-/* skills media queries starts*/
+
+/* Pengaturan khusus ikon bawaan font (FontAwesome) */
+.skill-tags .tag i {
+  font-size: 1.4rem;
+  color: #f68c09; 
+  margin-right: 1rem;
+}
+
+/* Pengaturan khusus ikon gambar (Logo asli) */
+.skill-tags .tag img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  margin-right: 1rem;
+}
+
+/* Efek Hover pada Tag Skills */
+.skill-tags .tag:hover {
+  background: #f68c09; 
+  color: #ffffff;
+  border-color: #f68c09;
+}
+.skill-tags .tag:hover i {
+  color: #ffffff; /* Ikon FontAwesome ikut jadi putih saat hover */
+}
+
+/* skills media queries */
 @media screen and (max-width: 600px) {
-  .skills .container {
-    padding: 0;
-    margin: 0;
+  .skills-grid {
+    grid-template-columns: 1fr; /* 1 Kolom di HP */
+    margin-top: 3rem;
   }
-  .skills .container .row {
-    grid-template-columns: repeat(2, 1fr);
-    margin: 1rem;
-    padding: 2rem 0.2rem 2rem 0.2rem;
-    gap: 1rem;
-  }
-  .skills .container {
-    margin-top: 5px;
-    width: 100%;
+  .skill-category {
+    padding: 2.5rem 2rem;
   }
 }
-/* skills media queries ends*/
 /* skills section ends */
 
 /* education section starts */
@@ -1467,3 +1508,62 @@ form .button-area {
   top: calc(100% - 12rem);
 }
 /* scroll top ends */
+
+/* ========================================== */
+/* VIEW MORE BUTTON & HIDDEN ITEMS STYLING    */
+/* ========================================== */
+.hidden-item {
+  display: none !important;
+}
+
+.morebtn {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.morebtn .btn {
+  cursor: pointer;
+  padding: 1.2rem 3rem;
+  border-radius: 50px;
+  color: #fff;
+  background: #02094b; /* Navy */
+  box-shadow: 0px 5px 15px rgba(2, 9, 75, 0.3);
+  font-family: "Nunito", sans-serif;
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  font-size: 1.6rem;
+  font-weight: 700;
+  transition: 0.3s ease;
+}
+.morebtn .btn span {
+  margin-right: 1rem;
+}
+.morebtn .btn i {
+  transition: transform 0.3s ease;
+}
+.morebtn .btn:hover {
+  background: #f68c09; /* Orange */
+  box-shadow: 0px 5px 15px rgba(246, 140, 9, 0.4);
+  transform: translateY(-3px);
+}
+/* ========================================== */
+/* FIX MOBILE VIEW WORK & EXPERIENCE          */
+/* ========================================== */
+@media screen and (max-width: 600px) {
+  /* Ubah grid project dan sertifikasi jadi 1 kolom di layar kecil */
+  .work .box-container,
+  .certifications .box-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  /* Reset bentrokan posisi panah timeline di mobile */
+  .experience .left::before, 
+  .experience .right::before {
+    left: 61px;
+    right: auto; /* Reset posisi 'right' dari versi desktop */
+    border-width: 10px 10px 10px 0;
+    border-color: transparent #f68c09 transparent transparent;
+  }
+}
