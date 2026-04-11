@@ -238,15 +238,14 @@ header .navbar ul li a:hover {
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6); /* UBAH: Tambahan shadow agar teks lebih tajam */
 }
 
-.home .content h2 {
+.home .content h1 {
   font-size: 5.5rem;
   font-weight: 800;
-  color: #ffffff; /* UBAH: Teks menjadi Putih */
+  color: #ffffff;
   line-height: 1.2;
 }
 
-.home .content h2 span {
-  /* Efek Teks Gradient Premium */
+.home .content h1 span {
   background: linear-gradient(to right, #f68c09, #ffae00);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -256,13 +255,13 @@ header .navbar ul li a:hover {
 
 .home .content p {
   font-size: 2.5rem;
-  color: #cbd0e6; /* UBAH: Abu-abu kebiruan terang */
+  color: #cbd0e6;
   font-weight: 600;
-  padding: 1.5rem 0 3rem;
+  padding: 0.5rem 0 0;
 }
 
 .home .content p span {
-  color: #00b8ff; /* UBAH: Cyan/Biru Neon ala Hacker agar kontras */
+  color: #00b8ff;
   font-weight: 700;
 }
 
@@ -436,7 +435,16 @@ header .navbar ul li a:hover {
   position: relative;
 }
 
-/* Hero image glow wrapper */
+/* Hero image area */
+.home .image {
+  flex: 1 1 40rem;
+  z-index: 1;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .hero-img-wrapper {
   position: relative;
   display: inline-block;
@@ -455,6 +463,16 @@ header .navbar ul li a:hover {
 @keyframes glowPulse {
   0%, 100% { opacity: 0.45; transform: scale(1); }
   50% { opacity: 0.7; transform: scale(1.04); }
+}
+.home .image .hero-img {
+  width: 75%;
+  max-width: 420px;
+  border-radius: 50%;
+  border: 6px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  animation: floatHeroImage 4s ease-in-out infinite;
+  display: block;
+  margin: 0 auto;
 }
 
 /* Keyframes untuk animasi */
@@ -475,16 +493,18 @@ header .navbar ul li a:hover {
     padding-top: 10rem;
   }
   .home .content {
-    order: 2; /* Memindahkan teks ke bawah gambar di layar HP */
+    order: 2;
   }
   .home .image {
-    order: 1; /* Memindahkan gambar ke atas di layar HP */
+    order: 1;
     margin-bottom: 2rem;
   }
   .home .image .hero-img {
-    width: 65%;
+    width: 60%;
+    max-width: 280px;
   }
-  .home .content h2, .home .content h2 span {
+  .home .content h1,
+  .home .content h1 span {
     font-size: 4rem;
   }
   .home .content p {
@@ -493,15 +513,23 @@ header .navbar ul li a:hover {
   .socials .social-icons {
     justify-content: center;
   }
+  .hero-stats {
+    justify-content: center;
+  }
+  .hero-cta {
+    justify-content: center;
+  }
 }
 @media (max-width: 450px) {
   .home .image .hero-img {
-    width: 85%;
+    width: 75%;
   }
-  .home .content h2, .home .content h2 span {
+  .home .content h1,
+  .home .content h1 span {
     font-size: 3.2rem;
   }
-  .home .btn {
+  .home .btn,
+  .home .btn-primary {
     padding: 1.2rem 2.5rem;
   }
 }
