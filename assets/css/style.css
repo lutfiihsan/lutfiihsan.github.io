@@ -603,127 +603,182 @@ header .navbar ul li a:hover {
 
 /* skills section starts */
 .skills {
-  background: #02094b; /* Background Navy gelap seperti IDE/Terminal */
+  background: #f0f2f8;
   min-height: 90vh;
   padding-bottom: 7rem;
+  position: relative;
+}
+.skills::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 220px;
+  background: linear-gradient(135deg, #02094b 0%, #1a1f6e 100%);
+  z-index: 0;
 }
 .skills .heading {
+  position: relative;
+  z-index: 1;
   color: #ffffff;
 }
 .skills .heading span {
-  color: #f68c09; /* Aksen Orange */
+  color: #f68c09;
 }
 
-/* Layout Grid Kategori */
-.skills-grid {
+/* Grid layout */
+#skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); /* Diperbesar sedikit agar tag tidak terlalu terjepit */
-  gap: 3rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.4rem;
   margin-top: 5rem;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+  position: relative;
+  z-index: 1;
+  padding: 0 2rem;
 }
 
-/* Kotak Kategori (Card) */
-.skill-category {
-  background: #060e5e; 
-  border: 1px solid #1c2680; 
-  border-radius: 12px;
-  padding: 3rem 2.5rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+/* ── Skill Card ─────────────────────── */
+.skill-card {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(2, 9, 75, 0.07);
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
   display: flex;
-  flex-direction: column; /* Memastikan isi merenggang proporsional */
-  height: 100%; /* Membuat semua kotak sama tinggi */
+  flex-direction: column;
 }
-.skill-category:hover {
-  border-color: #f68c09; 
-  box-shadow: 0 10px 25px rgba(246, 140, 9, 0.15);
-  transform: translateY(-5px);
+.skill-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 36px rgba(2, 9, 75, 0.14);
 }
 
-/* Header Kategori (Judul & Ikon) */
-.category-header {
+/* Gradient accent bar on top */
+.skill-card-accent {
+  height: 6px;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+/* Card header: icon + title + count */
+.skill-card-header {
   display: flex;
   align-items: center;
-  margin-bottom: 2.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Garis batas tipis */
-  padding-bottom: 1.5rem;
+  gap: 1.2rem;
+  padding: 2rem 2.2rem 1.6rem;
+  border-bottom: 1px solid #f0f0f0;
 }
-.category-header i {
-  font-size: 2.2rem;
-  color: #f68c09; 
-  margin-right: 1.5rem;
+.skill-card-icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
-.category-header h3 {
-  font-size: 1.6rem;
-  color: #ffffff;
-  letter-spacing: 1.5px;
+.skill-card-icon i {
+  font-size: 1.8rem;
+  color: #fff;
+}
+.skill-card-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #02094b;
   text-transform: uppercase;
-  font-weight: 700;
+  letter-spacing: 1.5px;
+  flex: 1;
+}
+.skill-card-count {
+  font-size: 1.1rem;
+  color: #999;
+  font-weight: 600;
+  background: #f4f5f9;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  white-space: nowrap;
 }
 
-/* Tag/Pill Skills */
-.skill-tags {
+/* ── Skill Chips container ──────────── */
+.skill-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.2rem;
-  flex-grow: 1; /* Mendorong konten agar seimbang di dalam flexbox */
+  gap: 0.8rem;
+  padding: 1.8rem 2.2rem 2rem;
   align-content: flex-start;
 }
-.skill-tags .tag {
-  background: rgba(2, 9, 75, 0.6); /* Transparan gelap */
-  color: #d1d5db; 
-  padding: 0.8rem 1.6rem;
-  border-radius: 8px; 
-  font-size: 1.4rem;
-  font-weight: 500;
+
+/* Individual chip */
+.skill-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 1.1rem 0.5rem 0.7rem;
+  background: var(--chip-bg, rgba(2, 9, 75, 0.04));
+  border: 1px solid var(--chip-border, rgba(2, 9, 75, 0.12));
+  border-radius: 99px;
+  cursor: default;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.skill-chip:hover {
+  filter: brightness(0.94);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* Icon inside chip */
+.skill-chip-icon {
   display: flex;
   align-items: center;
-  border: 1px solid #1c2680;
-  transition: all 0.3s ease;
-  cursor: default;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  flex-shrink: 0;
 }
-
-/* Pengaturan khusus ikon bawaan font (FontAwesome) */
-.skill-tags .tag i {
-  font-size: 1.5rem;
-  color: #f68c09; 
-  margin-right: 1rem;
-}
-
-/* Pengaturan khusus ikon gambar (Logo asli) */
-.skill-tags .tag img {
-  width: 20px;
-  height: 20px;
+.skill-chip-img {
+  width: 1.8rem;
+  height: 1.8rem;
   object-fit: contain;
-  margin-right: 1rem;
+  display: block;
+}
+.skill-chip-icon i {
+  font-size: 1.4rem;
+  color: #555;
 }
 
-/* Efek Hover pada Tag Skills */
-.skill-tags .tag:hover {
-  background: #f68c09; 
-  color: #ffffff;
-  border-color: #f68c09;
-  transform: translateY(-2px);
-}
-.skill-tags .tag:hover i {
-  color: #ffffff; 
+/* Chip label */
+.skill-chip-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+  line-height: 1;
 }
 
-/* skills media queries */
+/* ── Responsive ────────────────────── */
+@media screen and (max-width: 1100px) {
+  #skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 @media screen and (max-width: 600px) {
-  .skills-grid {
-    grid-template-columns: 1fr; /* 1 Kolom di HP */
+  #skills-grid {
+    grid-template-columns: 1fr;
     gap: 2rem;
     margin-top: 3rem;
+    padding: 0 1rem;
   }
-  .skill-category {
-    padding: 2.5rem 2rem;
+  .skill-card-header {
+    padding: 1.6rem 1.8rem 1.2rem;
+  }
+  .skill-chips {
+    padding: 1.4rem 1.8rem 1.6rem;
   }
 }
 /* skills section ends */
+
+
 
 /* education section starts */
 .education {

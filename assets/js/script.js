@@ -86,29 +86,57 @@ async function fetchDataAndRender() {
 }
 
 function renderSkills(skills) {
-    let html = "";
+    // Warna accent per kategori
+    const categoryColors = {
+        'BACKEND':  { gradient: 'linear-gradient(135deg, #667eea, #764ba2)', light: 'rgba(102,126,234,0.08)', border: 'rgba(102,126,234,0.25)' },
+        'FRONTEND': { gradient: 'linear-gradient(135deg, #f093fb, #f5576c)', light: 'rgba(245,87,108,0.07)', border: 'rgba(245,87,108,0.2)' },
+        'DATABASE': { gradient: 'linear-gradient(135deg, #4facfe, #00f2fe)', light: 'rgba(79,172,254,0.07)', border: 'rgba(79,172,254,0.2)' },
+        'DEVOPS':   { gradient: 'linear-gradient(135deg, #43e97b, #38f9d7)', light: 'rgba(67,233,123,0.07)', border: 'rgba(67,233,123,0.2)' },
+        'SECURITY': { gradient: 'linear-gradient(135deg, #fa709a, #fee140)', light: 'rgba(250,112,154,0.07)', border: 'rgba(250,112,154,0.2)' },
+        'MOBILE':   { gradient: 'linear-gradient(135deg, #a18cd1, #fbc2eb)', light: 'rgba(161,140,209,0.07)', border: 'rgba(161,140,209,0.2)' },
+        'TOOLS':    { gradient: 'linear-gradient(135deg, #ffecd2, #fcb69f)', light: 'rgba(252,182,159,0.07)', border: 'rgba(252,182,159,0.2)' },
+        'APPROACH': { gradient: 'linear-gradient(135deg, #a1c4fd, #c2e9fb)', light: 'rgba(161,196,253,0.07)', border: 'rgba(161,196,253,0.2)' },
+    };
+
+    let html = '';
     skills.forEach(cat => {
-        let itemsHtml = "";
+        const colors = categoryColors[cat.category] || { gradient: 'linear-gradient(135deg, #e0e0e0, #bdbdbd)', light: 'rgba(0,0,0,0.03)', border: 'rgba(0,0,0,0.1)' };
+
+        let itemsHtml = '';
         cat.items.forEach(item => {
+            let visual = '';
             if (item.img) {
-                itemsHtml += `<span class="tag"><img src="${item.img}" alt="${item.name}"> ${item.name}</span>`;
+                visual = `<img src="${item.img}" alt="${item.name}" class="skill-chip-img" loading="lazy">`;
             } else {
-                let style = item.style ? ` style="${item.style}"` : "";
-                itemsHtml += `<span class="tag"><i class="${item.icon}"${style}></i> ${item.name}</span>`;
+                let style = item.style ? ` style="${item.style}"` : '';
+                visual = `<i class="${item.icon}" aria-hidden="true"${style}></i>`;
             }
+            itemsHtml += `
+            <span class="skill-chip" title="${item.name}">
+                <span class="skill-chip-icon">${visual}</span>
+                <span class="skill-chip-name">${item.name}</span>
+            </span>`;
         });
 
         html += `
-        <div class="skill-category">
-            <div class="category-header">
-                <i class="${cat.icon}"></i>
-                <h3>${cat.category}</h3>
+        <div class="skill-card">
+            <div class="skill-card-accent" style="background:${colors.gradient}"></div>
+            <div class="skill-card-header">
+                <div class="skill-card-icon" style="background:${colors.gradient}">
+                    <i class="${cat.icon}" aria-hidden="true"></i>
+                </div>
+                <h3 class="skill-card-title">${cat.category}</h3>
+                <span class="skill-card-count">${cat.items.length} skills</span>
             </div>
-            <div class="skill-tags">${itemsHtml}</div>
+            <div class="skill-chips" style="--chip-border:${colors.border}; --chip-bg:${colors.light}">
+                ${itemsHtml}
+            </div>
         </div>`;
     });
-    document.getElementById("skills-grid").innerHTML = html;
+
+    document.getElementById('skills-grid').innerHTML = html;
 }
+
 
 function renderProjects(projects) {
     let html = "";
