@@ -347,7 +347,11 @@ function initViewMoreLogic() {
         const hiddenProjects = $('.work .box-container .box.hidden-item');
         if(hiddenProjects.length > 0) {
             hiddenProjects.removeClass('hidden-item');
+            hiddenProjects.attr('style', ''); // Clear ScrollReveal inline hidden styles
             $(this).html('<span>View Less</span> <i class="fas fa-chevron-up"></i>');
+            if (typeof ScrollReveal !== 'undefined') {
+                ScrollReveal().reveal('.work .box', { interval: 100 });
+            }
         } else {
             projectItems.slice(itemsToShow).addClass('hidden-item');
             $(this).html('<span>View More</span> <i class="fas fa-chevron-down"></i>');
@@ -368,7 +372,11 @@ function initViewMoreLogic() {
         const hiddenCerts = $('.certifications .box-container .box.hidden-item');
         if(hiddenCerts.length > 0) {
             hiddenCerts.removeClass('hidden-item');
+            hiddenCerts.attr('style', ''); // Clear ScrollReveal inline hidden styles
             $(this).html('<span>View Less</span> <i class="fas fa-chevron-up"></i>');
+            if (typeof ScrollReveal !== 'undefined') {
+                ScrollReveal().reveal('.certifications .box', { interval: 100 });
+            }
         } else {
             certItems.slice(itemsToShow).addClass('hidden-item');
             $(this).html('<span>View More</span> <i class="fas fa-chevron-down"></i>');
