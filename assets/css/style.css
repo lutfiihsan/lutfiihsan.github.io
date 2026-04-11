@@ -1325,12 +1325,13 @@ header .navbar ul li a:hover {
 /* Action buttons */
 .work .box .btns {
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 0.8rem;
   margin-top: auto;
   padding-top: 1.5rem;
 }
 .work .box .btns .btn {
-  flex: 1;
+  flex: 1 1 calc(50% - 0.4rem);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1345,6 +1346,16 @@ header .navbar ul li a:hover {
   text-decoration: none;
   border: none;
   cursor: pointer;
+}
+.work .box .btns .btn-detail {
+  flex: 1 1 100%;
+  background: transparent;
+  color: #02094b;
+  border: 1px solid #02094b;
+}
+.work .box .btns .btn-detail:hover {
+  background: #02094b;
+  color: #ffffff;
 }
 .work .box .btns .btn:hover {
   background: #f68c09;
@@ -2695,8 +2706,10 @@ body.dark-mode .work .box {
 body.dark-mode .work .box .image-wrapper { background: #080912 !important; }
 body.dark-mode .work .box .content h3 { color: #ffffff !important; }
 body.dark-mode .work .box .content .desc p { color: #a0aec0 !important; }
-body.dark-mode .work .box .btns .btn { background: #1a1e35 !important; }
+body.dark-mode .work .box .btns .btn { background: #1a1e35 !important; color: #ffffff !important; border: none !important; }
 body.dark-mode .work .box .btns .btn:hover { background: #f68c09 !important; }
+body.dark-mode .work .box .btns .btn-detail { background: transparent !important; color: #ffffff !important; border: 1px solid #ffffff !important; }
+body.dark-mode .work .box .btns .btn-detail:hover { background: #ffffff !important; color: #111424 !important; }
 
 /* GitHub Repos Section */
 body.dark-mode .repos { background-color: #080912 !important; }

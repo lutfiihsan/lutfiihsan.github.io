@@ -184,7 +184,7 @@ function renderProjects(projects) {
     projects.forEach(proj => {
         let btnsHtml = "";
         if (proj.id) {
-            btnsHtml += `<a href="project.html?id=${proj.id}" class="btn btn-outline" style="margin-right: 0.5rem;"><i class="fas fa-info-circle" aria-hidden="true"></i> Details</a>`;
+            btnsHtml += `<a href="project.html?id=${proj.id}" class="btn btn-detail"><i class="fas fa-info-circle" aria-hidden="true"></i> Details</a>`;
         }
 
         if (proj.viewLink) {
