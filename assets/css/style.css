@@ -2576,7 +2576,8 @@ body.dark-mode .repo-card {
   background: #111424 !important; 
   border-color: #1a1e35 !important; 
 }
-body.dark-mode .repo-title a { color: #ffffff !important; }
+body.dark-mode .repo-name,
+body.dark-mode .repo-header > i { color: #ffffff !important; }
 body.dark-mode .repo-desc { color: #a0aec0 !important; }
 body.dark-mode .repo-footer { border-top-color: #1a1e35 !important; }
 
