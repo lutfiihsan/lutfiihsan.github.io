@@ -2440,3 +2440,177 @@ header .navbar ul li a:hover {
     font-size: 1.1rem;
   }
 }
+
+/* ========================================= */
+/* TEXT & BRAND COLORS                       */
+/* ========================================= */
+
+/* Theme Toggle Button */
+.theme-btn {
+  background: transparent;
+  border: none;
+  font-size: 2.2rem;
+  color: #02094b;
+  cursor: pointer;
+  margin-left: 1.5rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.theme-btn:hover {
+  color: #f68c09;
+  transform: rotate(15deg) scale(1.1);
+}
+
+/* ========================================= */
+/* DARK MODE OVERRIDES                       */
+/* ========================================= */
+
+body.dark-mode {
+  background-color: #0d0f1a !important; /* Midnight blue-black */
+  color: #e2e8f0 !important;
+}
+
+body.dark-mode h1, 
+body.dark-mode h2, 
+body.dark-mode h3, 
+body.dark-mode h4,
+body.dark-mode .heading {
+  color: #ffffff !important;
+}
+
+/* Navbar */
+body.dark-mode header {
+  background: rgba(13, 15, 26, 0.85) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+body.dark-mode header .logo,
+body.dark-mode header .navbar ul li a,
+body.dark-mode .theme-btn,
+body.dark-mode #menu {
+  color: #e2e8f0 !important;
+}
+body.dark-mode header .navbar ul li a:hover,
+body.dark-mode header .navbar ul li a.active,
+body.dark-mode header .logo:hover,
+body.dark-mode .theme-btn:hover,
+body.dark-mode #menu:hover {
+  color: #f68c09 !important;
+}
+
+/* Global Content wrappers */
+body.dark-mode .content p, 
+body.dark-mode .desc p {
+  color: #a0aec0 !important;
+}
+
+/* Hero Section */
+body.dark-mode .hero-img-wrapper::before {
+  opacity: 0.3 !important;
+}
+
+/* About Section */
+body.dark-mode .about { background-color: #080912 !important; }
+body.dark-mode .about-stat-card {
+  background: #111424 !important;
+  border-color: #1a1e35 !important;
+}
+body.dark-mode .about-stat-card strong { color: #ffffff !important; }
+body.dark-mode .about-stat-card span { color: #a0aec0 !important; }
+body.dark-mode .about-contact-inline a,
+body.dark-mode .about-contact-inline span { color: #cbd5e1 !important; }
+
+/* Skills Section */
+body.dark-mode .skills { background-color: #0d0f1a !important; }
+body.dark-mode .skills .skill-category-card {
+  background: #111424 !important;
+  border-color: #1a1e35 !important;
+}
+body.dark-mode .skills .skill-chip { 
+  background: #181d33 !important; 
+  color: #cbd5e1 !important; 
+  border-color: #272d4c !important; 
+}
+body.dark-mode .skills .skill-card-header h3 { color: #ffffff !important; }
+
+/* Education Section */
+body.dark-mode .education { background-color: #080912 !important; }
+body.dark-mode .education .box { 
+  background: #111424 !important; 
+  border-color: #1a1e35 !important; 
+}
+body.dark-mode .education .box .content h3 { color: #ffffff !important; }
+body.dark-mode .education .box .content p,
+body.dark-mode .education .box .content h4 { color: #a0aec0 !important; }
+
+/* Work/Projects Section */
+body.dark-mode .work { background-color: #0d0f1a !important; }
+body.dark-mode .work .box { 
+  background: #111424 !important; 
+  border-color: #1a1e35 !important; 
+}
+body.dark-mode .work .box .image-wrapper { background: #080912 !important; }
+body.dark-mode .work .box .content h3 { color: #ffffff !important; }
+body.dark-mode .work .box .content .desc p { color: #a0aec0 !important; }
+body.dark-mode .work .box .btns .btn { background: #1a1e35 !important; }
+body.dark-mode .work .box .btns .btn:hover { background: #f68c09 !important; }
+
+/* GitHub Repos Section */
+body.dark-mode .repos { background-color: #080912 !important; }
+body.dark-mode .repo-card { 
+  background: #111424 !important; 
+  border-color: #1a1e35 !important; 
+}
+body.dark-mode .repo-title a { color: #ffffff !important; }
+body.dark-mode .repo-desc { color: #a0aec0 !important; }
+body.dark-mode .repo-footer { border-top-color: #1a1e35 !important; }
+
+/* Experience Section */
+body.dark-mode .experience { background-color: #0d0f1a !important; }
+body.dark-mode .experience .content { 
+  background-color: #111424 !important; 
+  border-color: #1a1e35 !important; 
+}
+body.dark-mode .experience .content .tag h2 { color: #ffffff !important; }
+body.dark-mode .experience .content .tag { border-bottom-color: #1a1e35 !important; }
+body.dark-mode .experience .content .desc ul { border-top-color: #1a1e35 !important; }
+body.dark-mode .experience .content .desc ul li { color: #cbd5e1 !important; }
+body.dark-mode .experience .left::before { border-color: transparent transparent transparent #111424 !important; }
+body.dark-mode .experience .right::before { border-color: transparent #111424 transparent transparent !important; }
+body.dark-mode .experience .container::after { background-color: #0d0f1a !important; }
+
+/* Certifications Section */
+body.dark-mode .certifications { background-color: #080912 !important; }
+body.dark-mode .certifications .box { 
+  background: #111424 !important; 
+  border-color: #1a1e35 !important; 
+}
+body.dark-mode .certifications .box .content h3 { color: #ffffff !important; }
+body.dark-mode .certifications .box .content .date { color: #a0aec0 !important; }
+body.dark-mode .certifications .box .content .credential-id { 
+  background: #181d33 !important; 
+  border-color: #272d4c !important; 
+  color: #cbd5e1 !important; 
+}
+
+/* Contact Section */
+body.dark-mode .contact { background-color: #0d0f1a !important; }
+body.dark-mode .contact .contact-form form { 
+  background: #111424 !important; 
+  border-color: #1a1e35 !important; 
+}
+body.dark-mode .contact .contact-form form .box { 
+  background: #181d33 !important; 
+  color: #ffffff !important; 
+  border-color: #272d4c !important; 
+}
+body.dark-mode .contact .contact-info .contact-item { 
+  background: #111424 !important; 
+  border-color: #1a1e35 !important; 
+}
+body.dark-mode .contact .contact-info .contact-item h3 { color: #ffffff !important; }
+body.dark-mode .contact .contact-info .contact-item p { color: #a0aec0 !important; }
+
+/* Footer defaults to dark anyway, just ensuring blend */
+body.dark-mode .footer { background: #04050b !important; }

@@ -575,3 +575,33 @@ function initScrollReveal() {
     srtop.reveal('.experience .timeline .container', { interval: 400 });
     srtop.reveal('.contact .container', { delay: 400 });
 }
+
+// --- DARK MODE TOGGLE ---
+document.addEventListener('DOMContentLoaded', () => {
+    const themeBtn = document.getElementById('theme-toggle');
+    if (!themeBtn) return;
+    
+    const bodyEl = document.body;
+    const icon = themeBtn.querySelector('i');
+
+    // Check localStorage
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        bodyEl.classList.add('dark-mode');
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+    }
+
+    themeBtn.addEventListener('click', () => {
+        bodyEl.classList.toggle('dark-mode');
+        if (bodyEl.classList.contains('dark-mode')) {
+            localStorage.setItem('theme', 'dark');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            localStorage.setItem('theme', 'light');
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    });
+});
