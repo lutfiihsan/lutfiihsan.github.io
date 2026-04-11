@@ -48,12 +48,33 @@ $(document).ready(function () {
         });
     });
 
-    // Smooth scrolling
+    // Smart Smooth Scrolling
     $('a[href*="#"]').on('click', function (e) {
-        e.preventDefault();
-        $('html, body').animate({
-            scrollTop: $($(this).attr('href')).offset().top,
-        }, 500, 'linear')
+        const href = $(this).attr('href');
+        const hash = href.substring(href.indexOf('#'));
+        const path = href.split('#')[0]; // Get path before #
+
+        // Check if we are already on the target page (or it's just a hash)
+        // matches '', 'index', or full path
+        const isSamePage = path === '' || 
+                           window.location.pathname.endsWith('/' + path) || 
+                           (path === 'index' && (window.location.pathname === '/' || window.location.pathname.endsWith('/index')));
+
+        if (isSamePage) {
+            const target = $(hash);
+            if (target.length) {
+                e.preventDefault();
+                $('html, body').animate({
+                    scrollTop: target.offset().top,
+                }, 500, 'linear');
+                
+                // Close mobile menu if open
+                $('#menu').removeClass('fa-times');
+                $('.navbar').removeClass('nav-toggle');
+                $('#nav-overlay').removeClass('active');
+            }
+        }
+        // else: let default browser navigation handle it
     });
 
     // EmailJS
