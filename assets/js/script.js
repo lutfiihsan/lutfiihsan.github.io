@@ -143,10 +143,34 @@ function renderSkills(skills) {
             <div class="skill-chips" style="--chip-border:${colors.border}; --chip-bg:${colors.light}">
                 ${itemsHtml}
             </div>
+            ${expandBtn}
         </div>`;
     });
 
     document.getElementById('skills-grid').innerHTML = html;
+}
+
+function toggleSkillCard(btn) {
+    const card = btn.closest('.skill-card');
+    const hiddenChips = card.querySelectorAll('.chip-hidden, .chip-visible-extra');
+    const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+    const hiddenCount = btn.dataset.hiddenCount;
+
+    if (isExpanded) {
+        hiddenChips.forEach(chip => {
+            chip.classList.remove('chip-visible-extra');
+            chip.classList.add('chip-hidden');
+        });
+        btn.setAttribute('aria-expanded', 'false');
+        btn.innerHTML = `<i class="fas fa-chevron-down" aria-hidden="true"></i><span>+${hiddenCount} more</span>`;
+    } else {
+        hiddenChips.forEach(chip => {
+            chip.classList.remove('chip-hidden');
+            chip.classList.add('chip-visible-extra');
+        });
+        btn.setAttribute('aria-expanded', 'true');
+        btn.innerHTML = `<i class="fas fa-chevron-up" aria-hidden="true"></i><span>Show less</span>`;
+    }
 }
 
 
