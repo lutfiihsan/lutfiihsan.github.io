@@ -346,12 +346,9 @@ function initViewMoreLogic() {
     viewMoreProjectsBtn.off('click').on('click', function(){
         const hiddenProjects = $('.work .box-container .box.hidden-item');
         if(hiddenProjects.length > 0) {
-            hiddenProjects.removeClass('hidden-item');
-            hiddenProjects.attr('style', ''); // Clear ScrollReveal inline hidden styles
+            hiddenProjects.removeClass('hidden-item').hide().fadeIn(600);
+            hiddenProjects.attr('style', ''); // Clear any lingering ScrollReveal junk
             $(this).html('<span>View Less</span> <i class="fas fa-chevron-up"></i>');
-            if (typeof ScrollReveal !== 'undefined') {
-                ScrollReveal().reveal('.work .box', { interval: 100 });
-            }
         } else {
             projectItems.slice(itemsToShow).addClass('hidden-item');
             $(this).html('<span>View More</span> <i class="fas fa-chevron-down"></i>');
@@ -371,12 +368,9 @@ function initViewMoreLogic() {
     viewMoreCertsBtn.off('click').on('click', function(){
         const hiddenCerts = $('.certifications .box-container .box.hidden-item');
         if(hiddenCerts.length > 0) {
-            hiddenCerts.removeClass('hidden-item');
-            hiddenCerts.attr('style', ''); // Clear ScrollReveal inline hidden styles
+            hiddenCerts.removeClass('hidden-item').hide().fadeIn(600);
+            hiddenCerts.attr('style', '');
             $(this).html('<span>View Less</span> <i class="fas fa-chevron-up"></i>');
-            if (typeof ScrollReveal !== 'undefined') {
-                ScrollReveal().reveal('.certifications .box', { interval: 100 });
-            }
         } else {
             certItems.slice(itemsToShow).addClass('hidden-item');
             $(this).html('<span>View More</span> <i class="fas fa-chevron-down"></i>');
