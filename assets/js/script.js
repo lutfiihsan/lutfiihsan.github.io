@@ -405,110 +405,180 @@ var typed = new Typed(".typing-text", {
     loop: true, typeSpeed: 50, backSpeed: 25, backDelay: 500,
 });
 
+// --- PDF OVERLAY HELPERS ---
+function showPdfOverlay() {
+    const overlay = document.getElementById('pdf-overlay');
+    if (!overlay) return;
+    // Reset progress bar animation
+    const fill = overlay.querySelector('.pdf-progress-fill');
+    if (fill) { fill.style.animation = 'none'; void fill.offsetWidth; fill.style.animation = ''; }
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+function hidePdfOverlay() {
+    const overlay = document.getElementById('pdf-overlay');
+    if (!overlay) return;
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
 // --- PDF GENERATOR (DYNAMIC) ---
 function generateResume() {
-    if(!globalPortfolioData) {
-        alert("Data is still loading, please wait a moment.");
+    if (!globalPortfolioData) {
+        alert("Data is still loading, please wait a moment and try again.");
         return;
     }
 
-    const btnSpan = document.querySelector('.resumebtn .btn span');
-    const originalText = btnSpan.innerText;
-    btnSpan.innerText = "Generating PDF...";
-
-    try {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
-        const pageW = 210, pageH = 297, marginL = 15, contentW = pageW - marginL - 15;
-        let y = 0;
-
-        const COLOR_PRIMARY = [41, 182, 246], COLOR_DARK = [30, 30, 47], COLOR_GRAY = [100, 100, 120], COLOR_LIGHTGRAY = [230, 230, 240], COLOR_WHITE = [255, 255, 255];
-
-        function checkPage(needed = 10) {
-            if (y + needed > pageH - 15) { doc.addPage(); y = 15; }
-        }
-
-        function drawSectionHeader(title) {
-            checkPage(14); y += 4;
-            doc.setFillColor(...COLOR_PRIMARY); doc.rect(marginL, y, contentW, 8, 'F');
-            doc.setTextColor(...COLOR_WHITE); doc.setFontSize(11); doc.setFont('helvetica', 'bold');
-            doc.text(title.toUpperCase(), marginL + 3, y + 5.5);
-            doc.setTextColor(...COLOR_DARK); y += 11;
-        }
-
-        // Header
-        doc.setFillColor(...COLOR_DARK); doc.rect(0, 0, pageW, 42, 'F');
-        doc.setTextColor(...COLOR_WHITE); doc.setFontSize(22); doc.setFont('helvetica', 'bold');
-        doc.text('LUTFI IHSAN', pageW / 2, 16, { align: 'center' });
-        doc.setFontSize(11); doc.setFont('helvetica', 'normal'); doc.setTextColor(...COLOR_PRIMARY);
-        doc.text('Full Stack Developer & SysAdmin', pageW / 2, 24, { align: 'center' });
-        doc.setTextColor(200, 200, 220); doc.setFontSize(8.5);
-        doc.text('lutfiihsan.web.id  |  +62 812-2626-0649  |  lutficreativesys@gmail.com  |  Bogor, Indonesia', pageW / 2, 32, { align: 'center' });
-        y = 50;
-
-        // Skills (Dynamic)
-        drawSectionHeader('Skills & Abilities');
-        globalPortfolioData.skills.forEach(cat => {
-            checkPage(10);
-            doc.setFontSize(9); doc.setFont('helvetica', 'bold'); doc.setTextColor(...COLOR_DARK);
-            doc.text(cat.category + ':', marginL, y);
-            doc.setFont('helvetica', 'normal'); doc.setTextColor(...COLOR_GRAY);
-            
-            let itemNames = cat.items.map(i => i.name).join('  ·  ');
-            const tagLines = doc.splitTextToSize(itemNames, contentW - 30);
-            doc.text(tagLines, marginL + 30, y);
-            y += Math.max(tagLines.length * 4.5, 5) + 2;
-        });
-        y += 2;
-
-        // Experience (Dynamic)
-        drawSectionHeader('Work Experience');
-        globalPortfolioData.experience.forEach(exp => {
-            checkPage(20);
-            doc.setFontSize(10); doc.setFont('helvetica', 'bold'); doc.setTextColor(...COLOR_DARK); doc.text(exp.company, marginL, y);
-            doc.setFontSize(8.5); doc.setFont('helvetica', 'italic'); doc.setTextColor(...COLOR_PRIMARY); doc.text(exp.period, marginL + contentW, y, { align: 'right' });
-            y += 5;
-            doc.setFontSize(9); doc.setFont('helvetica', 'bolditalic'); doc.setTextColor(...COLOR_GRAY); doc.text(exp.role, marginL, y);
-            y += 5;
-            doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5);
-            exp.tasks.forEach(task => {
-                checkPage(8);
-                const lines = doc.splitTextToSize('• ' + task, contentW - 5);
-                doc.text(lines, marginL + 3, y);
-                y += lines.length * 4.2 + 1;
-            });
-            y += 3; doc.setDrawColor(...COLOR_LIGHTGRAY); doc.line(marginL, y, marginL + contentW, y); y += 3;
-        });
-
-        // Certifications (Dynamic)
-        drawSectionHeader('Licenses & Certifications');
-        globalPortfolioData.certifications.forEach((cert, i) => {
-            checkPage(8);
-            if (i % 2 === 0) { doc.setFillColor(245, 247, 252); doc.rect(marginL, y - 3.5, contentW, 7, 'F'); }
-            doc.setFontSize(9); doc.setFont('helvetica', 'bold'); doc.setTextColor(...COLOR_DARK);
-            const nameLines = doc.splitTextToSize(cert.name, contentW - 40);
-            doc.text(nameLines, marginL + 2, y);
-            doc.setFont('helvetica', 'normal'); doc.setTextColor(...COLOR_GRAY); doc.setFontSize(8);
-            doc.text(cert.issuer, marginL + contentW - 38, y);
-            doc.setTextColor(...COLOR_PRIMARY); doc.text(cert.date, marginL + contentW, y, { align: 'right' });
-            y += nameLines.length > 1 ? nameLines.length * 4.5 : 7;
-        });
-
-        // Footer Pagination
-        const totalPages = doc.internal.getNumberOfPages();
-        for (let i = 1; i <= totalPages; i++) {
-            doc.setPage(i); doc.setFontSize(7.5); doc.setTextColor(180, 180, 200); doc.setFont('helvetica', 'italic');
-            doc.text(`Resume - Lutfi Ihsan  |  Page ${i} of ${totalPages}`, pageW / 2, pageH - 7, { align: 'center' });
-        }
-
-        doc.save('Resume_Lutfi_Ihsan.pdf');
-        btnSpan.innerText = originalText;
-    } catch (err) {
-        console.error('Error generating PDF:', err);
-        alert('Gagal membuat PDF: ' + err.message);
-        btnSpan.innerText = 'Download Resume';
+    // Check if jsPDF is available — retry up to 5x if loaded slowly
+    if (typeof window.jspdf === 'undefined') {
+        let attempts = 0;
+        const retryInterval = setInterval(() => {
+            attempts++;
+            if (typeof window.jspdf !== 'undefined') {
+                clearInterval(retryInterval);
+                _doGeneratePdf();
+            } else if (attempts >= 5) {
+                clearInterval(retryInterval);
+                alert('PDF library could not be loaded. Please refresh the page and try again.');
+            }
+        }, 600);
+        // Show overlay while waiting
+        showPdfOverlay();
+        return;
     }
+
+    _doGeneratePdf();
 }
+
+function _doGeneratePdf() {
+    const btn = document.querySelector('.resumebtn .btn');
+    const btnSpan = btn ? btn.querySelector('span') : null;
+    const btnIcon = btn ? btn.querySelector('i') : null;
+    const originalSpanText = btnSpan ? btnSpan.innerText : 'Download Resume';
+
+    // Show overlay + disable button
+    showPdfOverlay();
+    if (btn) btn.disabled = true;
+    if (btnSpan) btnSpan.innerText = 'Generating…';
+    if (btnIcon) { btnIcon.classList.remove('fa-download'); btnIcon.classList.add('fa-spinner', 'fa-spin'); }
+
+    // Use setTimeout to let overlay render before blocking JS work
+    setTimeout(() => {
+        try {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+            const pageW = 210, pageH = 297, marginL = 15, contentW = pageW - marginL - 15;
+            let y = 0;
+
+            const COLOR_PRIMARY   = [41, 182, 246];
+            const COLOR_DARK      = [30, 30, 47];
+            const COLOR_GRAY      = [100, 100, 120];
+            const COLOR_LIGHTGRAY = [230, 230, 240];
+            const COLOR_WHITE     = [255, 255, 255];
+            const COLOR_ORANGE    = [246, 140, 9];
+
+            function checkPage(needed = 10) {
+                if (y + needed > pageH - 15) { doc.addPage(); y = 15; }
+            }
+
+            function drawSectionHeader(title) {
+                checkPage(14); y += 4;
+                doc.setFillColor(...COLOR_DARK); doc.rect(marginL, y, contentW, 8, 'F');
+                doc.setFillColor(...COLOR_ORANGE); doc.rect(marginL, y, 3, 8, 'F'); // accent bar
+                doc.setTextColor(...COLOR_WHITE); doc.setFontSize(10.5); doc.setFont('helvetica', 'bold');
+                doc.text(title.toUpperCase(), marginL + 6, y + 5.5);
+                doc.setTextColor(...COLOR_DARK); y += 12;
+            }
+
+            // ── HEADER BLOCK ──
+            doc.setFillColor(...COLOR_DARK); doc.rect(0, 0, pageW, 44, 'F');
+            // Accent strip
+            doc.setFillColor(...COLOR_ORANGE); doc.rect(0, 40, pageW, 4, 'F');
+            doc.setTextColor(...COLOR_WHITE); doc.setFontSize(22); doc.setFont('helvetica', 'bold');
+            doc.text('LUTFI IHSAN', pageW / 2, 15, { align: 'center' });
+            doc.setFontSize(11); doc.setFont('helvetica', 'normal');
+            doc.setTextColor(41, 182, 246); // cyan accent
+            doc.text('Full Stack Developer & SysAdmin', pageW / 2, 23, { align: 'center' });
+            doc.setTextColor(190, 195, 220); doc.setFontSize(8.5);
+            doc.text('lutfiihsan.github.io  ·  +62 812-2626-0649  ·  lutficreativesys@gmail.com  ·  Bogor, Indonesia', pageW / 2, 32, { align: 'center' });
+            y = 52;
+
+            // ── SKILLS (Dynamic) ──
+            drawSectionHeader('Skills & Abilities');
+            globalPortfolioData.skills.forEach(cat => {
+                checkPage(10);
+                doc.setFontSize(8.5); doc.setFont('helvetica', 'bold'); doc.setTextColor(...COLOR_DARK);
+                doc.text(cat.category + ':', marginL, y);
+                doc.setFont('helvetica', 'normal'); doc.setTextColor(...COLOR_GRAY);
+                const itemNames = cat.items.map(i => i.name).join('  ·  ');
+                const tagLines = doc.splitTextToSize(itemNames, contentW - 32);
+                doc.text(tagLines, marginL + 32, y);
+                y += Math.max(tagLines.length * 4.5, 5.5) + 1.5;
+            });
+            y += 2;
+
+            // ── WORK EXPERIENCE (Dynamic) ──
+            drawSectionHeader('Work Experience');
+            globalPortfolioData.experience.forEach((exp, idx) => {
+                checkPage(22);
+                if (idx > 0) { doc.setDrawColor(...COLOR_LIGHTGRAY); doc.line(marginL, y - 2, marginL + contentW, y - 2); y += 2; }
+                doc.setFontSize(10); doc.setFont('helvetica', 'bold'); doc.setTextColor(...COLOR_DARK);
+                doc.text(exp.company, marginL, y);
+                doc.setFontSize(8.5); doc.setFont('helvetica', 'italic'); doc.setTextColor(...COLOR_ORANGE);
+                doc.text(exp.period, marginL + contentW, y, { align: 'right' });
+                y += 5;
+                doc.setFontSize(9); doc.setFont('helvetica', 'bolditalic'); doc.setTextColor(...COLOR_GRAY);
+                doc.text(exp.role, marginL, y); y += 5;
+                doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); doc.setTextColor(...COLOR_GRAY);
+                exp.tasks.forEach(task => {
+                    checkPage(8);
+                    const lines = doc.splitTextToSize('• ' + task, contentW - 5);
+                    doc.text(lines, marginL + 3, y);
+                    y += lines.length * 4.2 + 1;
+                });
+                y += 4;
+            });
+
+            // ── CERTIFICATIONS (Dynamic) ──
+            drawSectionHeader('Licenses & Certifications');
+            globalPortfolioData.certifications.forEach((cert, i) => {
+                checkPage(8);
+                if (i % 2 === 0) { doc.setFillColor(246, 248, 252); doc.rect(marginL, y - 3.5, contentW, 7.5, 'F'); }
+                doc.setFontSize(9); doc.setFont('helvetica', 'bold'); doc.setTextColor(...COLOR_DARK);
+                const nameLines = doc.splitTextToSize(cert.name, contentW - 42);
+                doc.text(nameLines, marginL + 2, y);
+                doc.setFont('helvetica', 'normal'); doc.setTextColor(...COLOR_GRAY); doc.setFontSize(8);
+                doc.text(cert.issuer, marginL + contentW - 40, y);
+                doc.setTextColor(...COLOR_ORANGE);
+                doc.text(cert.date, marginL + contentW, y, { align: 'right' });
+                y += nameLines.length > 1 ? nameLines.length * 4.5 : 7.5;
+            });
+
+            // ── FOOTER PAGINATION ──
+            const totalPages = doc.internal.getNumberOfPages();
+            for (let i = 1; i <= totalPages; i++) {
+                doc.setPage(i);
+                doc.setFillColor(...COLOR_DARK); doc.rect(0, pageH - 12, pageW, 12, 'F');
+                doc.setFontSize(7.5); doc.setTextColor(160, 165, 200); doc.setFont('helvetica', 'italic');
+                doc.text(`Resume - Lutfi Ihsan  |  Page ${i} of ${totalPages}`, pageW / 2, pageH - 4.5, { align: 'center' });
+            }
+
+            doc.save('Resume_Lutfi_Ihsan.pdf');
+
+        } catch (err) {
+            console.error('Error generating PDF:', err);
+            alert('Gagal membuat PDF: ' + err.message);
+        } finally {
+            // Always restore UI
+            hidePdfOverlay();
+            const btn2 = document.querySelector('.resumebtn .btn');
+            if (btn2) btn2.disabled = false;
+            if (btnSpan) btnSpan.innerText = originalSpanText;
+            if (btnIcon) { btnIcon.classList.remove('fa-spinner', 'fa-spin'); btnIcon.classList.add('fa-download'); }
+        }
+    }, 80); // small delay to let overlay render
+}
+
 
 // ==========================================
 // EFEK MATRIX DIGITAL RAIN (HACKER VIBE)
