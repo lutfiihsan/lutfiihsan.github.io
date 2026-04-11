@@ -2610,21 +2610,34 @@ body.dark-mode .certifications .box .content .credential-id {
 
 /* Contact Section */
 body.dark-mode .contact { background-color: #0d0f1a !important; }
-body.dark-mode .contact .contact-form form { 
+
+body.dark-mode .contact-container {
   background: #111424 !important; 
-  border-color: #1a1e35 !important; 
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3) !important;
 }
-body.dark-mode .contact .contact-form form .box { 
-  background: #181d33 !important; 
-  color: #ffffff !important; 
-  border-color: #272d4c !important; 
+
+body.dark-mode .contact-info {
+  background: #080912 !important;
 }
-body.dark-mode .contact .contact-info .contact-item { 
-  background: #111424 !important; 
-  border-color: #1a1e35 !important; 
+
+body.dark-mode .contact-form-container {
+  background: #111424 !important;
 }
-body.dark-mode .contact .contact-info .contact-item h3 { color: #ffffff !important; }
-body.dark-mode .contact .contact-info .contact-item p { color: #a0aec0 !important; }
+
+body.dark-mode .input-box input, 
+body.dark-mode .input-box textarea {
+  color: #e2e8f0 !important;
+  border-bottom: 2px solid #2a2d40 !important;
+}
+
+body.dark-mode .input-box label {
+  color: #6a7287 !important;
+}
+
+body.dark-mode .contact-info .info-item address {
+  color: #ffffff !important;
+  font-style: normal;
+}
 
 /* Footer defaults to dark anyway, just ensuring blend */
 body.dark-mode .footer { background: #04050b !important; }
