@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin — Blog | Lutfi Ihsan</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <!-- Simple DataTables CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css">
+  
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Quill Rich Editor -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.snow.css">
+  <link rel="stylesheet" href="./assets/css/admin.css">
+  <link id="favicon" rel="shortcut icon" href="./assets/images/favicon.png" type="image/x-png">
+</head>
+
+<body class="admin-body">
+
+  <!-- ══════════════════════════════════════
+       LOGIN SECTION
+  ══════════════════════════════════════ -->
+  <div id="admin-login" class="admin-login-page" style="display:none;">
+    <div class="login-card">
+      <div class="login-logo">
+        <i class="fas fa-shield-alt"></i>
+        <h1>Lutfi <span>Admin</span></h1>
+      </div>
+      <p class="login-subtitle">Blog Management System</p>
+
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label for="admin-email"><i class="fas fa-envelope"></i> Email</label>
+          <input type="email" id="admin-email" placeholder="admin@email.com" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="admin-pass"><i class="fas fa-lock"></i> Password</label>
+          <input type="password" id="admin-pass" placeholder="••••••••" required autocomplete="current-password">
+        </div>
+
+        <button type="submit" id="btn-login" class="btn-login">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+
+        <button type="submit" class="btn-primary btn-block" id="btn-login">Login</button>
+        <div id="login-error" class="login-error" role="alert"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       DASHBOARD SECTION
+  ══════════════════════════════════════ -->
+  <div id="admin-dashboard" class="admin-layout" style="display:none;">
+
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-logo">
+        <i class="fas fa-shield-alt"></i>
+        <span>Admin</span>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" class="active" id="nav-stats" onclick="switchTab('stats', this)">
+          <i class="fas fa-chart-line"></i> Statistics
+        </a>
+        <a href="#" id="nav-users" onclick="switchTab('users', this)" style="display:none;">
+          <i class="fas fa-users-cog"></i> Users
+        </a>
+        <a href="#" id="nav-posts" onclick="switchTab('posts', this)">
+          <i class="fas fa-newspaper"></i> Posts
+        </a>
+        <a href="blog.html" target="_blank">
+          <i class="fas fa-globe"></i> View Blog
+        </a>
+        <a href="index.html">
+          <i class="fas fa-home"></i> Portfolio
+        </a>
+      </nav>
+      <div class="sidebar-logout">
+        <button class="btn-logout" id="btn-logout">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="admin-main">
+
+      <!-- Topbar -->
+      <div class="admin-topbar">
+        <span class="topbar-title">Blog Posts</span>
+        <div class="topbar-user">
+          <div class="avatar" id="user-avatar">A</div>
+          <span id="user-email">admin</span>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="admin-content" id="section-posts" style="display: none;">
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-icon orange"><i class="fas fa-newspaper"></i></div>
+            <div class="stat-info">
+              <h3 id="stat-total">-</h3>
+              <p>Total Artikel</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green"><i class="fas fa-globe"></i></div>
+            <div class="stat-info">
+              <h3 id="stat-published">-</h3>
+              <p>Published</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon blue"><i class="fas fa-edit"></i></div>
+            <div class="stat-info">
+              <h3 id="stat-draft">-</h3>
+              <p>Draft</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Posts Table -->
+        <div class="section-header">
+          <h2><i class="fas fa-list"></i> Daftar Artikel</h2>
+          <button class="btn-primary" onclick="openEditor()">
+            <i class="fas fa-plus"></i> Artikel Baru
+          </button>
+        </div>
+
+        <div class="posts-table-wrapper">
+          <table class="posts-table" id="table-posts">
+            <thead>
+              <tr>
+                <th>Judul</th>
+                <th>Slug</th>
+                <th>Status</th>
+                <th>Diperbarui</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="posts-tbody">
+              <tr>
+                <td colspan="5">
+                  <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i> Memuat posts...
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ══ STATISTICS SECTION ══ -->
+      <div class="admin-content" id="section-stats" style="display:none;">
+        <div id="stats-loading" class="loading-spinner" style="display:none;">
+          <i class="fas fa-spinner fa-spin"></i> Memuat statistik...
+        </div>
+        <div id="stats-error" class="login-error" style="display:none; text-align:center;">
+          <i class="fas fa-exclamation-circle"></i> Gagal memuat statistik.
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="stats-row" style="grid-template-columns:repeat(3,1fr); margin-bottom:2.5rem;">
+          <div class="stat-card">
+            <div class="stat-icon orange"><i class="fas fa-eye"></i></div>
+            <div class="stat-info">
+              <h3 id="stats-total-views">-</h3>
+              <p>Total Kunjungan</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green"><i class="fas fa-calendar-day"></i></div>
+            <div class="stat-info">
+              <h3 id="stats-today-views">-</h3>
+              <p>Hari Ini</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon blue"><i class="fas fa-users"></i></div>
+            <div class="stat-info">
+              <h3 id="stats-unique-visitors">-</h3>
+              <p>Unique Visitors</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Area Chart: Daily Views -->
+        <div class="stat-chart-card" style="margin-bottom:2.5rem;">
+          <div class="section-header" style="margin-bottom:0;">
+            <h2><i class="fas fa-chart-area"></i> Kunjungan 30 Hari Terakhir</h2>
+            <button class="btn-sm btn-edit" onclick="loadStats()"><i class="fas fa-sync-alt"></i> Refresh</button>
+          </div>
+          <div id="chart-daily" style="height:300px;"></div>
+        </div>
+
+        <!-- Row 2: Bar Top Pages + Pie Device -->
+        <div class="stats-two-col" style="margin-bottom:2.5rem;">
+          <div class="stat-chart-card">
+            <h3 class="stat-panel-title"><i class="fas fa-chart-bar"></i> Halaman Terpopuler</h3>
+            <div id="chart-top-pages" style="height:280px;"></div>
+          </div>
+          <div class="stat-chart-card">
+            <h3 class="stat-panel-title"><i class="fas fa-chart-pie"></i> Device Breakdown</h3>
+            <div id="chart-device" style="height:280px;"></div>
+          </div>
+        </div>
+
+        <!-- Bar Chart: Top Blog Posts -->
+        <div class="stat-chart-card" style="margin-bottom:2.5rem;">
+          <h3 class="stat-panel-title"><i class="fas fa-pencil-alt"></i> Artikel Blog Terpopuler</h3>
+          <div id="chart-top-posts" style="height:260px;"></div>
+        </div>
+
+        <!-- Bar Chart: Traffic Sources (Referrers) -->
+        <div class="stat-chart-card" style="margin-bottom:2.5rem;">
+          <h3 class="stat-panel-title"><i class="fas fa-share-alt"></i> Traffic Sources</h3>
+          <div id="chart-referrers" style="height:240px;"></div>
+        </div>
+
+        <!-- 🗺️ World Map: Visitors by Country -->
+        <div class="stat-chart-card">
+          <div class="section-header" style="margin-bottom:1.5rem;">
+            <h2><i class="fas fa-globe-asia"></i> Pengunjung per Negara</h2>
+            <span class="badge badge-draft" style="font-size:1.1rem;">Data baru akan muncul setelah kunjungan tercatat</span>
+          </div>
+          <div id="chart-map" style="height:400px;"></div>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════
+           USERS SECTION (RBAC ROLE MGMT)
+      ══════════════════════════════════════ -->
+      <div class="admin-content" id="section-users" style="display:none;">
+        <div class="section-header">
+          <h2><i class="fas fa-users-cog"></i> Manajemen Pengguna</h2>
+          <button class="btn-primary" onclick="Swal.fire({title:'Info',text:'Gunakan fitur Invite User di Supabase Dashboard untuk mengundang pengurus baru secara aman.',icon:'info',background:'#13132a',color:'#f0f0ff',confirmButtonText:'Paham'})">
+            <i class="fas fa-user-plus"></i> Tambah User
+          </button>
+        </div>
+        
+        <div class="post-actions" style="margin-bottom: 2rem;">
+          <p style="color:var(--text-muted); font-size:1.4rem;">
+            Kelola peran hak akses tim Anda secara mudah. 
+            Peran <span style="color:#667eea;font-weight:600;">Admin</span> memiliki akses kontrol universal, sedangkan <span style="color:#f68c09;font-weight:600;">Editor</span> hanya dapat mengedit dan mem-publish artikel.
+          </p>
+        </div>
+
+        <div class="table-card" style="box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: var(--radius);">
+          <table class="posts-table" id="table-users">
+            <thead>
+              <tr>
+                <th style="width: 40%">Akun Email</th>
+                <th style="width: 20%">Hak Akses (Role)</th>
+                <th style="width: 20%">Bergabung Sejak</th>
+                <th style="width: 20%">Aksi Admin</th>
+              </tr>
+            </thead>
+            <tbody id="users-tbody">
+              <!-- Users populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div> <!-- End of admin-main -->
+  </div> <!-- End of admin-layout -->
+
+  <!-- ══════════════════════════════════════
+       EDITOR MODAL
+  ══════════════════════════════════════ -->
+  <div id="post-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="modal-title">Artikel Baru</h2>
+        <button class="btn-close" onclick="closeEditor()" aria-label="Tutup"><i class="fas fa-times"></i></button>
+      </div>
+
+      <div id="modal-loading" class="loading-spinner" style="display:none;">
+        <i class="fas fa-spinner fa-spin"></i> Memuat data artikel...
+      </div>
+
+      <form id="post-form" style="display:block;">
+        <input type="hidden" id="post-id">
+
+        <div class="form-group">
+          <label for="post-title">Judul Artikel *</label>
+          <input type="text" id="post-title" placeholder="Masukkan judul artikel..." required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="post-slug">Slug (URL)</label>
+            <input type="text" id="post-slug" placeholder="auto-generated-from-title">
+          </div>
+          <div class="form-group">
+            <label for="post-published">Status</label>
+            <select id="post-published">
+              <option value="0">📝 Draft</option>
+              <option value="1">🌐 Published</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="post-excerpt">Ringkasan / Excerpt</label>
+          <textarea id="post-excerpt" placeholder="Deskripsi singkat artikel..." rows="2" style="min-height: 80px;"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="post-content">Konten Artikel *</label>
+          <div class="quill-wrapper">
+            <div id="quill-editor"></div>
+          </div>
+          <!-- Hidden textarea to hold HTML value for form submit -->
+          <textarea id="post-content" style="display:none;"></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="post-cover">URL Gambar Cover</label>
+            <input type="url" id="post-cover" placeholder="https://...">
+          </div>
+          <div class="form-group">
+            <label for="post-tags">Tags (pisah dengan koma)</label>
+            <input type="text" id="post-tags" placeholder="Laravel, PHP, Tutorial">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeEditor()">
+            <i class="fas fa-times"></i> Batal
+          </button>
+          <button type="submit" id="btn-save" class="btn-primary">
+            <i class="fas fa-save"></i> Simpan
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- CDN Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.js"></script>
+  <!-- Highcharts Suite -->
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/highcharts-more.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="./assets/js/env.js"></script>
+  <script src="./assets/js/supabase.js"></script>
+  <script src="./assets/js/stats.js"></script>
+  <!-- Simple DataTables JS -->
+  <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+  <script src="./assets/js/admin.js"></script>
+</body>
+</html>

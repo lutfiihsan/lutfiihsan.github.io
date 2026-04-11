@@ -1,0 +1,45 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Inject Supabase Secrets (env.js)
+        run: |
+          mkdir -p assets/js
+          echo "window.ENV = {" > assets/js/env.js
+          echo "  SUPABASE_URL: '${{ secrets.SUPABASE_URL }}'," >> assets/js/env.js
+          echo "  SUPABASE_ANON: '${{ secrets.SUPABASE_KEY }}'" >> assets/js/env.js
+          echo "};" >> assets/js/env.js
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

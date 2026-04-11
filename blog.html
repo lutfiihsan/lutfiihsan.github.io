@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | Lutfi Ihsan — Full Stack Developer</title>
+  <meta name="description" content="Artikel, tutorial, dan insight seputar teknologi dari Lutfi Ihsan — Full Stack Developer & SysAdmin.">
+  <meta name="author" content="Lutfi Ihsan">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/blog.css">
+  <link id="favicon" rel="shortcut icon" href="./assets/images/favicon.png" type="image/x-png">
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <header>
+    <a href="index.html" class="logo" aria-label="Portfolio — Lutfi Ihsan">
+      <i class="fab fa-php" aria-hidden="true"></i> Lutfi
+    </a>
+    <div id="menu" class="fas fa-bars" aria-label="Toggle navigation" role="button" tabindex="0"></div>
+    <nav class="navbar" aria-label="Main Navigation">
+      <ul>
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="index.html#work">Projects</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Blog Hero -->
+    <section class="blog-hero">
+      <div class="blog-hero-content">
+        <div class="hero-badge"><i class="fas fa-pencil-alt"></i> Blog & Tulisan</div>
+        <h1>Tulisan <span>Teknis</span> & Insight</h1>
+        <p>Catatan, tutorial, dan pemikiran seputar Full Stack Development, SysAdmin, dan teknologi modern.</p>
+      </div>
+    </section>
+
+    <!-- Posts Grid -->
+    <section class="blog-section">
+      <div class="blog-container">
+        <div id="blog-posts-grid" class="blog-grid">
+          <!-- Rendered by JS -->
+          <div class="blog-loading"><i class="fas fa-spinner fa-spin"></i> Memuat artikel...</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="box-container">
+      <div class="box">
+        <h3>Lutfi Ihsan</h3>
+        <p>Full Stack Developer &amp; SysAdmin. Berbagi pengetahuan dan pengalaman melalui tulisan.</p>
+      </div>
+      <div class="box">
+        <h3>Navigation</h3>
+        <a href="index.html"><i class="fas fa-chevron-circle-right"></i> Portfolio</a>
+        <a href="blog.html"><i class="fas fa-chevron-circle-right"></i> Blog</a>
+        <a href="index.html#contact"><i class="fas fa-chevron-circle-right"></i> Contact</a>
+      </div>
+      <div class="box">
+        <h3>Admin</h3>
+        <a href="admin.html"><i class="fas fa-shield-alt"></i> Login Admin</a>
+      </div>
+    </div>
+    <p class="credit">Built &amp; Optimized with <i class="fa fa-heart pulse"></i> by <a href="https://www.linkedin.com/in/lutfi-ihsan-44988b180/">Lutfi Ihsan</a></p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./assets/js/env.js"></script>
+  <script src="./assets/js/supabase.js"></script>
+  <script src="./assets/js/blog.js"></script>
+  <script src="./assets/js/tracker.js"></script>
+  <script>
+    // Simple navbar toggle reuse
+    const menuBtn = document.getElementById('menu');
+    if (menuBtn) {
+      menuBtn.addEventListener('click', () => {
+        menuBtn.classList.toggle('fa-times');
+        document.querySelector('.navbar').classList.toggle('nav-toggle');
+      });
+    }
+  </script>
+</body>
+</html>
