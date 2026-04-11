@@ -563,7 +563,7 @@ header .navbar ul li a:hover {
 
 /* about section starts */
 .about {
-  background: #fdfdfd; /* Disamakan dengan Experience agar transisi section mulus */
+  background: #f8fafc; /* Disamakan dengan Experience agar transisi section mulus */
   padding-bottom: 5rem;
 }
 .about .heading {
@@ -783,7 +783,7 @@ header .navbar ul li a:hover {
 
 /* skills section starts */
 .skills {
-  background: #f0f2f8;
+  background: #eef2f6;
   min-height: 90vh;
   padding-bottom: 7rem;
   position: relative;
@@ -1035,7 +1035,7 @@ header .navbar ul li a:hover {
 
 /* education section starts */
 .education {
-  background: #e5ecfb; /* Warna biru pucat kalem sebagai pembeda dari section About */
+  background: #f8fafc; /* Warna biru pucat kalem sebagai pembeda dari section About */
   padding-bottom: 7rem;
 }
 .education .heading {
@@ -1172,7 +1172,7 @@ header .navbar ul li a:hover {
 
 /* work section starts */
 .work {
-  background: #f4f6fb;
+  background: #eef2f6;
   padding-bottom: 7rem;
 }
 .work h2 {
@@ -1397,7 +1397,7 @@ header .navbar ul li a:hover {
 
 /* experience section starts */
 .experience {
-  background: #fdfdfd;
+  background: #eef2f6;
 }
 .experience .timeline {
   position: relative;
@@ -1466,8 +1466,8 @@ header .navbar ul li a:hover {
   background-color: #ffffff;
   position: relative;
   border-radius: 18px;
-  box-shadow: 0 10px 30px rgba(2, 9, 75, 0.05);
-  border: 1px solid #f0f2f5;
+  box-shadow: 0 8px 30px rgba(2, 9, 75, 0.08); /* Darkened the shadow from 0.05 to 0.08 */
+  border: 1px solid #e5e7eb;
   transition: all 0.35s ease;
   overflow: visible; 
 }
@@ -1648,7 +1648,7 @@ header .navbar ul li a:hover {
 
 /* certifications section starts */
 .certifications {
-  background: #f9f9fb;
+  background: #f8fafc;
   min-height: 80vh;
   padding-bottom: 7rem;
 }
@@ -1780,7 +1780,7 @@ header .navbar ul li a:hover {
 
 /* contact section starts */
 .contact {
-  background: #fdfdfd;
+  background: #eef2f6;
   padding-bottom: 7rem;
 }
 .contact .heading {
@@ -2314,7 +2314,7 @@ header .navbar ul li a:hover {
 
 .repos {
   padding: 5rem 9%;
-  background: #f9f9f9;
+  background: #f8fafc;
 }
 
 .repos-subtitle {
@@ -2341,7 +2341,8 @@ header .navbar ul li a:hover {
 
 .repo-card {
   background: #fff;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
   border-radius: 12px;
   padding: 2rem;
   transition: all 0.25s ease;
