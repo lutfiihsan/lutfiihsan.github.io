@@ -1598,70 +1598,133 @@ header .navbar ul li a:hover {
 
 /* certifications section starts */
 .certifications {
-  background: #e5ecfb; /* Warna background kalem disamakan dengan section Education */
+  background: #f9f9fb;
   min-height: 80vh;
+  padding-bottom: 7rem;
 }
 .certifications h2 {
-  color: rgb(32, 32, 32);
+  color: #02094b;
 }
 .certifications .heading span {
-  color: rgb(115, 3, 167);
+  color: #f68c09;
 }
 .certifications .box-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
-  margin-top: 3rem;
+  gap: 2.5rem;
+  margin-top: 4rem;
 }
+
+/* Premium Card */
 .certifications .box {
   background: #ffffff;
-  border-radius: 1rem;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-  padding: 2.5rem;
-  transition: transform 0.3s ease;
+  border-radius: 18px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  padding: 3rem 2.5rem;
+  transition: all 0.35s ease;
   display: flex;
-  align-items: flex-start;
-  border-top: 4px solid #f68c09; /* Aksen oranye di atas card */
+  flex-direction: column;
   position: relative;
   overflow: hidden;
+  border: 1px solid #f0f2f6;
+}
+/* Orange Accent Line Top */
+.certifications .box::before {
+  content: "";
+  position: absolute;
+  top: 0; 
+  left: 0; 
+  right: 0;
+  height: 5px;
+  background: linear-gradient(135deg, #f68c09, #ffae00);
+  transition: height 0.3s ease;
 }
 .certifications .box:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(2, 9, 75, 0.1);
+  border-color: rgba(246, 140, 9, 0.25);
 }
+
+/* Glowing Ribbon/Certificate Icon */
 .certifications .box .icon {
-  font-size: 3.5rem;
-  color: #02094b; /* Biru gelap */
-  margin-right: 2rem;
-  margin-top: 0.5rem;
+  font-size: 2.6rem;
+  color: #f68c09;
+  background: rgba(246, 140, 9, 0.1);
+  width: 6.5rem;
+  height: 6.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+  margin-bottom: 2rem;
+  transition: all 0.4s ease;
 }
+.certifications .box:hover .icon {
+  background: linear-gradient(135deg, #f68c09, #ffae00);
+  color: #fff;
+  transform: scale(1.08) rotate(5deg);
+  box-shadow: 0 10px 25px rgba(246, 140, 9, 0.35);
+}
+
+/* Content Area */
 .certifications .box .content {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 .certifications .box .content h3 {
-  font-size: 1.7rem;
+  font-size: 1.85rem;
   color: #02094b;
-  font-weight: 700;
-  margin-bottom: 0.8rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
   line-height: 1.4;
+  letter-spacing: -0.02em;
 }
+
+/* Issuer Pill Badge */
 .certifications .box .content .issuer {
-  font-size: 1.4rem;
-  color: #f68c09;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
+  font-size: 1.15rem;
+  color: #0084ff;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  display: inline-block;
+  padding: 0.5rem 1.4rem;
+  background: rgba(0, 132, 255, 0.1);
+  border-radius: 50px;
+  align-self: flex-start;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
+
+/* Date */
 .certifications .box .content .date {
-  font-size: 1.3rem;
-  color: #555;
-  margin-bottom: 0.5rem;
+  font-size: 1.35rem;
+  color: #666;
   font-weight: 600;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
 }
+.certifications .box .content .date::before {
+  content: '\f073'; /* FontAwesome calendar */
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: #a0a5ba;
+  font-size: 1.3rem;
+}
+
+/* Credential ID Monospace Box */
 .certifications .box .content .credential-id {
   font-size: 1.2rem;
-  color: #888;
-  font-family: monospace; /* Font ala kode agar terlihat lebih teknis */
+  color: #777;
+  font-family: 'Courier New', Courier, monospace; 
   word-break: break-all;
+  background: #f4f6fa;
+  padding: 0.9rem 1.2rem;
+  border-radius: 8px;
+  border: 1px dashed #d0d7e5;
+  margin-top: auto; /* Memastikan kotak ini selalu di bawah card */
 }
 /* certifications section ends */
 
