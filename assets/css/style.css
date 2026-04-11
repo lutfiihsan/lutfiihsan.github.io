@@ -229,8 +229,7 @@ header {
   transition: all 0.3s ease;
 }
 section {
-  min-height: 100vh;
-  padding: 2rem 9%;
+  padding: 5rem 9%;
 }
 main {
   display: block;
@@ -938,8 +937,6 @@ header .navbar ul li a.active {
 /* skills section starts */
 .skills {
   background: #eef2f6;
-  min-height: 90vh;
-  padding-bottom: 7rem;
   position: relative;
 }
 .skills::before {
@@ -1190,7 +1187,6 @@ header .navbar ul li a.active {
 /* education section starts */
 .education {
   background: #f8fafc; /* Warna biru pucat kalem sebagai pembeda dari section About */
-  padding-bottom: 7rem;
 }
 .education .heading {
   color: #02094b;
@@ -1327,7 +1323,6 @@ header .navbar ul li a.active {
 /* work section starts */
 .work {
   background: #eef2f6;
-  padding-bottom: 7rem;
 }
 .work h2 {
   color: #02094b;
@@ -1713,10 +1708,7 @@ header .navbar ul li a.active {
   letter-spacing: 0.05em;
 }
 .experience .content .desc p::before {
-  content: '\f017'; /* clock icon */
-  font-family: 'Font Awesome 5 Free';
-  margin-right: 0.6rem;
-  font-weight: 900;
+  display: none; /* Removed double icon, icon now in HTML */
 }
 
 /* List Jobdesc */
@@ -1777,7 +1769,6 @@ header .navbar ul li a.active {
 /* Media queries - Responsive timeline on screens less than 600px wide */
 @media screen and (max-width: 600px) {
   .experience {
-    min-height: 80vh;
   }
   .experience .timeline {
     margin-top: 2rem;
@@ -1947,7 +1938,6 @@ header .navbar ul li a.active {
 /* certifications section starts */
 .certifications {
   background: #f8fafc;
-  min-height: 80vh;
   padding-bottom: 7rem;
 }
 .certifications h2 {
@@ -2079,7 +2069,6 @@ header .navbar ul li a.active {
 /* contact section starts */
 .contact {
   background: #eef2f6;
-  padding-bottom: 7rem;
 }
 .contact .heading {
   color: #02094b;
@@ -3027,6 +3016,38 @@ body.dark-mode .experience .left::before { border-color: transparent transparent
 body.dark-mode .experience .right::before { border-color: transparent #111424 transparent transparent !important; }
 body.dark-mode .experience .container::after { background-color: #0d0f1a !important; }
 
+/* Tiered Experience Dark Mode Fix */
+body.dark-mode .tiered-role {
+  background: #181d33 !important;
+  border-color: #272d4c !important;
+}
+body.dark-mode .role-summary {
+  background: #111424 !important;
+}
+body.dark-mode .role-summary:hover {
+  background: #181d33 !important;
+}
+body.dark-mode .role-title {
+  color: #ffffff !important;
+}
+body.dark-mode .role-badge {
+  color: #a0aec0 !important;
+}
+body.dark-mode .role-body {
+  background: #181d33 !important;
+  border-top-color: #272d4c !important;
+}
+body.dark-mode .role-body ul li {
+  color: #cbd5e1 !important;
+}
+body.dark-mode .total-period {
+  background-color: rgba(66, 153, 225, 0.15) !important;
+  color: #63b3ed !important;
+}
+body.dark-mode .tiered-timeline-container {
+  border-left-color: #2d3748 !important;
+}
+
 /* Certifications Section */
 body.dark-mode .certifications { background-color: #080912 !important; }
 body.dark-mode .certifications .box { 
@@ -3097,8 +3118,6 @@ body.dark-mode .footer { background: #04050b !important; }
    ================================================ */
 .awards {
   background: linear-gradient(135deg, #02094b 0%, #0e1560 100%);
-  min-height: auto;
-  padding: 6rem 9% 7rem;
   position: relative;
   overflow: hidden;
 }
