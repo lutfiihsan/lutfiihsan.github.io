@@ -346,8 +346,12 @@ function initViewMoreLogic() {
     viewMoreProjectsBtn.off('click').on('click', function(){
         const hiddenProjects = $('.work .box-container .box.hidden-item');
         if(hiddenProjects.length > 0) {
-            hiddenProjects.removeClass('hidden-item').hide().fadeIn(600);
-            hiddenProjects.attr('style', ''); // Clear any lingering ScrollReveal junk
+            // First clear ScrollReveal's stubborn inline overrides, then animate nicely
+            hiddenProjects.css({
+                'visibility': 'visible',
+                'transform': 'none'
+            }).removeClass('hidden-item').hide().fadeIn(600);
+            
             $(this).html('<span>View Less</span> <i class="fas fa-chevron-up"></i>');
         } else {
             projectItems.slice(itemsToShow).addClass('hidden-item');
@@ -368,8 +372,11 @@ function initViewMoreLogic() {
     viewMoreCertsBtn.off('click').on('click', function(){
         const hiddenCerts = $('.certifications .box-container .box.hidden-item');
         if(hiddenCerts.length > 0) {
-            hiddenCerts.removeClass('hidden-item').hide().fadeIn(600);
-            hiddenCerts.attr('style', '');
+            hiddenCerts.css({
+                'visibility': 'visible',
+                'transform': 'none'
+            }).removeClass('hidden-item').hide().fadeIn(600);
+            
             $(this).html('<span>View Less</span> <i class="fas fa-chevron-up"></i>');
         } else {
             certItems.slice(itemsToShow).addClass('hidden-item');
