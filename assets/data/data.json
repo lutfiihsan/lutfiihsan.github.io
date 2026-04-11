@@ -326,7 +326,7 @@
     ],
     "projects": [
         {
-            "title": "Ummi CRM",
+            "title": "Ummi CRM (2026)",
             "image": "./assets/images/projects/ummi-crm.png",
             "status": "Online",
             "statusClass": "status-online",
@@ -340,7 +340,7 @@
                 "Bootstrap",
                 "REST API"
             ],
-            "year": "2024",
+            "year": "2026",
             "type": "Omnichannel CRM",
             "viewLink": "https://crm.ummifoundation.com",
             "codeLink": null,
@@ -697,7 +697,14 @@
             "period": "Mar 2018 - Aug 2021 · 3 yr 6 mo",
             "location": "Jakarta",
             "employmentType": "Contract",
-            "tech": ["PHP", "WebGIS", "Python", "Google Apps Script", "VBA", "Microsoft Excel"],
+            "tech": [
+                "PHP",
+                "WebGIS",
+                "Python",
+                "Google Apps Script",
+                "VBA",
+                "Microsoft Excel"
+            ],
             "align": "left",
             "roles": [
                 {

@@ -2251,8 +2251,8 @@ header .navbar ul li a.active {
 
 /* footer section starts */
 .footer {
-  background: #01041a;
-  padding: 6rem 9% 2rem;
+  background: #010115;
+  padding: 8rem 9% 3rem;
   position: relative;
   overflow: hidden;
 }
@@ -2260,61 +2260,61 @@ header .navbar ul li a.active {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 4px;
-  background: linear-gradient(to right, #00b8ff, #764ba2, #f68c09);
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(246, 140, 9, 0.5), transparent);
 }
 .footer .box-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 3rem;
-  margin-bottom: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 4rem;
+  margin-bottom: 5rem;
 }
 .footer .box-container .box h3 {
-  font-size: 2.2rem;
+  font-size: 2.4rem;
   color: #fff;
-  padding-bottom: 1.5rem;
   font-weight: 700;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
   position: relative;
+  letter-spacing: -0.01em;
 }
 .footer .box-container .box h3::after {
   content: '';
   position: absolute;
-  bottom: 0; left: 0;
-  width: 40px;
-  height: 3px;
+  bottom: -0.8rem; left: 0;
+  width: 30px;
+  height: 2px;
   background: #f68c09;
   border-radius: 2px;
 }
 .footer .box-container .box p {
-  font-size: 1.45rem;
-  color: #a8b2d1;
-  padding: 0.7rem 0;
-  line-height: 1.8;
+  font-size: 1.5rem;
+  color: #a0aec0;
+  padding: 0.5rem 0;
+  line-height: 1.7;
 }
 .footer .box-container .box p i {
-  padding-right: 1.2rem;
+  padding-right: 1rem;
   color: #f68c09;
   font-size: 1.6rem;
-  width: 3rem;
+  width: 2.5rem;
   text-align: center;
 }
 .footer .box-container .box a {
-  font-size: 1.45rem;
-  color: #a8b2d1;
-  padding: 0.5rem 0;
+  font-size: 1.5rem;
+  color: #a0aec0;
+  padding: 0.8rem 0;
   display: block;
   transition: all 0.3s ease;
 }
 .footer .box-container .box a:hover {
   color: #f68c09;
-  transform: translateX(5px);
+  padding-left: 0.8rem;
 }
 .footer .box-container .box .share {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.2rem;
-  margin-top: 1rem;
+  gap: 1.5rem;
+  margin-top: 2rem;
 }
 .footer .box-container .box .share a {
   height: 4.5rem;
@@ -2322,12 +2322,12 @@ header .navbar ul li a.active {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  font-size: 1.8rem;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  font-size: 2rem;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.03);
   color: #fff;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 0;
 }
 .footer .box-container .box .share a:hover {
@@ -2335,32 +2335,45 @@ header .navbar ul li a.active {
   border-color: #f68c09;
   transform: translateY(-5px);
   color: #fff;
-  box-shadow: 0 10px 20px rgba(246, 140, 9, 0.3);
+  box-shadow: 0 10px 20px rgba(246, 140, 9, 0.2);
 }
 .footer .credit {
-  padding: 2.5rem 0 1rem;
+  padding: 3rem 0;
   text-align: center;
-  font-size: 1.4rem;
-  font-family: inherit;
+  font-size: 1.5rem;
   font-weight: 500;
-  color: #8892b0;
-  border-top: 1px solid rgba(255,255,255,0.08);
+  color: #718096;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  letter-spacing: 0.02em;
 }
 .footer .credit a {
   color: #f68c09;
   font-weight: 700;
+  position: relative;
+  transition: all 0.3s ease;
 }
-.footer .fa {
-  color: #ff3366;
+.footer .credit a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0;
+  height: 1px;
+  background: #f68c09;
+  transition: width 0.3s ease;
+}
+.footer .credit a:hover::after {
+  width: 100%;
+}
+.footer .pulse {
+  color: #ff3e3e;
   margin: 0 0.5rem;
-  font-size: 1.5rem;
-  animation: pound 0.35s infinite alternate;
+  font-size: 1.6rem;
+  animation: pulse 1.5s infinite;
 }
-@-webkit-keyframes pound {
-  to { transform: scale(1.2); }
-}
-@keyframes pound {
-  to { transform: scale(1.2); }
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
 }
 @media (max-width: 450px) {
   .footer .box-container .box {
