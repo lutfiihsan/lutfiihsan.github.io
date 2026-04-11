@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <load src="./partials/admin-head.html" />
   <title>Admin — Blog | Lutfi Ihsan</title>
@@ -28,27 +29,37 @@
           <label for="admin-pass">Password</label>
           <i class="fas fa-lock input-icon"></i>
           <input type="password" id="admin-pass" placeholder="Password" required autocomplete="current-password">
-          <i class="fas fa-eye-slash right-icon" onclick="const p = document.getElementById('admin-pass'); if(p.type==='password'){p.type='text'; this.classList.remove('fa-eye-slash'); this.classList.add('fa-eye');} else {p.type='password'; this.classList.remove('fa-eye'); this.classList.add('fa-eye-slash');}"></i>
+          <i class="fas fa-eye-slash right-icon"
+            onclick="const p = document.getElementById('admin-pass'); if(p.type==='password'){p.type='text'; this.classList.remove('fa-eye-slash'); this.classList.add('fa-eye');} else {p.type='password'; this.classList.remove('fa-eye'); this.classList.add('fa-eye-slash');}"></i>
         </div>
 
-        <a href="#" class="forgot-pass" onclick="alert('Fitur Reset Password dinonaktifkan sementara.'); event.preventDefault();">Forgot password?</a>
+        <a href="#" class="forgot-pass"
+          onclick="alert('Fitur Reset Password dinonaktifkan sementara.'); event.preventDefault();">Forgot password?</a>
 
         <button type="submit" id="btn-login" class="btn-login">
           Get Started
         </button>
 
         <div class="login-divider">
-            <span>Or sign in with</span>
+          <span>Or sign in with</span>
         </div>
 
         <div class="social-login">
-            <button type="button" class="social-btn google" onclick="alert('Autentikasi Google sedang dalam pengembangan.')"><i class="fab fa-google"></i></button>
-            <button type="button" class="social-btn facebook" onclick="alert('Autentikasi Facebook sedang dalam pengembangan.')"><i class="fab fa-facebook-f"></i></button>
-            <button type="button" class="social-btn apple" onclick="alert('Autentikasi Apple sedang dalam pengembangan.')"><i class="fab fa-apple"></i></button>
+          <button type="button" class="social-btn google"
+            onclick="alert('Autentikasi Google sedang dalam pengembangan.')"><i class="fab fa-google"></i></button>
+          <button type="button" class="social-btn facebook"
+            onclick="alert('Autentikasi Facebook sedang dalam pengembangan.')"><i
+              class="fab fa-facebook-f"></i></button>
+          <button type="button" class="social-btn apple"
+            onclick="alert('Autentikasi Apple sedang dalam pengembangan.')"><i class="fab fa-apple"></i></button>
         </div>
 
         <div id="login-error" class="login-error" role="alert"></div>
       </form>
+
+      <a href="index" class="back-to-home">
+        <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+      </a>
     </div>
   </div>
 
@@ -193,7 +204,8 @@
         <div class="stat-chart-card">
           <div class="section-header" style="margin-bottom:1.5rem;">
             <h2><i class="fas fa-globe-asia"></i> Pengunjung per Negara</h2>
-            <span class="badge badge-draft" style="font-size:1.1rem;">Data baru akan muncul setelah kunjungan tercatat</span>
+            <span class="badge badge-draft" style="font-size:1.1rem;">Data baru akan muncul setelah kunjungan
+              tercatat</span>
           </div>
           <div id="chart-map" style="height:400px;"></div>
         </div>
@@ -205,15 +217,17 @@
       <div class="admin-content" id="section-users" style="display:none;">
         <div class="section-header">
           <h2><i class="fas fa-users-cog"></i> Manajemen Pengguna</h2>
-          <button class="btn-primary" onclick="Swal.fire({title:'Info',text:'Gunakan fitur Invite User di Supabase Dashboard untuk mengundang pengurus baru secara aman.',icon:'info',confirmButtonText:'Paham'})">
+          <button class="btn-primary"
+            onclick="Swal.fire({title:'Info',text:'Gunakan fitur Invite User di Supabase Dashboard untuk mengundang pengurus baru secara aman.',icon:'info',confirmButtonText:'Paham'})">
             <i class="fas fa-user-plus"></i> Tambah User
           </button>
         </div>
-        
+
         <div class="post-actions" style="margin-bottom: 2rem;">
           <p style="color:var(--text-muted); font-size:1.4rem;">
-            Kelola peran hak akses tim Anda secara mudah. 
-            Peran <span style="color:#667eea;font-weight:600;">Admin</span> memiliki akses kontrol universal, sedangkan <span style="color:#f68c09;font-weight:600;">Editor</span> hanya dapat mengedit dan mem-publish artikel.
+            Kelola peran hak akses tim Anda secara mudah.
+            Peran <span style="color:#667eea;font-weight:600;">Admin</span> memiliki akses kontrol universal, sedangkan
+            <span style="color:#f68c09;font-weight:600;">Editor</span> hanya dapat mengedit dan mem-publish artikel.
           </p>
         </div>
 
@@ -241,4 +255,5 @@
 
   <load src="./partials/admin-scripts.html" />
 </body>
+
 </html>

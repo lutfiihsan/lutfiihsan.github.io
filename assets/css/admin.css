@@ -238,6 +238,36 @@ body.admin-body {
     display: none;
 }
 
+.back-to-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-top: 3.5rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.03);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.back-to-home:hover {
+    color: var(--accent);
+    background: rgba(0,0,0,0.06);
+    transform: translateX(-4px);
+}
+
+.back-to-home i {
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+}
+
+.back-to-home:hover i {
+    transform: translateX(-2px);
+}
+
 /* ── ADMIN DASHBOARD LAYOUT ── */
 .admin-layout {
     display: flex;
