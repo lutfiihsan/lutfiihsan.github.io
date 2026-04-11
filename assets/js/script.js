@@ -79,6 +79,7 @@ async function fetchDataAndRender() {
             renderExperience(data.experience);
             renderCertifications(data.certifications);
             renderGithubRepos(data.githubRepos || []);
+            if (data.awards && data.awards.length) renderAwards(data.awards);
 
             // Init animasi VanillaTilt & fitur View More setelah DOM diisi
             VanillaTilt.init(document.querySelectorAll(".tilt"), { max: 15 });
@@ -330,7 +331,31 @@ function renderCertifications(certs) {
     document.getElementById("certifications-container").innerHTML = html;
 }
 
-// --- VIEW MORE LOGIC ---
+// --- AWARDS / HONORS ---
+function renderAwards(awards) {
+    const container = document.getElementById('awards-container');
+    if (!container) return;
+
+    let html = awards.map(award => {
+        return `
+        <article class="award-card" role="listitem" style="--award-color: ${award.color || '#f68c09'}">
+            <div class="award-icon-wrap">
+                <i class="${award.icon} award-icon" aria-hidden="true"></i>
+            </div>
+            <div class="award-content">
+                <div class="award-meta">
+                    <span class="award-issuer"><i class="fas fa-building" aria-hidden="true"></i> ${award.issuer}</span>
+                    <span class="award-date"><i class="fas fa-calendar-alt" aria-hidden="true"></i> ${award.date}</span>
+                </div>
+                <h3 class="award-title">${award.title}</h3>
+                <p class="award-desc">${award.description}</p>
+            </div>
+        </article>`;
+    }).join('');
+
+    container.innerHTML = html;
+}
+
 function initViewMoreLogic() {
     const itemsToShow = 6; 
     
@@ -652,6 +677,7 @@ function initScrollReveal() {
     srtop.reveal('.work .box', { interval: 200 });
     srtop.reveal('.experience .timeline', { delay: 400 });
     srtop.reveal('.experience .timeline .container', { interval: 400 });
+    srtop.reveal('.award-card', { interval: 150, origin: 'bottom', distance: '40px' });
     srtop.reveal('.contact .container', { delay: 400 });
 }
 
