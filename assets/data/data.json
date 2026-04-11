@@ -606,15 +606,15 @@
             ],
             "align": "left",
             "tasks": [
-                "Architected and launched an omnichannel WhatsApp CRM platform (crm.ummifoundation.com) with multi-agent live chat, broadcast messaging, and Sentry Webhook monitoring for real-time error alerting.",
-                "Developed Help Desk Sheet \u2014 a developer task management system integrated with WA Gateway for instant notifications and Sentry for automatic bug-report escalation.",
+                "Architected and launched an omnichannel WhatsApp CRM platform (crm.ummifoundation.com) featuring multi-agent live chat, broadcast messaging, and Sentry implementation for logging and monitoring issues & bugs.",
+                "Developed Help Desk Sheet \u2014 a developer task management system integrated with WA Gateway for instant notifications and Sentry for automatic bug-report monitoring and tracking.",
                 "Administer and monitor server infrastructure to ensure high availability, optimal performance, and strict security compliance.",
                 "Coordinate and oversee programming tasks, facilitating seamless collaboration and efficient delivery within the development team."
             ]
         },
         {
             "company": "Kementerian Kelautan dan Perikanan RI",
-            "role": "Backend Programmer | Contract",
+            "isGrouped": true,
             "period": "Aug 2021 - Present",
             "location": "Jakarta",
             "employmentType": "Contract",
@@ -631,12 +631,25 @@
                 "Redis"
             ],
             "align": "right",
-            "tasks": [
-                "Spearhead the development and maintenance of critical information systems, including illegal fishing monitoring and marine data management.",
-                "Design scalable database architectures and engineer secure APIs to enable seamless integration across internal and external platforms.",
-                "Implement Sentry error tracking with Webhook alerts to proactively monitor production incidents and accelerate resolution time.",
-                "Manage MinIO object storage for large-scale document and media file processing; containerize services with Docker for consistent deployment environments.",
-                "Implement robust security protocols, optimize system performance via Redis caching and server tuning, and establish comprehensive technical documentation."
+            "roles": [
+                {
+                    "title": "Backend Programmer",
+                    "period": "2023 - Present",
+                    "tasks": [
+                        "Developed the Surveillance Information System (monitoring illegal fishing, etc.).",
+                        "Designed scalable database architectures and engineered secure APIs to enable seamless integration.",
+                        "Implemented Sentry for proactive logging and monitoring of issues & bugs with Webhook alerts to production channels.",
+                        "Managed MinIO object storage for large-scale document and media file processing; containerized services with Docker."
+                    ]
+                },
+                {
+                    "title": "Fullstack Developer",
+                    "period": "2021 - 2022",
+                    "tasks": [
+                        "Developed the Modern Office Information System (Sistem Informasi Perkantoran Modern).",
+                        "Built internal operational modules such as leave requests, Periodic Salary Increases (KGB), and Electronic Travel Accountability (e-SPJ)."
+                    ]
+                }
             ]
         },
         {
@@ -680,22 +693,41 @@
         },
         {
             "company": "Grab",
-            "role": "GIS Engineer & MapOps | Contract",
-            "period": "Mar 2018 - Aug 2021",
+            "isGrouped": true,
+            "period": "Mar 2018 - Aug 2021 · 3 yr 6 mo",
             "location": "Jakarta",
             "employmentType": "Contract",
-            "tech": [
-                "Python",
-                "WebGIS",
-                "QGIS",
-                "Google Apps Script",
-                "GIS Tools"
-            ],
+            "tech": ["PHP", "WebGIS", "Python", "Google Apps Script", "VBA", "Microsoft Excel"],
             "align": "left",
-            "tasks": [
-                "Engineered and maintained WebGIS and advanced data analytics tools to streamline mapping operations and spatial data visualization.",
-                "Led quality control initiatives for Point of Interest (POI) data, ensuring high precision and reliability for Grab Maps.",
-                "Formulated Standard Operating Procedures (SOPs) and developed innovative automation tools to boost team productivity and data integrity."
+            "roles": [
+                {
+                    "title": "GIS Engineer",
+                    "period": "Jul 2021 - Aug 2021 · 2 mo",
+                    "tasks": [
+                        "Developed & maintained WebGIS tools for spatial data visualization and mapping operations.",
+                        "Built data analytics tools: Image-to-text extractor, POI Nearby duplicate detector (iMacros), and Mapbyyou — a web app for crowdsourced POI collection.",
+                        "Engineered Google Sheets automation macros to streamline daily GIS workflows."
+                    ]
+                },
+                {
+                    "title": "Quality Control at MapOps",
+                    "period": "Sep 2019 - Jun 2021 · 1 yr 10 mo",
+                    "tasks": [
+                        "Maintained POI data quality — reviewing, verifying, and correcting Point of Interest data across Grab Maps.",
+                        "Created Standard Operating Procedures (SOPs) and conducted training for MapOps project teams.",
+                        "Built innovation tools that improved team productivity; developed and maintained WebGIS tools for QC operations.",
+                        "Recognized with Best Practice Awards 2019 & 2020 for automation tools that eliminated manual compile steps."
+                    ]
+                },
+                {
+                    "title": "Map Operator at MapOps",
+                    "period": "Mar 2018 - Aug 2019 · 1 yr 6 mo",
+                    "tasks": [
+                        "Created, reviewed, and verified Point of Interest (POI) data for Grab Maps within MapOps.",
+                        "Performed map maintenance: Bulk Upload, Duplication Check, External Blacklist, and Quality Maintenance.",
+                        "Built the Auto Blacklisting File tool in Excel — still used by the team — earning the Rokstar Award 2018."
+                    ]
+                }
             ]
         }
     ],

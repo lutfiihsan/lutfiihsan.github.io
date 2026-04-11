@@ -9,21 +9,31 @@ $(document).ready(function () {
         $(this).attr('aria-expanded', !expanded);
         $(this).toggleClass('fa-times');
         $('.navbar').toggleClass('nav-toggle');
+        $('#nav-overlay').toggleClass('active');
+    });
+
+    // Close menu when clicking overlay
+    $('#nav-overlay').click(function() {
+        $('#menu').attr('aria-expanded', 'false');
+        $('#menu').removeClass('fa-times');
+        $('.navbar').removeClass('nav-toggle');
+        $(this).removeClass('active');
+    });
+
+    // Close menu when clicking nav link
+    $('.navbar ul li a').click(function() {
+        $('#menu').attr('aria-expanded', 'false');
+        $('#menu').removeClass('fa-times');
+        $('.navbar').removeClass('nav-toggle');
+        $('#nav-overlay').removeClass('active');
     });
 
     $(window).on('scroll load', function () {
-        $('#menu').removeClass('fa-times');
-        $('.navbar').removeClass('nav-toggle');
         if (window.scrollY > 60) {
             $('#scroll-top').addClass('active');
         } else {
             $('#scroll-top').removeClass('active');
         }
-
-        // Close nav on scroll
-        $('#menu').attr('aria-expanded', 'false');
-        $('#menu').removeClass('fa-times');
-        $('.navbar').removeClass('nav-toggle');
 
         // Scroll spy
         $('section').each(function () {
@@ -240,13 +250,11 @@ function renderProjects(projects) {
 
 function renderExperience(experiences) {
     let html = "";
-    experiences.forEach(exp => {
-        let tasksHtml = exp.tasks.map(task => `<li><i class="fas fa-check-circle" aria-hidden="true"></i> ${task}</li>`).join("");
-
+    experiences.forEach((exp, index) => {
         // Tech badges
         let techHtml = "";
         if (exp.tech && exp.tech.length) {
-            techHtml = `<div class="exp-tech">${exp.tech.map(t => `<span class="tech-badge">${t}</span>`).join("")}</div>`;
+            techHtml = `<div class="exp-tech" style="margin-top: 1.5rem;">${exp.tech.map(t => `<span class="tech-badge">${t}</span>`).join("")}</div>`;
         }
 
         // Meta: location + employment type
@@ -254,22 +262,61 @@ function renderExperience(experiences) {
         if (exp.location || exp.employmentType) {
             let locPart = exp.location ? `<span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> ${exp.location}</span>` : "";
             let typePart = exp.employmentType ? `<span><i class="fas fa-briefcase" aria-hidden="true"></i> ${exp.employmentType}</span>` : "";
-            metaHtml = `<div class="exp-meta">${locPart}${typePart}</div>`;
+            metaHtml = `<div class="exp-meta" style="margin-bottom: 15px;">${locPart}${typePart}</div>`;
         }
 
-        html += `
-        <div class="container ${exp.align}" role="listitem">
-            <div class="content">
-                <div class="tag"><h2>${exp.company}</h2></div>
-                <div class="desc">
-                    <h3>${exp.role}</h3>
-                    <ul>${tasksHtml}</ul>
-                    ${techHtml}
-                    ${metaHtml}
-                    <p class="exp-period"><i class="fas fa-calendar" aria-hidden="true"></i> ${exp.period}</p>
+        let companyHtml = `<div class="tag"><h2>${exp.company}</h2></div>`;
+
+        if (exp.isGrouped && exp.roles) {
+            let rolesHtml = exp.roles.map((role, rIndex) => {
+                let tasksHtml = role.tasks.map(task => `<li><i class="fas fa-check-circle" aria-hidden="true"></i> ${task}</li>`).join("");
+                let isOpen = rIndex === 0 ? "open" : "";
+                return `
+                <details class="tiered-role" ${isOpen}>
+                    <summary class="role-summary">
+                        <div class="summary-info">
+                            <span class="role-title">${role.title}</span>
+                            <span class="role-badge">${role.period}</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon" aria-hidden="true"></i>
+                    </summary>
+                    <div class="role-body">
+                        <ul>${tasksHtml}</ul>
+                    </div>
+                </details>`;
+            }).join("");
+
+            html += `
+            <div class="container ${exp.align}" role="listitem">
+                <div class="content">
+                    ${companyHtml}
+                    <div class="desc tiered-desc">
+                        <p class="total-period"><i class="fas fa-calendar-alt" aria-hidden="true"></i> ${exp.period}</p>
+                        ${metaHtml}
+                        <div class="tiered-timeline-container">
+                            ${rolesHtml}
+                        </div>
+                        ${techHtml}
+                    </div>
                 </div>
-            </div>
-        </div>`;
+            </div>`;
+        } else {
+            // Standard single role experience
+            let tasksHtml = exp.tasks.map(task => `<li><i class="fas fa-check-circle" aria-hidden="true"></i> ${task}</li>`).join("");
+            html += `
+            <div class="container ${exp.align}" role="listitem">
+                <div class="content">
+                    ${companyHtml}
+                    <div class="desc">
+                        <h3>${exp.role}</h3>
+                        <p class="exp-period" style="margin-bottom: 12px; opacity: 0.8;"><i class="fas fa-calendar" aria-hidden="true"></i> ${exp.period}</p>
+                        ${metaHtml}
+                        <ul style="margin-top: 10px;">${tasksHtml}</ul>
+                        ${techHtml}
+                    </div>
+                </div>
+            </div>`;
+        }
     });
     document.getElementById("experience-container").innerHTML = html;
 }
