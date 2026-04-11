@@ -2550,13 +2550,17 @@ body.dark-mode .tech-badge {
 
 /* Education Section */
 body.dark-mode .education { background-color: #080912 !important; }
-body.dark-mode .education .box { 
+body.dark-mode .education-card { 
   background: #111424 !important; 
   border-color: #1a1e35 !important; 
 }
-body.dark-mode .education .box .content h3 { color: #ffffff !important; }
-body.dark-mode .education .box .content p,
-body.dark-mode .education .box .content h4 { color: #a0aec0 !important; }
+body.dark-mode .education-card .content h3 { color: #ffffff !important; }
+body.dark-mode .education-card .content p { color: #a0aec0 !important; }
+body.dark-mode .education-card .content .year {
+  background: #181d33 !important;
+  color: #cbd5e1 !important;
+  border-color: #272d4c !important;
+}
 
 /* Work/Projects Section */
 body.dark-mode .work { background-color: #0d0f1a !important; }
