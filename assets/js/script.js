@@ -81,10 +81,8 @@ async function fetchDataAndRender() {
         globalPortfolioData = data; // Simpan untuk PDF Generator
 
         // Simple Router based on Pathname
-        // Router: matches both 'project.html?id=...' (GitHub Pages) and '/project?id=...' (local dev server)
-        const isProjectPage = window.location.pathname.includes('project.html') 
-                           || window.location.pathname.endsWith('/project')
-                           || window.location.pathname.endsWith('/project.html');
+        // Router: matches both '/project'
+        const isProjectPage = window.location.pathname.endsWith('/project');
         
         if (isProjectPage) {
             renderProjectDetail(data.projects);
@@ -204,7 +202,7 @@ function renderProjects(projects) {
     projects.forEach(proj => {
         let btnsHtml = "";
         if (proj.id) {
-            btnsHtml += `<a href="project.html" onclick="sessionStorage.setItem('activeProjectId', '${proj.id}')" class="btn btn-detail"><i class="fas fa-info-circle" aria-hidden="true"></i> Details</a>`;
+            btnsHtml += `<a href="project" onclick="sessionStorage.setItem('activeProjectId', '${proj.id}')" class="btn btn-detail"><i class="fas fa-info-circle" aria-hidden="true"></i> Details</a>`;
         }
 
         if (proj.viewLink) {
@@ -848,7 +846,7 @@ function renderProjectDetail(projects) {
             <div style="text-align:center; padding: 10rem 2rem;">
                 <h2 class="heading">Project <span style="color:red;">Not Found</span></h2>
                 <p style="font-size: 1.5rem; margin-bottom: 2rem;">Sorry, we couldn't find the requested project.</p>
-                <a href="index.html#work" class="btn">Go Back to Projects</a>
+                <a href="index#work" class="btn">Go Back to Projects</a>
             </div>`;
         return;
     }
@@ -893,7 +891,7 @@ function renderProjectDetail(projects) {
                 <div class="detail-actions">
                     ${btnsHtml}
                     <div style="margin-top: 3rem;">
-                        <a href="index.html#work" class="back-link"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+                        <a href="index#work" class="back-link"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
                     </div>
                 </div>
             </div>

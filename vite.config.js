@@ -6,6 +6,18 @@ export default defineConfig({
   plugins: [
     injectHTML(),
   ],
+  server: {
+    // Middleware to support clean URLs (resolve /blog to /blog.html)
+    proxy: {}, // Placeholder if needed
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        if (req.url && req.url !== '/' && !req.url.includes('.') && !req.url.startsWith('/@')) {
+          req.url += '.html';
+        }
+        next();
+      });
+    }
+  },
   build: {
     rollupOptions: {
       input: {

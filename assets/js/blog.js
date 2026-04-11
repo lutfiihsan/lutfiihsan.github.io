@@ -79,7 +79,7 @@ function renderBlogPosts(posts, container) {
 // ── OPEN POST ──
 function openPost(slug) {
     sessionStorage.setItem('blogPostSlug', slug);
-    window.location.href = 'blog-post.html';
+    window.location.href = 'blog-post';
 }
 
 // ── RENDER SINGLE POST ──
@@ -106,7 +106,7 @@ function renderSinglePost(post, container) {
             </div>
             <div class="post-content prose ql-editor" style="pointer-events:auto;">${renderedContent}</div>
             <div class="post-footer">
-                <a href="blog.html" class="btn-back"><i class="fas fa-arrow-left"></i> Kembali ke Blog</a>
+                <a href="blog" class="btn-back"><i class="fas fa-arrow-left"></i> Kembali ke Blog</a>
             </div>
         </article>
     `;
