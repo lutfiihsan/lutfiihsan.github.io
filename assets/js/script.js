@@ -97,13 +97,16 @@ function renderSkills(skills) {
         'TOOLS':    { gradient: 'linear-gradient(135deg, #ffecd2, #fcb69f)', light: 'rgba(252,182,159,0.07)', border: 'rgba(252,182,159,0.2)' },
         'APPROACH': { gradient: 'linear-gradient(135deg, #a1c4fd, #c2e9fb)', light: 'rgba(161,196,253,0.07)', border: 'rgba(161,196,253,0.2)' },
     };
+    const VISIBLE_LIMIT = 5;
 
     let html = '';
-    skills.forEach(cat => {
+    skills.forEach((cat, catIdx) => {
         const colors = categoryColors[cat.category] || { gradient: 'linear-gradient(135deg, #e0e0e0, #bdbdbd)', light: 'rgba(0,0,0,0.03)', border: 'rgba(0,0,0,0.1)' };
+        const hasMore = cat.items.length > VISIBLE_LIMIT;
+        const hiddenCount = cat.items.length - VISIBLE_LIMIT;
 
         let itemsHtml = '';
-        cat.items.forEach(item => {
+        cat.items.forEach((item, idx) => {
             let visual = '';
             if (item.img) {
                 visual = `<img src="${item.img}" alt="${item.name}" class="skill-chip-img" loading="lazy">`;
@@ -111,12 +114,21 @@ function renderSkills(skills) {
                 let style = item.style ? ` style="${item.style}"` : '';
                 visual = `<i class="${item.icon}" aria-hidden="true"${style}></i>`;
             }
+            const isHidden = idx >= VISIBLE_LIMIT ? ' chip-hidden' : '';
             itemsHtml += `
-            <span class="skill-chip${item.learning ? ' skill-chip-learning' : ''}" title="${item.name}">
+            <span class="skill-chip${item.learning ? ' skill-chip-learning' : ''}${isHidden}" title="${item.name}">
                 <span class="skill-chip-icon">${visual}</span>
                 <span class="skill-chip-name">${item.name}</span>${item.learning ? '<span class="learning-badge">Learning</span>' : ''}
             </span>`;
         });
+
+        const expandBtn = hasMore ? `
+            <button class="chip-expand-btn" aria-expanded="false"
+                onclick="toggleSkillCard(this)"
+                data-hidden-count="${hiddenCount}">
+                <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                <span>+${hiddenCount} more</span>
+            </button>` : '';
 
         html += `
         <div class="skill-card">

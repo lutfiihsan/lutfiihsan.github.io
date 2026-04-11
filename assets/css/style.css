@@ -802,6 +802,53 @@ header .navbar ul li a:hover {
     padding: 1.4rem 1.8rem 1.6rem;
   }
 }
+
+/* ── Chip hidden / expand ─────────── */
+.chip-hidden {
+  display: none !important;
+}
+.chip-visible-extra {
+  display: inline-flex;
+  animation: chipFadeIn 0.22s ease forwards;
+}
+@keyframes chipFadeIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Expand button */
+.chip-expand-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.9rem 1rem;
+  background: transparent;
+  border: none;
+  border-top: 1px dashed #e8e8e8;
+  color: #888;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease;
+  letter-spacing: 0.03em;
+  margin-top: auto;
+}
+.chip-expand-btn:hover {
+  color: #420177;
+  background: rgba(66, 1, 119, 0.04);
+}
+.chip-expand-btn[aria-expanded="true"] {
+  color: #f68c09;
+}
+.chip-expand-btn i {
+  font-size: 1.1rem;
+  transition: transform 0.25s ease;
+}
+.chip-expand-btn[aria-expanded="true"] i {
+  transform: rotate(180deg);
+}
 /* skills section ends */
 
 
