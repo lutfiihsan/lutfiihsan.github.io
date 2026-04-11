@@ -466,19 +466,19 @@ table.posts-table {
 .post-slug-cell  { color: var(--text-muted); font-size: 1.2rem; }
 
 .badge {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.4rem 1rem;
-    border-radius: 20px;
-    font-size: 1.1rem;
-    font-weight: 500;
+    gap: 0.6rem;
 }
 
-.badge-published { background: rgba(67,233,123,0.15); color: #43e97b; }
-.badge-draft     { background: rgba(255,255,255,0.1); color: #a0aec0; }
-.badge-admin     { background: rgba(102,126,234,0.15); color: #667eea; }
-.badge-editor    { background: rgba(246,140,9,0.15);  color: #f68c09; }
+.badge-published { background: rgba(16, 185, 129, 0.1); color: #059669; }
+.badge-draft { background: rgba(15, 23, 42, 0.06); color: #475569; }
+.badge-admin { background: rgba(59, 130, 246, 0.1); color: #2563eb; }
+.badge-editor { background: rgba(245, 158, 11, 0.1); color: #d97706; }
 
 .table-actions { display: flex; gap: 0.8rem; }
 
@@ -506,36 +506,36 @@ table.posts-table {
 /* ── EDITOR MODAL ── */
 .modal-overlay {
     position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.75);
-    z-index: 1000;
-    display: flex;
-    align-items: flex-start;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(15, 23, 42, 0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
     justify-content: center;
-    padding: 3rem;
-    overflow-y: auto;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-
-.modal-overlay.open {
-    opacity: 1;
-    pointer-events: auto;
+    z-index: 1000;
+    padding: 2rem;
 }
 
 .modal-card {
     background: var(--bg-card);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
     border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 3rem;
+    border-radius: 24px;
     width: 100%;
-    max-width: 800px;
-    transform: scale(0.95);
-    transition: transform 0.3s ease;
+    max-width: 900px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 40px 100px rgba(15, 23, 42, 0.08);
+    animation: modalIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.modal-overlay.open .modal-card { transform: scale(1); }
+@keyframes modalIn {
+    from { opacity: 0; transform: scale(0.95) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
 
 .modal-header {
     display: flex;
@@ -778,30 +778,31 @@ table.posts-table {
     font-family: 'Inter', sans-serif !important;
 }
 .leaflet-custom-tooltip {
-    background: #13132a !important;
-    color: #f0f0ff !important;
-    border: 1px solid rgba(255,255,255,0.12) !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    color: #1e293b !important;
+    border: 1px solid rgba(0,0,0,0.1) !important;
     border-radius: 8px !important;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5) !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05) !important;
     padding: 8px 12px !important;
     font-size: 1.2rem !important;
 }
 .leaflet-custom-tooltip::before {
-    border-top-color: #13132a !important;
+    border-top-color: rgba(255, 255, 255, 0.9) !important;
 }
 .leaflet-control-zoom {
-    border: 1px solid rgba(255,255,255,0.1) !important;
-    border-radius: 6px !important;
+    border: 1px solid rgba(0,0,0,0.1) !important;
+    border-radius: 8px !important;
     overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
 }
 .leaflet-control-zoom a {
-    background: #13132a !important;
-    color: #8888aa !important;
-    border-color: rgba(255,255,255,0.05) !important;
+    background: #fff !important;
+    color: #64748b !important;
+    border-color: rgba(0,0,0,0.05) !important;
 }
 .leaflet-control-zoom a:hover {
-    background: rgba(255,255,255,0.05) !important;
-    color: #f0f0ff !important;
+    background: #f8fafc !important;
+    color: #1e293b !important;
 }
 
 /* ── QUILL RICH EDITOR (Dark Theme) ── */

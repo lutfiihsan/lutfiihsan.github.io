@@ -3,7 +3,7 @@
 // Requires: supabase.js + Highcharts loaded
 // ============================================================
 
-// ── HIGHCHARTS GLOBAL DARK THEME ──
+// ── HIGHCHARTS GLOBAL LIGHT THEME ──
 Highcharts.setOptions({
     chart: {
         backgroundColor: 'transparent',
@@ -12,28 +12,29 @@ Highcharts.setOptions({
     },
     title:    { style: { display: 'none' } },
     subtitle: { style: { display: 'none' } },
-    colors: ['#f68c09', '#667eea', '#43e97b', '#f5576c', '#a78bfa', '#38bdf8'],
+    colors: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4'],
     xAxis: {
-        gridLineColor: 'rgba(255,255,255,0.06)',
-        lineColor:     'rgba(255,255,255,0.1)',
+        gridLineColor: 'rgba(0,0,0,0.04)',
+        lineColor:     'rgba(0,0,0,0.08)',
         tickColor:     'transparent',
-        labels: { style: { color: '#8888aa', fontSize: '11px' } }
+        labels: { style: { color: '#64748b', fontSize: '11px' } }
     },
     yAxis: {
-        gridLineColor: 'rgba(255,255,255,0.06)',
-        labels: { style: { color: '#8888aa', fontSize: '11px' } },
+        gridLineColor: 'rgba(0,0,0,0.04)',
+        labels: { style: { color: '#64748b', fontSize: '11px' } },
         title: { text: null }
     },
     legend: {
-        itemStyle:      { color: '#f0f0ff', fontWeight: '500', fontSize: '12px' },
-        itemHoverStyle: { color: '#f68c09' }
+        itemStyle:      { color: '#1e293b', fontWeight: '500', fontSize: '12px' },
+        itemHoverStyle: { color: '#3b82f6' }
     },
     tooltip: {
-        backgroundColor: '#13132a',
-        borderColor:     'rgba(255,255,255,0.12)',
-        borderRadius:    10,
-        style:           { color: '#f0f0ff', fontSize: '13px' },
-        shadow: false
+        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+        borderColor:     'rgba(0,0,0,0.1)',
+        borderRadius:    12,
+        style:           { color: '#1e293b', fontSize: '13px' },
+        shadow: false,
+        outside: true
     },
     plotOptions: {
         series: { animation: { duration: 700 } }
@@ -209,12 +210,12 @@ function renderAreaChart({ labels, values }) {
             threshold: null
         }],
         tooltip: {
-            backgroundColor: '#13132a',
-            borderColor: 'rgba(255,255,255,0.12)',
-            borderRadius: 10,
-            style: { color: '#f0f0ff' },
-            headerFormat: '<span style="font-size:11px;color:#8888aa">{point.key}</span><br>',
-            pointFormat: '<b style="color:#f68c09">{point.y}</b> kunjungan'
+            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            borderColor: 'rgba(0,0,0,0.1)',
+            borderRadius: 12,
+            style: { color: '#1e293b' },
+            headerFormat: '<span style="font-size:11px;color:#64748b">{point.key}</span><br>',
+            pointFormat: '<b style="color:#3b82f6">{point.y}</b> kunjungan'
         }
     });
 }
@@ -234,7 +235,7 @@ function renderBarChart(containerId, categories, data, seriesName, color) {
         xAxis: {
             categories,
             labels: {
-                style: { color: '#f0f0ff', fontSize: '12px' },
+                style: { color: '#1e293b', fontSize: '12px' },
                 formatter: function() {
                     return this.value.length > 20 ? this.value.substring(0, 20) + '…' : this.value;
                 }
@@ -244,7 +245,7 @@ function renderBarChart(containerId, categories, data, seriesName, color) {
         plotOptions: {
             bar: {
                 borderRadius: 6,
-                dataLabels: { enabled: true, style: { color: '#f0f0ff', fontSize: '11px' }, format: '{y}' }
+                dataLabels: { enabled: true, style: { color: '#1e293b', fontSize: '11px', textOutline: 'none' }, format: '{y}' }
             }
         },
         series: [{
@@ -257,10 +258,10 @@ function renderBarChart(containerId, categories, data, seriesName, color) {
             showInLegend: false
         }],
         tooltip: {
-            backgroundColor: '#13132a',
-            borderColor: 'rgba(255,255,255,0.12)',
-            borderRadius: 10,
-            style: { color: '#f0f0ff' },
+            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            borderColor: 'rgba(0,0,0,0.1)',
+            borderRadius: 12,
+            style: { color: '#1e293b' },
             pointFormat: `<b style="color:${color}">{point.y}</b> ${seriesName.toLowerCase()}`
         }
     });
@@ -280,7 +281,7 @@ function renderPieChart({ Desktop, Mobile, Tablet }) {
                 dataLabels: {
                     enabled: true,
                     format: '<b style="color:{point.color}">{point.name}</b>: {point.percentage:.1f}%',
-                    style: { color: '#f0f0ff', fontSize: '12px', textOutline: 'none' }
+                    style: { color: '#1e293b', fontSize: '12px', textOutline: 'none' }
                 }
             }
         },
@@ -294,10 +295,10 @@ function renderPieChart({ Desktop, Mobile, Tablet }) {
             ]
         }],
         tooltip: {
-            backgroundColor: '#13132a',
-            borderColor: 'rgba(255,255,255,0.12)',
-            borderRadius: 10,
-            style: { color: '#f0f0ff' },
+            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            borderColor: 'rgba(0,0,0,0.1)',
+            borderRadius: 12,
+            style: { color: '#1e293b' },
             pointFormat: '<b style="color:{point.color}">{point.y}</b> kunjungan ({point.percentage:.1f}%)'
         }
     });
@@ -325,14 +326,14 @@ function renderReferrersChart(referrers) {
         chart: { type: 'column' },
         xAxis: {
             categories: referrers.map(r => labelMap[r.source] || r.source),
-            labels: { style: { color: '#f0f0ff', fontSize: '11px' } }
+            labels: { style: { color: '#1e293b', fontSize: '11px' } }
         },
         yAxis: { allowDecimals: false },
         plotOptions: {
             column: {
                 borderRadius: 6,
                 colorByPoint: true,
-                dataLabels: { enabled: true, style: { color: '#f0f0ff', fontSize: '11px' }, format: '{y}' }
+                dataLabels: { enabled: true, style: { color: '#1e293b', fontSize: '11px', textOutline: 'none' }, format: '{y}' }
             }
         },
         series: [{
@@ -341,12 +342,12 @@ function renderReferrersChart(referrers) {
             showInLegend: false
         }],
         tooltip: {
-            backgroundColor: '#13132a',
-            borderColor: 'rgba(255,255,255,0.12)',
-            borderRadius: 10,
-            style: { color: '#f0f0ff' },
-            headerFormat: '<span style="color:#8888aa;font-size:11px">{point.key}</span><br>',
-            pointFormat: '<b style="color:#f68c09">{point.y}</b> kunjungan'
+            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            borderColor: 'rgba(0,0,0,0.1)',
+            borderRadius: 12,
+            style: { color: '#1e293b' },
+            headerFormat: '<span style="color:#64748b;font-size:11px">{point.key}</span><br>',
+            pointFormat: '<b style="color:#3b82f6">{point.y}</b> kunjungan'
         }
     });
 }

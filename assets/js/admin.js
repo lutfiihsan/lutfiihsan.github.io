@@ -552,9 +552,7 @@ async function promptChangeRole(userId, email, currentRole) {
     inputOptions: { 'admin': 'Admin', 'editor': 'Editor' },
     inputValue: currentRole,
     showCancelButton: true,
-    confirmButtonText: 'Simpan',
-    background: '#13132a',
-    color: '#f0f0ff'
+    confirmButtonText: 'Simpan'
   });
   
   if (newRole && newRole !== currentRole) {
