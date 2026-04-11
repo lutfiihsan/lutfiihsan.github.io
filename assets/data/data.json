@@ -36,6 +36,18 @@
                 {
                     "name": "REST API",
                     "icon": "fas fa-network-wired"
+                },
+                {
+                    "name": "Queue & Jobs",
+                    "icon": "fas fa-tasks"
+                },
+                {
+                    "name": "Webhook",
+                    "icon": "fas fa-satellite-dish"
+                },
+                {
+                    "name": "Sentry",
+                    "icon": "fas fa-bug"
                 }
             ]
         },
@@ -66,6 +78,78 @@
                 {
                     "name": "AJAX",
                     "icon": "fas fa-sync-alt"
+                },
+                {
+                    "name": "Alpine.js",
+                    "icon": "fas fa-mountain"
+                }
+            ]
+        },
+        {
+            "category": "DATABASE",
+            "icon": "fas fa-database",
+            "items": [
+                {
+                    "name": "MySQL",
+                    "img": "https://img.icons8.com/color/48/000000/mysql-logo.png"
+                },
+                {
+                    "name": "PostgreSQL",
+                    "img": "https://img.icons8.com/color/48/000000/postgreesql.png"
+                },
+                {
+                    "name": "Redis",
+                    "img": "https://img.icons8.com/color/48/000000/redis.png"
+                },
+                {
+                    "name": "Firebase",
+                    "img": "https://img.icons8.com/color/48/000000/firebase.png"
+                },
+                {
+                    "name": "MinIO",
+                    "icon": "fas fa-hdd"
+                }
+            ]
+        },
+        {
+            "category": "DEVOPS",
+            "icon": "fas fa-cloud",
+            "items": [
+                {
+                    "name": "Ubuntu",
+                    "img": "https://img.icons8.com/color/48/000000/ubuntu.png"
+                },
+                {
+                    "name": "Docker",
+                    "img": "https://img.icons8.com/color/48/000000/docker.png"
+                },
+                {
+                    "name": "Nginx",
+                    "img": "https://img.icons8.com/color/48/000000/nginx.png"
+                },
+                {
+                    "name": "Apache",
+                    "icon": "fas fa-feather-alt"
+                },
+                {
+                    "name": "Vercel",
+                    "img": "https://img.icons8.com/color/48/000000/vercel.png"
+                },
+                {
+                    "name": "Heroku",
+                    "img": "https://img.icons8.com/color/48/000000/heroku.png"
+                },
+                {
+                    "name": "VPS",
+                    "icon": "fas fa-server"
+                },
+                {
+                    "name": "CI/CD",
+                    "icon": "fas fa-circle-notch"
+                },
+                {
+                    "name": "Auto Scaling",
+                    "icon": "fas fa-tachometer-alt"
                 }
             ]
         },
@@ -111,20 +195,6 @@
             ]
         },
         {
-            "category": "DATABASE",
-            "icon": "fas fa-database",
-            "items": [
-                {
-                    "name": "MySQL",
-                    "img": "https://img.icons8.com/color/48/000000/mysql-logo.png"
-                },
-                {
-                    "name": "Firebase",
-                    "img": "https://img.icons8.com/color/48/000000/firebase.png"
-                }
-            ]
-        },
-        {
             "category": "TOOLS",
             "icon": "fas fa-tools",
             "items": [
@@ -146,37 +216,15 @@
                 },
                 {
                     "name": "Burp Suite",
-                    "icon": "fas fa-bug"
+                    "icon": "fas fa-crosshairs"
                 },
                 {
                     "name": "SQLMap",
                     "icon": "fas fa-terminal"
-                }
-            ]
-        },
-        {
-            "category": "DEVOPS",
-            "icon": "fas fa-cloud",
-            "items": [
-                {
-                    "name": "Ubuntu",
-                    "img": "https://img.icons8.com/color/48/000000/ubuntu.png"
                 },
                 {
-                    "name": "Vercel",
-                    "img": "https://img.icons8.com/color/48/000000/vercel.png"
-                },
-                {
-                    "name": "Heroku",
-                    "img": "https://img.icons8.com/color/48/000000/heroku.png"
-                },
-                {
-                    "name": "VPS",
-                    "icon": "fas fa-server"
-                },
-                {
-                    "name": "Auto Scaling",
-                    "icon": "fas fa-tachometer-alt"
+                    "name": "Figma",
+                    "img": "https://img.icons8.com/color/48/000000/figma--v1.png"
                 }
             ]
         },
@@ -189,7 +237,11 @@
                     "icon": "fas fa-code"
                 },
                 {
-                    "name": "MVC Pattern",
+                    "name": "SOLID Principles",
+                    "icon": "fas fa-layer-group"
+                },
+                {
+                    "name": "Repository Pattern",
                     "icon": "fas fa-sitemap"
                 },
                 {
@@ -198,18 +250,49 @@
                 },
                 {
                     "name": "Agile",
-                    "icon": "fas fa-tasks"
+                    "icon": "fas fa-sync"
+                },
+                {
+                    "name": "Domain Driven",
+                    "icon": "fas fa-cubes"
                 }
             ]
         }
     ],
     "projects": [
         {
+            "title": "Ummi CRM",
+            "image": "./assets/images/projects/ummi-crm.png",
+            "status": "Online",
+            "statusClass": "status-online",
+            "desc": "An omnichannel WhatsApp CRM platform for Ummi Foundation featuring multi-agent live chat, broadcast messaging, contact management, automated responses, and real-time Sentry error monitoring with Webhook alerts.",
+            "tech": ["Laravel", "PHP", "MySQL", "WhatsApp API", "Sentry", "Bootstrap", "REST API"],
+            "year": "2024",
+            "type": "Omnichannel CRM",
+            "viewLink": "https://crm.ummifoundation.com",
+            "codeLink": null
+        },
+        {
+            "title": "Help Desk Sheet",
+            "image": "./assets/images/projects/helpdesk-sheet.png",
+            "status": "Private",
+            "statusClass": "status-private",
+            "desc": "A developer task management system for Ummi Foundation integrated with Google Sheets API for structured tracking, WhatsApp Gateway for instant notifications, and Sentry Webhook for automatic bug reporting directly to developer channels.",
+            "tech": ["Laravel", "PHP", "MySQL", "Google Apps Script", "WhatsApp API", "Sentry"],
+            "year": "2024",
+            "type": "Task Management",
+            "viewLink": null,
+            "codeLink": null
+        },
+        {
             "title": "Cipta Inovasi",
             "image": "./assets/images/projects/cipta-inovasi.png",
             "status": "Online",
             "statusClass": "status-online",
             "desc": "Company profile website providing smarter business management solutions to achieve faster growth, combining efficiency and innovation. Built using WordPress.",
+            "tech": ["WordPress", "cPanel", "PHP"],
+            "year": "2022",
+            "type": "Company Profile",
             "viewLink": "#",
             "codeLink": null
         },
@@ -219,6 +302,9 @@
             "status": "Private",
             "statusClass": "status-private",
             "desc": "A desktop application developed for PMY Net that allows users to seamlessly open and manage multiple WhatsApp accounts across several devices. Built with Laravel and Postman API.",
+            "tech": ["Laravel", "PHP", "Postman API", "MySQL"],
+            "year": "2024",
+            "type": "Desktop Tool",
             "viewLink": null,
             "codeLink": null
         },
@@ -228,6 +314,9 @@
             "status": "Online",
             "statusClass": "status-online",
             "desc": "Successfully migrated the Jakarta Marathon website to improve performance and scalability. Included VPS setup, cPanel installation, email hosting migration, and testing optimization.",
+            "tech": ["WordPress", "VPS", "cPanel", "Nginx", "Email Hosting"],
+            "year": "2022",
+            "type": "Web Migration",
             "viewLink": "#",
             "codeLink": null
         },
@@ -237,6 +326,9 @@
             "status": "Online",
             "statusClass": "status-online",
             "desc": "Adiwiyata Information System (Sisdwita) is a web-based app used to manage environmentally friendly program questionnaires sent by schools in Tangerang Regency.",
+            "tech": ["Laravel", "PHP", "MySQL", "Bootstrap", "jQuery"],
+            "year": "2022",
+            "type": "Gov. Web App",
             "viewLink": "https://sisdwita.tangerangkab.go.id/",
             "codeLink": "#"
         },
@@ -246,6 +338,9 @@
             "status": "Offline",
             "statusClass": "status-offline",
             "desc": "Environmental Reporting System (Siperling) to manage environmental permit reporting from companies to the Environmental Agency of Tangerang (DLHK).",
+            "tech": ["Laravel", "PHP", "MySQL", "Bootstrap"],
+            "year": "2022",
+            "type": "Gov. Web App",
             "viewLink": null,
             "codeLink": "#"
         },
@@ -255,6 +350,9 @@
             "status": "Online",
             "statusClass": "status-online",
             "desc": "A web-based platform designed to manage and connect the alumni of Universitas Gadjah Mada (UGM), keeping them updated with news and events.",
+            "tech": ["Laravel", "PHP", "MySQL", "jQuery", "Bootstrap"],
+            "year": "2023",
+            "type": "Alumni Platform",
             "viewLink": "https://kagegama.id/simkagegama",
             "codeLink": "#"
         },
@@ -264,6 +362,9 @@
             "status": "Online",
             "statusClass": "status-online",
             "desc": "A web application to manage Quran learning and training. The platform seamlessly connects students, teachers, and administrators to make learning efficient.",
+            "tech": ["Laravel", "PHP", "MySQL", "Firebase", "Bootstrap"],
+            "year": "2022",
+            "type": "Ed-Tech Platform",
             "viewLink": "https://ummifoundation.com/simuf",
             "codeLink": "#"
         },
@@ -273,6 +374,9 @@
             "status": "Private",
             "statusClass": "status-private",
             "desc": "A web-based admin dashboard designed to manage the Santri Ummi Mobile app, including notifications, student registrations, and teacher data.",
+            "tech": ["Laravel", "PHP", "MySQL", "Firebase", "Bootstrap"],
+            "year": "2022",
+            "type": "Mobile CMS",
             "viewLink": null,
             "codeLink": null
         },
@@ -282,6 +386,9 @@
             "status": "Online",
             "statusClass": "status-online",
             "desc": "An informative and responsive landing page profile developed for Kelurahan Bencongan using HTML, CSS, and modern web standards.",
+            "tech": ["HTML5", "CSS3", "JavaScript"],
+            "year": "2021",
+            "type": "Landing Page",
             "viewLink": "#",
             "codeLink": null
         },
@@ -291,6 +398,9 @@
             "status": "Online",
             "statusClass": "status-online",
             "desc": "A professional landing page profile designed to establish the online presence and showcase the services of CV Saka Tunggal Jaya.",
+            "tech": ["HTML5", "CSS3", "JavaScript"],
+            "year": "2022",
+            "type": "Company Profile",
             "viewLink": "#",
             "codeLink": null
         }
@@ -300,6 +410,9 @@
             "company": "BIG-N Group",
             "role": "Back End Developer | Freelance",
             "period": "Feb 2025 - Present",
+            "location": "Remote",
+            "employmentType": "Freelance",
+            "tech": ["Laravel", "PHP", "MySQL", "REST API"],
             "align": "left",
             "tasks": [
                 "Architect and develop robust backend solutions utilizing Laravel and PHP.",
@@ -310,6 +423,9 @@
             "company": "PMY Net",
             "role": "Fullstack Laravel Developer | Freelance",
             "period": "Jan 2024 - May 2025",
+            "location": "Remote",
+            "employmentType": "Freelance",
+            "tech": ["Laravel", "PHP", "MySQL", "jQuery", "Bootstrap", "AJAX"],
             "align": "right",
             "tasks": [
                 "Engineered and maintained a comprehensive internet billing information system to streamline operational workflows.",
@@ -318,10 +434,15 @@
         },
         {
             "company": "Ummi Foundation",
-            "role": "System Administrator | Freelance",
+            "role": "System Administrator & Full Stack Developer | Freelance",
             "period": "Jan 2022 - Present",
+            "location": "Remote",
+            "employmentType": "Freelance",
+            "tech": ["Laravel", "PHP", "MySQL", "WhatsApp API", "Google Apps Script", "Sentry", "Redis", "Bootstrap"],
             "align": "left",
             "tasks": [
+                "Architected and launched an omnichannel WhatsApp CRM platform (crm.ummifoundation.com) with multi-agent live chat, broadcast messaging, and Sentry Webhook monitoring for real-time error alerting.",
+                "Developed Help Desk Sheet — a developer task management system integrated with WA Gateway for instant notifications and Sentry for automatic bug-report escalation.",
                 "Administer and monitor server infrastructure to ensure high availability, optimal performance, and strict security compliance.",
                 "Coordinate and oversee programming tasks, facilitating seamless collaboration and efficient delivery within the development team."
             ]
@@ -330,17 +451,25 @@
             "company": "Kementerian Kelautan dan Perikanan RI",
             "role": "Backend Programmer | Contract",
             "period": "Aug 2021 - Present",
+            "location": "Jakarta",
+            "employmentType": "Contract",
+            "tech": ["Laravel", "PHP", "MySQL", "Python", "MinIO", "Docker", "REST API", "GIS", "Sentry", "Redis"],
             "align": "right",
             "tasks": [
                 "Spearhead the development and maintenance of critical information systems, including illegal fishing monitoring and marine data management.",
                 "Design scalable database architectures and engineer secure APIs to enable seamless integration across internal and external platforms.",
-                "Implement robust security protocols, optimize system performance via caching and server tuning, and establish comprehensive technical documentation."
+                "Implement Sentry error tracking with Webhook alerts to proactively monitor production incidents and accelerate resolution time.",
+                "Manage MinIO object storage for large-scale document and media file processing; containerize services with Docker for consistent deployment environments.",
+                "Implement robust security protocols, optimize system performance via Redis caching and server tuning, and establish comprehensive technical documentation."
             ]
         },
         {
             "company": "PT. Gemilang Zona Karya",
             "role": "Laravel Developer | Freelance",
             "period": "Aug 2022 - Dec 2022",
+            "location": "Remote",
+            "employmentType": "Freelance",
+            "tech": ["Laravel", "PHP", "MySQL", "Bootstrap"],
             "align": "left",
             "tasks": [
                 "Delivered tailored web-based applications using the Laravel framework, translating complex client requirements into efficient and user-friendly digital solutions."
@@ -350,6 +479,9 @@
             "company": "Embeye Technology",
             "role": "Full Stack Developer | Part-time",
             "period": "Dec 2018 - Jan 2025",
+            "location": "Remote",
+            "employmentType": "Part-time",
+            "tech": ["PHP", "MySQL", "HTML5", "CSS3", "JavaScript", "jQuery", "Bootstrap"],
             "align": "right",
             "tasks": [
                 "Developed and maintained dynamic web applications leveraging HTML, CSS, JavaScript, PHP, and MySQL.",
@@ -361,12 +493,71 @@
             "company": "Grab",
             "role": "GIS Engineer & MapOps | Contract",
             "period": "Mar 2018 - Aug 2021",
+            "location": "Jakarta",
+            "employmentType": "Contract",
+            "tech": ["Python", "WebGIS", "QGIS", "Google Apps Script", "GIS Tools"],
             "align": "left",
             "tasks": [
                 "Engineered and maintained WebGIS and advanced data analytics tools to streamline mapping operations and spatial data visualization.",
                 "Led quality control initiatives for Point of Interest (POI) data, ensuring high precision and reliability for Grab Maps.",
                 "Formulated Standard Operating Procedures (SOPs) and developed innovative automation tools to boost team productivity and data integrity."
             ]
+        }
+    ],
+    "githubRepos": [
+        {
+            "name": "whatsapp-gateway",
+            "description": "Self-hosted WhatsApp gateway service for sending and receiving messages programmatically via REST API.",
+            "language": "JavaScript",
+            "languageColor": "#f1e05a",
+            "stars": 0,
+            "forks": 2,
+            "url": "https://github.com/lutfiihsan/whatsapp-gateway"
+        },
+        {
+            "name": "task-management",
+            "description": "Full-featured task management web application built with Laravel and Blade, supporting team collaboration and progress tracking.",
+            "language": "Blade",
+            "languageColor": "#f7523f",
+            "stars": 0,
+            "forks": 0,
+            "url": "https://github.com/lutfiihsan/task-management"
+        },
+        {
+            "name": "sb-admin-laravel-starter",
+            "description": "Laravel starter kit with SB Admin 2 template, complete with authentication, role & permission management.",
+            "language": "PHP",
+            "languageColor": "#4F5D95",
+            "stars": 1,
+            "forks": 0,
+            "url": "https://github.com/lutfiihsan/sb-admin-laravel-starter"
+        },
+        {
+            "name": "send-email-queue",
+            "description": "Laravel implementation of background email sending using Queue and Jobs for high-volume and asynchronous delivery.",
+            "language": "PHP",
+            "languageColor": "#4F5D95",
+            "stars": 0,
+            "forks": 0,
+            "url": "https://github.com/lutfiihsan/send-email-queue"
+        },
+        {
+            "name": "upload-image-polymorph",
+            "description": "Polymorphic image upload implementation in Laravel — supporting flexible image association across multiple models.",
+            "language": "PHP",
+            "languageColor": "#4F5D95",
+            "stars": 0,
+            "forks": 0,
+            "url": "https://github.com/lutfiihsan/upload-image-polymorph"
+        },
+        {
+            "name": "rabbitmq",
+            "description": "RabbitMQ integration with PHP — demonstrating publisher and consumer patterns for distributed message queue systems.",
+            "language": "PHP",
+            "languageColor": "#4F5D95",
+            "stars": 0,
+            "forks": 0,
+            "url": "https://github.com/lutfiihsan/rabbitmq"
         }
     ],
     "certifications": [

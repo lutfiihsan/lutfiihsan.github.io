@@ -74,6 +74,7 @@ async function fetchDataAndRender() {
         renderProjects(data.projects);
         renderExperience(data.experience);
         renderCertifications(data.certifications);
+        renderGithubRepos(data.githubRepos || []);
 
         // Init animasi VanillaTilt & fitur View More setelah DOM diisi
         VanillaTilt.init(document.querySelectorAll(".tilt"), { max: 15 });
@@ -113,25 +114,39 @@ function renderProjects(projects) {
     let html = "";
     projects.forEach(proj => {
         let btnsHtml = "";
-        
+
         if (proj.viewLink) {
-            btnsHtml += `<a href="${proj.viewLink}" class="btn" target="_blank"><i class="fas fa-eye"></i> Visit</a>`;
+            btnsHtml += `<a href="${proj.viewLink}" class="btn" target="_blank" rel="noopener noreferrer"><i class="fas fa-eye" aria-hidden="true"></i> Visit</a>`;
         } else {
-            let label = proj.status === 'Offline' ? '<i class="fas fa-laptop-house"></i> Local Only' : '<i class="fas fa-eye-slash"></i> No Demo';
-            btnsHtml += `<a href="javascript:void(0)" class="btn btn-disabled">${label}</a>`;
+            let label = proj.status === 'Offline' ? '<i class="fas fa-laptop-house" aria-hidden="true"></i> Local Only' : '<i class="fas fa-eye-slash" aria-hidden="true"></i> No Demo';
+            btnsHtml += `<span class="btn btn-disabled">${label}</span>`;
         }
 
         if (proj.codeLink) {
-            btnsHtml += `<a href="${proj.codeLink}" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>`;
+            btnsHtml += `<a href="${proj.codeLink}" class="btn" target="_blank" rel="noopener noreferrer">Code <i class="fas fa-code" aria-hidden="true"></i></a>`;
         } else {
-            btnsHtml += `<a href="javascript:void(0)" class="btn btn-disabled">Code <i class="fas fa-lock"></i></a>`;
+            btnsHtml += `<span class="btn btn-disabled">Code <i class="fas fa-lock" aria-hidden="true"></i></span>`;
+        }
+
+        // Tech stack tags
+        let techHtml = "";
+        if (proj.tech && proj.tech.length) {
+            techHtml = `<div class="tech-stack">${proj.tech.map(t => `<span class="tech-tag">${t}</span>`).join("")}</div>`;
+        }
+
+        // Meta: year + type
+        let metaHtml = "";
+        if (proj.year || proj.type) {
+            let yearPart = proj.year ? `<span><i class="fas fa-calendar-alt" aria-hidden="true"></i> ${proj.year}</span>` : "";
+            let typePart = proj.type ? `<span><i class="fas fa-tag" aria-hidden="true"></i> ${proj.type}</span>` : "";
+            metaHtml = `<div class="project-meta">${yearPart}${typePart}</div>`;
         }
 
         html += `
-        <div class="box tilt">
+        <div class="box tilt" role="listitem">
             <div class="image-wrapper">
-                <img draggable="false" src="${proj.image}" alt="${proj.title}" />
-                <button class="zoom-btn" onclick="openModal('${proj.image}')"><i class="fas fa-search-plus"></i></button>
+                <img draggable="false" src="${proj.image}" alt="${proj.title} — project screenshot" loading="lazy" />
+                <button class="zoom-btn" onclick="openModal('${proj.image}', '${proj.title}')" aria-label="Preview ${proj.title} image"><i class="fas fa-search-plus" aria-hidden="true"></i></button>
             </div>
             <div class="content">
                 <div class="title-wrap">
@@ -141,6 +156,8 @@ function renderProjects(projects) {
                 <div class="desc">
                     <p>${proj.desc}</p>
                 </div>
+                ${techHtml}
+                ${metaHtml}
                 <div class="btns">${btnsHtml}</div>
             </div>
         </div>`;
@@ -151,20 +168,76 @@ function renderProjects(projects) {
 function renderExperience(experiences) {
     let html = "";
     experiences.forEach(exp => {
-        let tasksHtml = exp.tasks.map(task => `<li><i class="fas fa-check-circle"></i> ${task}</li>`).join("");
+        let tasksHtml = exp.tasks.map(task => `<li><i class="fas fa-check-circle" aria-hidden="true"></i> ${task}</li>`).join("");
+
+        // Tech badges
+        let techHtml = "";
+        if (exp.tech && exp.tech.length) {
+            techHtml = `<div class="exp-tech">${exp.tech.map(t => `<span class="tech-badge">${t}</span>`).join("")}</div>`;
+        }
+
+        // Meta: location + employment type
+        let metaHtml = "";
+        if (exp.location || exp.employmentType) {
+            let locPart = exp.location ? `<span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> ${exp.location}</span>` : "";
+            let typePart = exp.employmentType ? `<span><i class="fas fa-briefcase" aria-hidden="true"></i> ${exp.employmentType}</span>` : "";
+            metaHtml = `<div class="exp-meta">${locPart}${typePart}</div>`;
+        }
+
         html += `
-        <div class="container ${exp.align}">
+        <div class="container ${exp.align}" role="listitem">
             <div class="content">
                 <div class="tag"><h2>${exp.company}</h2></div>
                 <div class="desc">
                     <h3>${exp.role}</h3>
                     <ul>${tasksHtml}</ul>
-                    <p>${exp.period}</p>
+                    ${techHtml}
+                    ${metaHtml}
+                    <p class="exp-period"><i class="fas fa-calendar" aria-hidden="true"></i> ${exp.period}</p>
                 </div>
             </div>
         </div>`;
     });
     document.getElementById("experience-container").innerHTML = html;
+}
+
+function renderGithubRepos(repos) {
+    const container = document.getElementById("repos-container");
+    if (!container) return;
+    if (!repos || repos.length === 0) {
+        container.closest('section').style.display = 'none';
+        return;
+    }
+
+    const langColors = {
+        'JavaScript': '#f1e05a',
+        'PHP': '#4F5D95',
+        'Blade': '#f7523f',
+        'TypeScript': '#2b7489',
+        'Python': '#3572A5',
+        'Go': '#00ADD8'
+    };
+
+    let html = repos.map(repo => {
+        const color = repo.languageColor || langColors[repo.language] || '#8b949e';
+        const langDot = repo.language ? `<span class="lang-dot" style="background:${color}" aria-hidden="true"></span><span>${repo.language}</span>` : '';
+        const stars = `<span><i class="fas fa-star" aria-hidden="true"></i> ${repo.stars}</span>`;
+        const forks = `<span><i class="fas fa-code-branch" aria-hidden="true"></i> ${repo.forks}</span>`;
+        return `
+        <article class="repo-card" role="listitem">
+            <div class="repo-header">
+                <i class="fas fa-book-open" aria-hidden="true"></i>
+                <a href="${repo.url}" target="_blank" rel="noopener noreferrer" class="repo-name">${repo.name}</a>
+                <span class="repo-visibility">Public</span>
+            </div>
+            <p class="repo-desc">${repo.description}</p>
+            <div class="repo-footer">
+                <div class="repo-lang">${langDot}</div>
+                <div class="repo-stats">${stars}${forks}</div>
+            </div>
+        </article>`;
+    }).join("");
+    container.innerHTML = html;
 }
 
 function renderCertifications(certs) {

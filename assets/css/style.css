@@ -1745,3 +1745,237 @@ header .navbar ul li a:hover {
 .footer .box p a:hover {
   color: #f68c09;
 }
+
+/* ========================================== */
+/* TECH STACK TAGS — Projects & Experience    */
+/* ========================================== */
+
+/* Project tech stack tags */
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0 0.5rem;
+}
+.tech-tag {
+  display: inline-block;
+  padding: 0.25rem 0.8rem;
+  background: rgba(66, 1, 119, 0.08);
+  color: #420177;
+  border: 1px solid rgba(66, 1, 119, 0.2);
+  border-radius: 20px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: all 0.2s ease;
+}
+.tech-tag:hover {
+  background: #420177;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+/* Project meta: year + type */
+.project-meta {
+  display: flex;
+  gap: 1.2rem;
+  font-size: 1.2rem;
+  color: #888;
+  margin: 0.5rem 0 1rem;
+}
+.project-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.project-meta i {
+  color: #f68c09;
+}
+
+/* Experience tech badges */
+.exp-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0 0.5rem;
+}
+.tech-badge {
+  display: inline-block;
+  padding: 0.2rem 0.7rem;
+  background: rgba(2, 9, 75, 0.07);
+  color: #02094b;
+  border: 1px solid rgba(2, 9, 75, 0.15);
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+.tech-badge:hover {
+  background: #02094b;
+  color: #fff;
+}
+
+/* Experience meta: location + type */
+.exp-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  font-size: 1.2rem;
+  color: #888;
+  margin: 0.5rem 0 0.3rem;
+}
+.exp-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.exp-meta i {
+  color: #f68c09;
+}
+
+/* Experience period */
+.exp-period {
+  font-size: 1.3rem;
+  color: #666;
+  font-style: italic;
+  margin-top: 0.5rem !important;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.exp-period i {
+  color: #f68c09;
+}
+
+/* ========================================== */
+/* GITHUB REPOS SECTION                       */
+/* ========================================== */
+
+.repos {
+  padding: 5rem 9%;
+  background: #f9f9f9;
+}
+
+.repos-subtitle {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #666;
+  margin: 0.5rem 0 3rem;
+}
+.repos-subtitle a {
+  color: #420177;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.repos-subtitle a:hover {
+  color: #f68c09;
+}
+
+.repos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
+  gap: 2rem;
+}
+
+.repo-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 2rem;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  cursor: default;
+}
+.repo-card:hover {
+  border-color: #420177;
+  box-shadow: 0 8px 24px rgba(66, 1, 119, 0.1);
+  transform: translateY(-3px);
+}
+
+.repo-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+.repo-header > i {
+  color: #420177;
+  font-size: 1.6rem;
+}
+.repo-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #420177;
+  text-decoration: none;
+  flex: 1;
+  transition: color 0.2s ease;
+}
+.repo-name:hover {
+  color: #f68c09;
+  text-decoration: underline;
+}
+.repo-visibility {
+  font-size: 1.1rem;
+  padding: 0.15rem 0.6rem;
+  border: 1px solid #57ab5a;
+  border-radius: 20px;
+  color: #57ab5a;
+  font-weight: 600;
+}
+
+.repo-desc {
+  font-size: 1.35rem;
+  color: #555;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.repo-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 0.8rem;
+  border-top: 1px solid #f0f0f0;
+  font-size: 1.2rem;
+  color: #666;
+}
+.repo-lang {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.lang-dot {
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  display: inline-block;
+}
+.repo-stats {
+  display: flex;
+  gap: 1rem;
+}
+.repo-stats span {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.repo-stats i {
+  color: #f68c09;
+}
+
+/* Responsive repos */
+@media (max-width: 768px) {
+  .repos-grid {
+    grid-template-columns: 1fr;
+  }
+  .tech-tag, .tech-badge {
+    font-size: 1rem;
+  }
+  .project-meta, .exp-meta {
+    font-size: 1.1rem;
+  }
+}
