@@ -14,12 +14,14 @@
                 },
                 {
                     "name": "Golang",
-                    "img": "https://img.icons8.com/color/48/000000/golang.png"
+                    "img": "https://img.icons8.com/color/48/000000/golang.png",
+                    "learning": true
                 },
                 {
                     "name": "Rust",
                     "icon": "fab fa-rust",
-                    "style": "font-size: 2.2rem;"
+                    "style": "font-size: 2.2rem;",
+                    "learning": true
                 },
                 {
                     "name": "NodeJS",
@@ -36,10 +38,6 @@
                 {
                     "name": "REST API",
                     "icon": "fas fa-network-wired"
-                },
-                {
-                    "name": "Queue & Jobs",
-                    "icon": "fas fa-tasks"
                 },
                 {
                     "name": "Webhook",
@@ -99,7 +97,12 @@
                 },
                 {
                     "name": "Redis",
-                    "img": "https://img.icons8.com/color/48/000000/redis.png"
+                    "img": "https://img.icons8.com/color/48/000000/redis.png",
+                    "learning": true
+                },
+                {
+                    "name": "Supabase",
+                    "img": "https://img.icons8.com/color/48/000000/supabase.png"
                 },
                 {
                     "name": "Firebase",
@@ -207,8 +210,24 @@
                     "img": "https://img.icons8.com/glyph-neue/48/ffffff/github.png"
                 },
                 {
+                    "name": "GitLab",
+                    "img": "https://img.icons8.com/color/48/000000/gitlab.png"
+                },
+                {
                     "name": "VS Code",
                     "img": "https://img.icons8.com/color/48/000000/visual-studio-code-2019.png"
+                },
+                {
+                    "name": "Sublime Text",
+                    "img": "https://img.icons8.com/color/48/000000/sublime-text.png"
+                },
+                {
+                    "name": "IntelliJ IDEA",
+                    "img": "https://img.icons8.com/color/48/000000/intellij-idea.png"
+                },
+                {
+                    "name": "PhpStorm",
+                    "img": "https://img.icons8.com/color/48/000000/phpstorm.png"
                 },
                 {
                     "name": "Postman",
@@ -225,6 +244,10 @@
                 {
                     "name": "Figma",
                     "img": "https://img.icons8.com/color/48/000000/figma--v1.png"
+                },
+                {
+                    "name": "Antigravity",
+                    "icon": "fas fa-robot"
                 }
             ]
         },

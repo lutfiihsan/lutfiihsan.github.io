@@ -112,9 +112,9 @@ function renderSkills(skills) {
                 visual = `<i class="${item.icon}" aria-hidden="true"${style}></i>`;
             }
             itemsHtml += `
-            <span class="skill-chip" title="${item.name}">
+            <span class="skill-chip${item.learning ? ' skill-chip-learning' : ''}" title="${item.name}">
                 <span class="skill-chip-icon">${visual}</span>
-                <span class="skill-chip-name">${item.name}</span>
+                <span class="skill-chip-name">${item.name}</span>${item.learning ? '<span class="learning-badge">Learning</span>' : ''}
             </span>`;
         });
 
