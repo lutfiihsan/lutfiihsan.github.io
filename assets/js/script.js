@@ -3,7 +3,10 @@ let globalPortfolioData = null;
 
 $(document).ready(function () {
     // --- UI Interactions ---
+    // Toggle navigation menu
     $('#menu').click(function () {
+        const expanded = $(this).attr('aria-expanded') === 'true';
+        $(this).attr('aria-expanded', !expanded);
         $(this).toggleClass('fa-times');
         $('.navbar').toggleClass('nav-toggle');
     });
@@ -16,6 +19,11 @@ $(document).ready(function () {
         } else {
             $('#scroll-top').removeClass('active');
         }
+
+        // Close nav on scroll
+        $('#menu').attr('aria-expanded', 'false');
+        $('#menu').removeClass('fa-times');
+        $('.navbar').removeClass('nav-toggle');
 
         // Scroll spy
         $('section').each(function () {
@@ -238,10 +246,10 @@ window.onclick = function(event) {
 
 document.addEventListener('visibilitychange', function () {
     if (document.visibilityState === "visible") {
-        document.title = "Portfolio | Lutfi Ihsan";
+        document.title = "Portfolio | Lutfi Ihsan — Full Stack Developer & SysAdmin";
         $("#favicon").attr("href", "assets/images/favicon.png");
     } else {
-        document.title = "Come Back To Portfolio";
+        document.title = "Come Back To Portfolio 🚀";
         $("#favicon").attr("href", "assets/images/favhand.png");
     }
 });

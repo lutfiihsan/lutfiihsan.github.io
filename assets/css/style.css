@@ -6,10 +6,31 @@
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
-  outline: none;
   border: none;
-  text-transform: capitalize;
   transition: all 0.2s linear;
+}
+
+/* Accessibility: Focus visible for keyboard users */
+:focus-visible {
+  outline: 2px solid #f68c09;
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 html {
   font-size: 62.5%;
@@ -26,10 +47,6 @@ body {
   color: #fff;
 }
 
-html {
-  font-size: 62.5%;
-  overflow-x: hidden;
-}
 html::-webkit-scrollbar {
   width: 0.8rem;
 }
@@ -77,11 +94,15 @@ section {
   min-height: 100vh;
   padding: 2rem 9%;
 }
+main {
+  display: block;
+}
 .heading {
   font-size: 3.5rem;
   color: rgb(32, 32, 32);
   font-weight: 800;
   text-align: center;
+  text-transform: capitalize;
 }
 .heading span {
   color: rgb(115, 3, 167);
@@ -129,6 +150,12 @@ header .navbar ul li a:hover {
   cursor: pointer;
   color: rgb(24, 2, 63);
   display: none;
+  /* Reset button default styles */
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  line-height: 1;
+  border-radius: 4px;
 }
 @media (max-width: 768px) {
   #menu {
@@ -1680,4 +1707,41 @@ header .navbar ul li a:hover {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
+}
+
+/* ========================================== */
+/* SEMANTIC TAG ADDITIONS                     */
+/* ========================================== */
+
+/* Resume Download Button — resets since we changed from <a> to <button> */
+.about .row .content .resumebtn .btn {
+  cursor: pointer;
+  font-family: "Nunito", sans-serif;
+}
+
+/* Close modal button reset */
+.image-modal .close-modal {
+  background: none;
+  cursor: pointer;
+}
+
+/* About info-box links — seamless with surrounding text */
+.about .row .content .personal-info .info-box span a {
+  color: #555;
+  font-size: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.about .row .content .personal-info .info-box span a:hover {
+  color: #f68c09;
+}
+
+/* Footer contact info links */
+.footer .box p a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.footer .box p a:hover {
+  color: #f68c09;
 }
