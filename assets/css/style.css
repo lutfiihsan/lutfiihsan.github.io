@@ -1118,68 +1118,99 @@ header .navbar ul li a:hover {
 
 /* work section starts */
 .work {
-  background: linear-gradient(to bottom, #000031, #00002c);
+  background: #f4f6fb;
+  padding-bottom: 7rem;
 }
 .work h2 {
-  color: #fff;
+  color: #02094b;
   padding: 1rem;
 }
 .work .heading span {
-  color: rgb(255, 230, 0);
+  color: #f68c09;
 }
 .work .box-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Responsif otomatis */
-  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 2.8rem;
   margin: 3rem 0;
 }
+
+/* ── Project Card ─────────────────── */
 .work .box {
   background: #ffffff;
-  border-radius: 1rem;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 18px;
+  border: 1px solid #e8eaf0;
+  box-shadow: 0 4px 20px rgba(2, 9, 75, 0.06);
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease;
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
 }
 .work .box:hover {
-  transform: translateY(-5px);
+  transform: translateY(-7px);
+  box-shadow: 0 16px 40px rgba(2, 9, 75, 0.13);
+  border-color: rgba(246, 140, 9, 0.35);
 }
-/* Bagian Gambar */
+
+/* ── Image area: padded container ── */
 .work .box .image-wrapper {
   position: relative;
   width: 100%;
-  height: 220px;
+  height: 210px;
+  background: #f0f2f8;
+  padding: 1.2rem;
+  box-sizing: border-box;
   overflow: hidden;
+  flex-shrink: 0;
 }
 .work .box .image-wrapper img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
+  object-fit: contain;     /* show full image — no crop */
+  object-position: center top;
+  border-radius: 8px;
+  transition: transform 0.45s ease;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.08));
 }
 .work .box:hover .image-wrapper img {
-  transform: scale(1.1); /* Efek zoom tipis saat card di-hover */
+  transform: scale(1.04);
 }
-/* Tombol Zoom (Kaca Pembesar) */
+
+/* Gradient overlay on hover */
+.work .box .image-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(2, 9, 75, 0.18), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.work .box:hover .image-wrapper::after {
+  opacity: 1;
+}
+
+/* Zoom button */
 .work .box .zoom-btn {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.5);
-  background: rgba(246, 140, 9, 0.9);
+  transform: translate(-50%, -50%) scale(0.6);
+  background: rgba(246, 140, 9, 0.92);
   color: #fff;
   border-radius: 50%;
-  width: 55px;
-  height: 55px;
-  font-size: 2rem;
+  width: 52px;
+  height: 52px;
+  font-size: 1.8rem;
   cursor: pointer;
   opacity: 0;
-  transition: all 0.3s ease;
+  transition: all 0.28s ease;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 2px solid #fff;
+  backdrop-filter: blur(4px);
+  z-index: 2;
 }
 .work .box:hover .zoom-btn {
   opacity: 1;
@@ -1187,86 +1218,99 @@ header .navbar ul li a:hover {
 }
 .work .box .zoom-btn:hover {
   background: #02094b;
+  transform: translate(-50%, -50%) scale(1.1);
 }
 
-/* Bagian Konten Bawah */
+/* ── Content area ────────────────── */
 .work .box .content {
-  padding: 2rem;
+  padding: 2rem 2.2rem 2.2rem;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  gap: 0.6rem;
 }
 .work .box .content .title-wrap {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #eee;
+  margin-bottom: 0.8rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid #f0f0f0;
 }
 .work .box .content .title-wrap h3 {
-  font-size: 2rem;
+  font-size: 1.85rem;
   color: #02094b;
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 .work .box .content .desc p {
-  font-size: 1.4rem;
-  color: #555;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-  flex-grow: 1;
+  font-size: 1.35rem;
+  color: #666;
+  line-height: 1.65;
+  margin-bottom: 0;
 }
 
-/* Badges Status */
+/* Status badges — refined */
 .status-badge {
-  padding: 0.5rem 1rem;
+  padding: 0.35rem 1rem;
   border-radius: 50px;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  white-space: nowrap;
 }
-.status-online { background: #d4edda; color: #155724; }
-.status-offline { background: #fff3cd; color: #856404; }
-.status-private { background: #f8d7da; color: #721c24; }
+.status-online  { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+.status-offline { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+.status-private { background: #ede9fe; color: #4c1d95; border: 1px solid #c4b5fd; }
 
-/* Tombol Action (View/Code) */
+/* Action buttons */
 .work .box .btns {
   display: flex;
   gap: 1rem;
   margin-top: auto;
+  padding-top: 1.5rem;
 }
 .work .box .btns .btn {
   flex: 1;
-  text-align: center;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  font-size: 1.4rem;
-  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1rem 1.2rem;
+  border-radius: 10px;
+  font-size: 1.35rem;
+  font-weight: 700;
   color: #fff;
   background: #02094b;
-  transition: 0.3s;
+  transition: all 0.22s ease;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
 }
 .work .box .btns .btn:hover {
   background: #f68c09;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(246,140,9,0.3);
 }
 .work .box .btns .btn-disabled {
-  background: #e0e0e0;
-  color: #888;
+  background: #f4f4f6;
+  color: #aaa;
   cursor: not-allowed;
-  pointer-events: none; /* Mencegah klik */
+  pointer-events: none;
+  border: 1px solid #e8e8e8;
 }
 
 /* Image Modal (Lightbox) Styles */
 .image-modal {
-  display: none; 
-  position: fixed; 
-  z-index: 10000; 
-  left: 0; 
-  top: 0; 
-  width: 100%; 
-  height: 100%; 
-  background-color: rgba(0,0,0,0.85); 
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.85);
   backdrop-filter: blur(5px);
 }
 .image-modal .modal-content {
@@ -1295,6 +1339,7 @@ header .navbar ul li a:hover {
   color: #f68c09;
 }
 /* work section ends */
+
 
 /* experience section starts */
 .experience .timeline {
