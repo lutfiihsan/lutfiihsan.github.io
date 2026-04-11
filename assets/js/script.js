@@ -346,15 +346,11 @@ function initViewMoreLogic() {
     viewMoreProjectsBtn.off('click').on('click', function(){
         const hiddenProjects = $('.work .box-container .box.hidden-item');
         if(hiddenProjects.length > 0) {
-            // First clear ScrollReveal's stubborn inline overrides, then animate nicely
-            hiddenProjects.css({
-                'visibility': 'visible',
-                'transform': 'none'
-            }).removeClass('hidden-item').hide().fadeIn(600);
-            
+            // Add .revealed class to force opacity 1 and bypass ScrollReveal
+            hiddenProjects.addClass('revealed').removeClass('hidden-item').hide().fadeIn(600);
             $(this).html('<span>View Less</span> <i class="fas fa-chevron-up"></i>');
         } else {
-            projectItems.slice(itemsToShow).addClass('hidden-item');
+            projectItems.slice(itemsToShow).removeClass('revealed').addClass('hidden-item');
             $(this).html('<span>View More</span> <i class="fas fa-chevron-down"></i>');
             $('html, body').animate({ scrollTop: $("#work").offset().top - 80 }, 500);
         }
@@ -372,14 +368,10 @@ function initViewMoreLogic() {
     viewMoreCertsBtn.off('click').on('click', function(){
         const hiddenCerts = $('.certifications .box-container .box.hidden-item');
         if(hiddenCerts.length > 0) {
-            hiddenCerts.css({
-                'visibility': 'visible',
-                'transform': 'none'
-            }).removeClass('hidden-item').hide().fadeIn(600);
-            
+            hiddenCerts.addClass('revealed').removeClass('hidden-item').hide().fadeIn(600);
             $(this).html('<span>View Less</span> <i class="fas fa-chevron-up"></i>');
         } else {
-            certItems.slice(itemsToShow).addClass('hidden-item');
+            certItems.slice(itemsToShow).removeClass('revealed').addClass('hidden-item');
             $(this).html('<span>View More</span> <i class="fas fa-chevron-down"></i>');
             $('html, body').animate({ scrollTop: $("#certifications").offset().top - 80 }, 500);
         }

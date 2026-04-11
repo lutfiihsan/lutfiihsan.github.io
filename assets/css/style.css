@@ -2142,6 +2142,14 @@ header .navbar ul li a:hover {
   display: none !important;
 }
 
+/* Force visibility for items revealed via 'View More' to bypass ScrollReveal conflicts */
+.revealed {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
 .morebtn {
   display: flex;
   justify-content: center;
