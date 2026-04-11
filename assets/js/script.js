@@ -95,6 +95,7 @@ async function fetchDataAndRender() {
             VanillaTilt.init(document.querySelectorAll(".tilt"), { max: 15 });
             initViewMoreLogic();
             initScrollReveal();
+            initContactCopy();
         }
     } catch (error) {
         console.error("Error loading portfolio data:", error);
@@ -589,26 +590,85 @@ function _doGeneratePdf() {
             });
             y += 2;
 
-            // ── WORK EXPERIENCE (Dynamic) ──
+            // ── WORK EXPERIENCE (Support Tiered Roles) ──
             drawSectionHeader('Work Experience');
             globalPortfolioData.experience.forEach((exp, idx) => {
-                checkPage(22);
-                if (idx > 0) { doc.setDrawColor(...COLOR_LIGHTGRAY); doc.line(marginL, y - 2, marginL + contentW, y - 2); y += 2; }
-                doc.setFontSize(10); doc.setFont('helvetica', 'bold'); doc.setTextColor(...COLOR_DARK);
+                checkPage(25);
+                if (idx > 0) { doc.setDrawColor(...COLOR_LIGHTGRAY); doc.line(marginL, y - 2, marginL + contentW, y - 2); y += 4; }
+                
+                // Company Name
+                doc.setFontSize(10.5); doc.setFont('helvetica', 'bold'); doc.setTextColor(...COLOR_DARK);
                 doc.text(exp.company, marginL, y);
-                doc.setFontSize(8.5); doc.setFont('helvetica', 'italic'); doc.setTextColor(...COLOR_ORANGE);
-                doc.text(exp.period, marginL + contentW, y, { align: 'right' });
-                y += 5;
-                doc.setFontSize(9); doc.setFont('helvetica', 'bolditalic'); doc.setTextColor(...COLOR_GRAY);
-                doc.text(exp.role, marginL, y); y += 5;
-                doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); doc.setTextColor(...COLOR_GRAY);
-                exp.tasks.forEach(task => {
-                    checkPage(8);
-                    const lines = doc.splitTextToSize('• ' + task, contentW - 5);
-                    doc.text(lines, marginL + 3, y);
-                    y += lines.length * 4.2 + 1;
-                });
-                y += 4;
+                
+                // Total Duration (Optional check)
+                if (exp.period && !exp.isGrouped) {
+                    doc.setFontSize(8.5); doc.setFont('helvetica', 'italic'); doc.setTextColor(...COLOR_ORANGE);
+                    doc.text(exp.period, marginL + contentW, y, { align: 'right' });
+                } else if (exp.period) {
+                    doc.setFontSize(8); doc.setFont('helvetica', 'italic'); doc.setTextColor(...COLOR_GRAY);
+                    doc.text(exp.period, marginL + contentW, y, { align: 'right' });
+                }
+                y += 5.5;
+
+                if (exp.isGrouped && exp.roles) {
+                    // Render multiple roles under one company
+                    exp.roles.forEach((subRole, roleIdx) => {
+                        checkPage(15);
+                        // Role Title
+                        doc.setFontSize(9.5); doc.setFont('helvetica', 'bold'); doc.setTextColor(24, 60, 108); // Deep Blueish
+                        doc.text(subRole.title, marginL + 3, y);
+                        
+                        // SubRole Period
+                        doc.setFontSize(8); doc.setFont('helvetica', 'bold'); doc.setTextColor(...COLOR_ORANGE);
+                        doc.text(subRole.period, marginL + contentW, y, { align: 'right' });
+                        y += 4.5;
+                        
+                        // SubRole Tasks
+                        doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); doc.setTextColor(...COLOR_GRAY);
+                        subRole.tasks.forEach(task => {
+                            checkPage(8);
+                            const lines = doc.splitTextToSize('• ' + task, contentW - 8);
+                            doc.text(lines, marginL + 6, y);
+                            y += lines.length * 4.2 + 1;
+                        });
+                        y += 2; // small gap between roles
+                    });
+                } else {
+                    // Traditional flat structure
+                    doc.setFontSize(9.5); doc.setFont('helvetica', 'bolditalic'); doc.setTextColor(...COLOR_GRAY);
+                    doc.text(exp.role || '', marginL + 3, y); y += 5;
+                    doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); doc.setTextColor(...COLOR_GRAY);
+                    (exp.tasks || []).forEach(task => {
+                        checkPage(8);
+                        const lines = doc.splitTextToSize('• ' + task, contentW - 8);
+                        doc.text(lines, marginL + 6, y);
+                        y += lines.length * 4.2 + 1;
+                    });
+                }
+                y += 3;
+            });
+
+            // ── PERSONAL PROJECTS (New Section) ──
+            drawSectionHeader('Key Projects');
+            // Show top 5 projects
+            globalPortfolioData.projects.slice(0, 5).forEach((proj, idx) => {
+                checkPage(18);
+                doc.setFontSize(9.5); doc.setFont('helvetica', 'bold'); doc.setTextColor(...COLOR_DARK);
+                doc.text(proj.title, marginL, y);
+                
+                doc.setFontSize(8); doc.setFont('helvetica', 'italic'); doc.setTextColor(...COLOR_ORANGE);
+                doc.text(proj.year || '', marginL + contentW, y, { align: 'right' });
+                y += 4.5;
+                
+                doc.setFontSize(8.5); doc.setFont('helvetica', 'normal'); doc.setTextColor(...COLOR_GRAY);
+                const descLines = doc.splitTextToSize(proj.desc, contentW);
+                doc.text(descLines, marginL, y);
+                y += descLines.length * 4.2 + 1.5;
+                
+                // Stack
+                doc.setFontSize(7.5); doc.setFont('helvetica', 'bold'); doc.setTextColor(70, 70, 70);
+                doc.text('Stack: ' + proj.tech.join(', '), marginL, y);
+                y += 6;
             });
 
             // ── CERTIFICATIONS (Dynamic) ──
@@ -634,8 +694,16 @@ function _doGeneratePdf() {
                 doc.setFontSize(7.5); doc.setTextColor(160, 165, 200); doc.setFont('helvetica', 'italic');
                 doc.text(`Resume - Lutfi Ihsan  |  Page ${i} of ${totalPages}`, pageW / 2, pageH - 4.5, { align: 'center' });
             }
-
-            doc.save('Resume_Lutfi_Ihsan.pdf');
+            // Force Download with Correct Extension using Blob
+            const blob = doc.output('blob');
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'Resume_Lutfi_Ihsan.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
 
         } catch (err) {
             console.error('Error generating PDF:', err);
@@ -715,7 +783,7 @@ function initMatrixAnimation() {
 window.addEventListener('load', initMatrixAnimation);
 
 function initScrollReveal() {
-    const srtop = ScrollReveal({ origin: 'top', distance: '80px', duration: 1000, reset: true });
+    const srtop = ScrollReveal({ origin: 'top', distance: '80px', duration: 1000, reset: false });
     srtop.reveal('.home .content h3, .home .content p, .home .content .btn', { delay: 200 });
     srtop.reveal('.home .image', { delay: 400 });
     srtop.reveal('.about .content h3, .about .content .tag, .about .content p, .about .content .box-container, .about .content .resumebtn', { delay: 200 });
@@ -726,6 +794,28 @@ function initScrollReveal() {
     srtop.reveal('.experience .timeline .container', { interval: 400 });
     srtop.reveal('.award-card', { interval: 150, origin: 'bottom', distance: '40px' });
     srtop.reveal('.contact .container', { delay: 400 });
+}
+
+// --- CONTACT COPY TO CLIPBOARD ---
+function initContactCopy() {
+    document.querySelectorAll('.copyable-contact').forEach(item => {
+        item.addEventListener('click', function(e) {
+            const fullValue = this.getAttribute('data-full-value');
+            if (!fullValue) return;
+
+            navigator.clipboard.writeText(fullValue).then(() => {
+                const successMsg = this.querySelector('.copy-success');
+                if (successMsg) {
+                    successMsg.classList.add('visible');
+                    setTimeout(() => {
+                        successMsg.classList.remove('visible');
+                    }, 2000);
+                }
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        });
+    });
 }
 
 // --- RENDER PROJECT DETAIL (project.html) ---

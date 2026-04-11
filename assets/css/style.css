@@ -7,7 +7,6 @@
   box-sizing: border-box;
   text-decoration: none;
   border: none;
-  transition: all 0.2s linear;
 }
 
 /* Accessibility: Focus visible for keyboard users */
@@ -1165,6 +1164,52 @@ header .navbar ul li a.active {
   transition: color 0.2s ease, background 0.2s ease;
   letter-spacing: 0.03em;
   margin-top: auto;
+}
+.btn {
+  /* ... existing styles ... */
+  transition: all 0.3s ease;
+}
+.navbar a { transition: color 0.3s ease; }
+.logo { transition: color 0.3s ease; }
+.footer .box a { transition: transform 0.3s ease, color 0.3s ease; }
+.share a { transition: all 0.3s ease; }
+
+/* Copy to Clipboard UI */
+.copyable-contact {
+  position: relative;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.copy-icon {
+  font-size: 1.2rem;
+  opacity: 0;
+  transform: translateX(-5px);
+  transition: all 0.3s ease;
+  color: #f68c09;
+}
+.copyable-contact:hover .copy-icon {
+  opacity: 1;
+  transform: translateX(0);
+}
+.copy-success {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #f68c09;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+.copy-success.visible {
+  opacity: 1;
+  top: -30px;
 }
 .chip-expand-btn:hover {
   color: #420177;
