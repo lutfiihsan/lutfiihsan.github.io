@@ -81,8 +81,14 @@ async function fetchDataAndRender() {
         globalPortfolioData = data; // Simpan untuk PDF Generator
 
         // Simple Router based on Pathname
-        if (window.location.pathname.includes('project.html')) {
+        // Router: matches both 'project.html?id=...' (GitHub Pages) and '/project?id=...' (local dev server)
+        const isProjectPage = window.location.pathname.includes('project.html') 
+                           || window.location.pathname.endsWith('/project')
+                           || window.location.pathname.endsWith('/project.html');
+        
+        if (isProjectPage) {
             renderProjectDetail(data.projects);
+            initContactCopy();
         } else {
             renderSkills(data.skills);
             renderProjects(data.projects);
@@ -164,7 +170,9 @@ function renderSkills(skills) {
         </div>`;
     });
 
-    document.getElementById('skills-grid').innerHTML = html;
+    const container = document.getElementById('skills-grid');
+    if (!container) return;
+    container.innerHTML = html;
 }
 
 function toggleSkillCard(btn) {
@@ -196,7 +204,7 @@ function renderProjects(projects) {
     projects.forEach(proj => {
         let btnsHtml = "";
         if (proj.id) {
-            btnsHtml += `<a href="project.html?id=${proj.id}" class="btn btn-detail"><i class="fas fa-info-circle" aria-hidden="true"></i> Details</a>`;
+            btnsHtml += `<a href="project.html" onclick="sessionStorage.setItem('activeProjectId', '${proj.id}')" class="btn btn-detail"><i class="fas fa-info-circle" aria-hidden="true"></i> Details</a>`;
         }
 
         if (proj.viewLink) {
@@ -246,7 +254,9 @@ function renderProjects(projects) {
             </div>
         </div>`;
     });
-    document.getElementById("projects-container").innerHTML = html;
+    const container = document.getElementById("projects-container");
+    if (!container) return;
+    container.innerHTML = html;
 }
 
 function renderExperience(experiences) {
@@ -319,7 +329,9 @@ function renderExperience(experiences) {
             </div>`;
         }
     });
-    document.getElementById("experience-container").innerHTML = html;
+    const container = document.getElementById("experience-container");
+    if (!container) return;
+    container.innerHTML = html;
 }
 
 function renderGithubRepos(repos) {
@@ -376,7 +388,9 @@ function renderCertifications(certs) {
             </div>
         </div>`;
     });
-    document.getElementById("certifications-container").innerHTML = html;
+    const container = document.getElementById("certifications-container");
+    if (!container) return;
+    container.innerHTML = html;
 }
 
 // --- AWARDS / HONORS ---
@@ -820,8 +834,10 @@ function initContactCopy() {
 
 // --- RENDER PROJECT DETAIL (project.html) ---
 function renderProjectDetail(projects) {
+    // Try URL param first (GitHub Pages), then sessionStorage (local dev server)
     const urlParams = new URLSearchParams(window.location.search);
-    const projId = urlParams.get('id');
+    const projId = urlParams.get('id') || sessionStorage.getItem('activeProjectId');
+    if (projId) sessionStorage.removeItem('activeProjectId'); // Clean up after use
     const project = projects.find(p => p.id === projId);
 
     const container = document.getElementById('project-detail-container');
