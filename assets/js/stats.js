@@ -1,7 +1,9 @@
 // ============================================================
-// STATS.JS — Admin Statistics Dashboard (Highcharts Edition)
-// Requires: supabase.js + Highcharts loaded
+// STATS.JS — Admin Statistics Dashboard (Highcharts Edition) (ES MODULE)
+// Requires: Highcharts loaded
 // ============================================================
+import { sb } from './supabase.js';
+
 
 // ── HIGHCHARTS GLOBAL LIGHT THEME ──
 Highcharts.setOptions({
@@ -430,3 +432,6 @@ function showStatsLoading(show) {
     const el = document.getElementById('stats-loading');
     if (el) el.style.display = show ? 'block' : 'none';
 }
+
+// ── EXPOSE TO WINDOW ──
+window.loadStats = loadStats;

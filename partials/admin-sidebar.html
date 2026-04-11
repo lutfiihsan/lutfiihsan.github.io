@@ -1,0 +1,29 @@
+<!-- Sidebar -->
+<aside class="admin-sidebar">
+  <div class="sidebar-logo">
+    <i class="fas fa-shield-alt"></i>
+    <span>Admin</span>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="#" class="active" id="nav-stats" onclick="switchTab('stats', this)">
+      <i class="fas fa-chart-line"></i> Statistics
+    </a>
+    <a href="#" id="nav-users" onclick="switchTab('users', this)" style="display:none;">
+      <i class="fas fa-users-cog"></i> Users
+    </a>
+    <a href="#" id="nav-posts" onclick="switchTab('posts', this)">
+      <i class="fas fa-newspaper"></i> Posts
+    </a>
+    <a href="blog.html" target="_blank">
+      <i class="fas fa-globe"></i> View Blog
+    </a>
+    <a href="index.html">
+      <i class="fas fa-home"></i> Portfolio
+    </a>
+  </nav>
+  <div class="sidebar-logout">
+    <button class="btn-logout" id="btn-logout">
+      <i class="fas fa-sign-out-alt"></i> Logout
+    </button>
+  </div>
+</aside>

@@ -1,47 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="Lutfi Ihsan">
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#02094b">
-  
+  <load src="./partials/portfolio-head.html" />
   <title>Project Detail | Lutfi Ihsan</title>
-
-  <!-- Performance Preconnects -->
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="./assets/css/style.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <!-- Favicon -->
-  <link id='favicon' rel="shortcut icon" href="./assets/images/favicon.png" type="image/x-png">
 </head>
 
 <body oncontextmenu="return false">
 
-  <header>
-    <a href="index.html" class="logo" aria-label="Lutfi Ihsan — Home">
-      <i class="fab fa-php" aria-hidden="true"></i> Lutfi </a>
-    <div id="menu" class="fas fa-bars" aria-label="Toggle navigation menu" role="button" tabindex="0"></div>
-    <nav class="navbar" aria-label="Main Navigation">
-      <ul>
-        <li><a href="index.html#home">Home</a></li>
-        <li><a href="index.html#work" class="active">Projects</a></li>
-      </ul>
-    </nav>
-    <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
-      <i class="fas fa-moon" aria-hidden="true"></i>
-    </button>
-  </header>
+  <load src="./partials/portfolio-nav.html" />
 
   <main style="padding-top: 100px;">
     <section class="project-detail-view" id="project-detail-container">
@@ -50,51 +16,11 @@
     </section>
   </main>
 
-  <footer class="footer" role="contentinfo">
-    <div class="box-container">
-      <div class="box">
-        <h3>Lutfi Ihsan</h3>
-        <p>Full Stack Developer &amp; SysAdmin. Solving complex problems with elegant, scalable, and optimized solutions.</p>
-        <p>Bringing passion and precision to every line of code.</p>
-      </div>
-      <div class="box">
-        <h3>Quick Links</h3>
-        <a href="index.html#home"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i> Home</a>
-        <a href="index.html#work"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i> Projects</a>
-        <a href="index.html#contact"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i> Contact</a>
-      </div>
-      <div class="box">
-        <h3>Contact Info</h3>
-        <p class="copyable-contact" data-full-value="+6281226260649" title="Click to copy">
-          <i class="fas fa-phone" aria-hidden="true"></i>
-          <a href="javascript:void(0)">+62 812-****-0649 <i class="fas fa-copy copy-icon"></i></a>
-          <span class="copy-success">Copied!</span>
-        </p>
-        <p class="copyable-contact" data-full-value="lutficreativesys@gmail.com" title="Click to copy">
-          <i class="fas fa-envelope" aria-hidden="true"></i>
-          <a href="javascript:void(0)">lutfi***@gmail.com <i class="fas fa-copy copy-icon"></i></a>
-          <span class="copy-success">Copied!</span>
-        </p>
-        <p><i class="fas fa-map-marked-alt" aria-hidden="true"></i> Bogor, Indonesia - 16360</p>
-      </div>
-    </div>
-    <p class="credit">Built &amp; Optimized with <i class="fa fa-heart pulse" aria-hidden="true"></i> by <a href="https://www.linkedin.com/in/lutfi-ihsan-44988b180/">Lutfi Ihsan</a></p>
-  </footer>
+  <load src="./partials/portfolio-footer.html" />
 
-  <!-- jquery cdn -->
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <load src="./partials/portfolio-scripts.html" />
   <!-- VanillaTilt (required for project detail 3D tilt effect) -->
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
-  <!-- scroll reveal anim -->
-  <script defer src="https://unpkg.com/scrollreveal"></script>
-  <!-- main script -->
-  <script defer src="./assets/js/script.js"></script>
-  <!-- Page View Tracker -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="./assets/js/env.js"></script>
-  <script src="./assets/js/supabase.js"></script>
-  <script defer src="./assets/js/tracker.js"></script>
+  <script src="https://unpkg.com/scrollreveal"></script>
 </body>
 </html>

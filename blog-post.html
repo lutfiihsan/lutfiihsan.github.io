@@ -1,39 +1,19 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <load src="./partials/portfolio-head.html" />
   <title>Artikel | Blog — Lutfi Ihsan</title>
   <meta name="author" content="Lutfi Ihsan">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap">
   <!-- Quill CSS for rendering rich content -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.snow.css">
-  <link rel="stylesheet" href="./assets/css/style.css">
   <link rel="stylesheet" href="./assets/css/blog.css">
-  <link id="favicon" rel="shortcut icon" href="./assets/images/favicon.png" type="image/x-png">
 </head>
 
 <body>
 
   <!-- Navbar -->
-  <header>
-    <a href="index.html" class="logo" aria-label="Portfolio — Lutfi Ihsan">
-      <i class="fab fa-php" aria-hidden="true"></i> Lutfi
-    </a>
-    <div id="menu" class="fas fa-bars" aria-label="Toggle navigation" role="button" tabindex="0"></div>
-    <nav class="navbar" aria-label="Main Navigation">
-      <ul>
-        <li><a href="index.html#home">Home</a></li>
-        <li><a href="index.html#work">Projects</a></li>
-        <li><a href="blog.html" class="active">Blog</a></li>
-        <li><a href="index.html#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+  <load src="./partials/portfolio-nav.html" />
 
   <main class="post-main">
     <div id="post-container">
@@ -45,27 +25,10 @@
   </main>
 
   <!-- Footer -->
-  <footer class="footer" role="contentinfo">
-    <div class="box-container">
-      <div class="box">
-        <h3>Lutfi Ihsan</h3>
-        <p>Full Stack Developer &amp; SysAdmin. Berbagi pengetahuan dan pengalaman melalui tulisan.</p>
-      </div>
-      <div class="box">
-        <h3>Navigation</h3>
-        <a href="blog.html"><i class="fas fa-chevron-circle-right"></i> Kembali ke Blog</a>
-        <a href="index.html"><i class="fas fa-chevron-circle-right"></i> Portfolio</a>
-      </div>
-    </div>
-    <p class="credit">Built &amp; Optimized with <i class="fa fa-heart pulse"></i> by <a href="https://www.linkedin.com/in/lutfi-ihsan-44988b180/">Lutfi Ihsan</a></p>
-  </footer>
+  <load src="./partials/portfolio-footer.html" />
 
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="./assets/js/env.js"></script>
-  <script src="./assets/js/supabase.js"></script>
-  <script src="./assets/js/blog.js"></script>
-  <script src="./assets/js/tracker.js"></script>
+  <load src="./partials/portfolio-scripts.html" />
+  <script type="module" src="./assets/js/blog.js"></script>
   <script>
     const menuBtn = document.getElementById('menu');
     if (menuBtn) {

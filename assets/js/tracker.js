@@ -1,11 +1,11 @@
 // ============================================================
-// TRACKER.JS — Lightweight Privacy-Friendly Page View Tracker
+// TRACKER.JS — Lightweight Privacy-Friendly Page View Tracker (ES MODULE)
 // Sends anonymous visit data to Supabase (no cookies, no PII)
-// Must be loaded AFTER supabase.js
 // ============================================================
+import { sb } from './supabase.js';
 
 (function () {
-    if (typeof sb === 'undefined' || !sb) return;
+    if (!sb) return;
 
     // ── Generate or retrieve session ID (anonymous, per-tab) ──
     let sessionId = sessionStorage.getItem('_sid');
@@ -85,4 +85,3 @@
 
     setTimeout(trackPageView, 1500);
 })();
-

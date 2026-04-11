@@ -1,21 +1,16 @@
 // ============================================================
-// SUPABASE CLIENT CONFIGURATION
-// Credentials dari: Supabase Dashboard → Settings → API
-// AMAN untuk di-commit ke GitHub (publishable key memang public)
+// SUPABASE CLIENT CONFIGURATION (ES MODULE)
 // ============================================================
 
-const SUPABASE_URL = window.ENV?.SUPABASE_URL || '';
-const SUPABASE_ANON = window.ENV?.SUPABASE_ANON || '';
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || '';
+const SUPABASE_ANON = import.meta.env.VITE_SUPABASE_ANON || '';
 
-// Supabase client — diinisialisasi setelah SDK CDN dimuat
-// Gunakan window.supabase yang di-inject oleh script CDN
-function initSupabaseClient() {
-    if (typeof window.supabase === 'undefined') {
-        console.error('Supabase SDK not loaded');
-        return null;
-    }
-    return window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+// Inisialisasi klien Supabase
+// window.supabase di-inject oleh script CDN di HTML
+export const sb = (typeof window.supabase !== 'undefined') 
+    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON)
+    : null;
+
+if (!sb) {
+    console.error('Supabase SDK not loaded or Credentials missing');
 }
-
-const sb = initSupabaseClient();
-

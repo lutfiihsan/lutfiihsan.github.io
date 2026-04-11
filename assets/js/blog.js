@@ -1,7 +1,9 @@
 // ============================================================
-// BLOG PUBLIC — JavaScript Logic
+// BLOG PUBLIC — JavaScript Logic (ES MODULE)
 // Requires: supabase.js loaded first
 // ============================================================
+import { sb } from './supabase.js';
+
 
 // ── FETCH PUBLISHED POSTS ──
 async function fetchPublishedPosts() {
@@ -163,3 +165,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('blog-posts-grid')) initBlogPage();
     if (document.getElementById('post-container'))  initPostPage();
 });
+
+// ── EXPOSE TO WINDOW ──
+window.openPost = openPost;

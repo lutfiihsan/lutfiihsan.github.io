@@ -2,49 +2,7 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="Lutfi Ihsan">
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#02094b">
-  <meta name="keywords"
-    content="Lutfi Ihsan, portfolio, full stack developer, Laravel developer, PHP developer, SysAdmin, backend developer, web developer, Indonesia" />
-  <meta name="description" content="Portfolio Lutfi Ihsan — Senior Full Stack Developer & SysAdmin dengan 7+ tahun pengalaman. Spesialisasi Laravel, PHP, JavaScript, MySQL, dan manajemen server infrastruktur." />
-
-  <!-- Open Graph / Facebook / LinkedIn -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://lutfiihsan.github.io/">
-  <meta property="og:title" content="Portfolio | Lutfi Ihsan — Full Stack Developer & SysAdmin">
-  <meta property="og:description" content="Senior Full Stack Developer & SysAdmin dengan 7+ tahun pengalaman. Spesialisasi Laravel, PHP, JavaScript, MySQL, dan infrastruktur server.">
-  <meta property="og:image" content="https://lutfiihsan.github.io/assets/images/hero.jpg">
-  <meta property="og:locale" content="en_US">
-  <meta property="og:site_name" content="Lutfi Ihsan Portfolio">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Portfolio | Lutfi Ihsan — Full Stack Developer & SysAdmin">
-  <meta name="twitter:description" content="Senior Full Stack Developer & SysAdmin dengan 7+ tahun pengalaman. Spesialisasi Laravel, PHP, JavaScript, MySQL.">
-  <meta name="twitter:image" content="https://lutfiihsan.github.io/assets/images/hero.jpg">
-
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://lutfiihsan.github.io/">
-
-  <!-- Performance Preconnects -->
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="./assets/css/style.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" media="print" onload="this.media='all'" />
-  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></noscript>
-  <!-- Favicon -->
-  <link id='favicon' rel="shortcut icon" href="./assets/images/favicon.png" type="image/x-png">
+  <load src="./partials/portfolio-head.html" />
   <title>Portfolio | Lutfi Ihsan — Full Stack Developer & SysAdmin</title>
 
   <!-- SEO Structured Data (JSON-LD) -->
@@ -73,54 +31,7 @@
 <body oncontextmenu="return false">
   <!-- pre loader -->
   <!-- <div class="loader-container"><img draggable="false" src="./assets/images/preloader.gif" alt=""></div> -->
-  <!-- navbar starts -->
-  <header>
-    <a href="/" class="logo" aria-label="Lutfi Ihsan — Home">
-      <i class="fas fa-laptop-code" aria-hidden="true"></i> Lutfi </a>
-    <button id="menu" class="fas fa-bars" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="main-nav"></button>
-    <nav class="navbar" id="main-nav" role="navigation" aria-label="Main navigation">
-      <ul>
-        <li>
-          <a class="active" href="#home">Home</a>
-        </li>
-        <li>
-          <a href="#about">About</a>
-        </li>
-        <li>
-          <a href="#skills">Skills</a>
-        </li>
-        <li>
-          <a href="#education">Education</a>
-        </li>
-        <li>
-          <a href="#work">Work</a>
-        </li>
-        <li>
-          <a href="#repos">Repos</a>
-        </li>
-        <li>
-          <a href="#experience">Experience</a>
-        </li>
-        <li>
-          <a href="#certifications">Certifications</a>
-        </li>
-        <li>
-          <a href="#awards">Awards</a>
-        </li>
-        <li>
-          <a href="#contact">Contact</a>
-        </li>
-        <li>
-          <a href="blog.html"><i class="fas fa-pencil-alt" style="margin-right:0.4rem;"></i>Blog</a>
-        </li>
-      </ul>
-    </nav>
-    <div id="nav-overlay" class="nav-overlay" aria-hidden="true"></div>
-    <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
-      <i class="fas fa-moon" aria-hidden="true"></i>
-    </button>
-  </header>
-  <!-- navbar ends -->
+  <load src="./partials/portfolio-nav.html" />
   <main id="main-content">
   <!-- hero section starts -->
   <section class="home" id="home" aria-label="Hero — Introduction">
@@ -396,104 +307,9 @@
   </section>
   <!-- contact section ends -->
   </main>
-  <!-- footer section starts -->
-  <footer class="footer" role="contentinfo">
-    <div class="box-container">
-      <div class="box">
-        <h3>Lutfi Ihsan</h3>
-        <p>Full Stack Developer & SysAdmin. Solving complex problems with elegant, scalable, and optimized solutions. Focused on high-performance infrastructure and clean code architecture.</p>
-        <p>Bringing passion and precision to every line of code.</p>
-      </div>
-      <nav class="box" aria-label="Footer quick links">
-        <h3>Quick Links</h3>
-        <a href="#home"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i> Home</a>
-        <a href="#about"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i> About</a>
-        <a href="#skills"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i> Skills</a>
-        <a href="#experience"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i> Experience</a>
-        <a href="#work"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i> Projects</a>
-        <a href="#education"><i class="fas fa-chevron-circle-right" aria-hidden="true"></i> Education</a>
-      </nav>
-      <div class="box">
-        <h3>Contact Info</h3>
-        <p class="copyable-contact" data-full-value="+6281226260649" title="Click to copy">
-          <i class="fas fa-phone" aria-hidden="true"></i> 
-          <a href="javascript:void(0)">+62 812-****-0649 <i class="fas fa-copy copy-icon"></i></a>
-          <span class="copy-success">Copied!</span>
-        </p>
-        <p class="copyable-contact" data-full-value="lutficreativesys@gmail.com" title="Click to copy">
-          <i class="fas fa-envelope" aria-hidden="true"></i> 
-          <a href="javascript:void(0)">lutfi***@gmail.com <i class="fas fa-copy copy-icon"></i></a>
-          <span class="copy-success">Copied!</span>
-        </p>
-        <p><i class="fas fa-map-marked-alt" aria-hidden="true"></i> Bogor, Indonesia - 16360</p>
-        <div class="share">
-          <a href="https://www.linkedin.com/in/lutfi-ihsan-44988b180/" class="fab fa-linkedin" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"></a>
-          <a href="https://github.com/lutfiihsan" class="fab fa-github" aria-label="GitHub" target="_blank" rel="noopener noreferrer"></a>
-          <span class="copyable-contact" data-full-value="lutficreativesys@gmail.com" title="Click to copy" style="display:flex; align-items:center; justify-content:center; width:4.5rem; height:4.5rem; border-radius:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); color:#fff; transition:all 0.3s ease;">
-            <i class="fas fa-envelope" aria-hidden="true"></i>
-            <span class="copy-success" style="font-size:0.8rem; top:-20px;">Copied!</span>
-          </span>
-          <span class="copyable-contact" data-full-value="+6281226260649" title="Click to copy" style="display:flex; align-items:center; justify-content:center; width:4.5rem; height:4.5rem; border-radius:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); color:#fff; transition:all 0.3s ease;">
-            <i class="fab fa-whatsapp" aria-hidden="true"></i>
-            <span class="copy-success" style="font-size:0.8rem; top:-20px;">Copied!</span>
-          </span>
-        </div>
-      </div>
-    </div>
-    <p class="credit">Built & Optimized with <i class="fa fa-heart pulse" aria-hidden="true"></i> by <a href="https://www.linkedin.com/in/lutfi-ihsan-44988b180/">Lutfi Ihsan</a></p>
-  </footer>
-  <!-- modal view image -->
-  <div id="imageModal" class="image-modal" role="dialog" aria-modal="true" aria-label="Project image preview">
-    <button class="close-modal" onclick="closeModal()" aria-label="Close image preview">&times;</button>
-    <img class="modal-content" id="modalImg" alt="Project preview">
-  </div>
-  <!-- PDF Download Overlay -->
-  <div id="pdf-overlay" class="pdf-overlay" role="dialog" aria-modal="true" aria-labelledby="pdf-overlay-title" aria-live="polite">
-    <div class="pdf-overlay-card">
-      <div class="pdf-spinner-wrap">
-        <svg class="pdf-spinner" viewBox="0 0 50 50" aria-hidden="true">
-          <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="4"></circle>
-        </svg>
-      </div>
-      <h3 id="pdf-overlay-title" class="pdf-overlay-title">Generating Resume PDF</h3>
-      <p class="pdf-overlay-sub">Please wait while we craft your resume…</p>
-      <div class="pdf-progress-bar"><div class="pdf-progress-fill"></div></div>
-      <p class="pdf-overlay-hint"><i class="fas fa-shield-alt"></i> Your data stays private — no server involved.</p>
-    </div>
-  </div>
+  <load src="./partials/portfolio-footer.html" />
   <!-- footer section ends -->
-  <!-- scroll top btn -->
-  <a href="#home" aria-label="Back to top" title="Back to top" class="fas fa-angle-up" id="scroll-top"><span class="sr-only">Back to top</span></a>
-  <!-- scroll back to top -->
-  <!-- ==== ALL MAJOR JAVASCRIPT CDNS STARTS ==== -->
-  <!-- jquery cdn -->
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <!-- typed.js cdn -->
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.5/typed.min.js"
-    integrity="sha512-1KbKusm/hAtkX5FScVR5G36wodIMnVd/aP04af06iyQTkD17szAMGNmxfNH+tEuFp3Og/P5G32L1qEC47CZbUQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <!-- particle.js links -->
-  <script defer src="./assets/js/particles.min.js"></script>
-  <script defer src="./assets/js/app.js"></script>
-  <!-- vanilla tilt.js links -->
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"
-    integrity="sha512-SttpKhJqONuBVxbRcuH0wezjuX+BoFoli0yPsnrAADcHsQMW8rkR84ItFHGIkPvhnlRnE2FaifDOUw+EltbuHg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <!-- scroll reveal anim -->
-  <script defer src="https://unpkg.com/scrollreveal"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-  <!-- jsPDF for resume generation (no defer — must be ready synchronously) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous"
-    referrerpolicy="no-referrer"></script>
-  <!-- ==== ALL MAJOR JAVASCRIPT CDNS ENDS ==== -->
-  <script defer src="./assets/js/script.js"></script>
-  <!-- Page View Tracker -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="./assets/js/env.js"></script>
-  <script src="./assets/js/supabase.js"></script>
-  <script defer src="./assets/js/tracker.js"></script>
+  <load src="./partials/portfolio-scripts.html" />
 </body>
 
 </html>

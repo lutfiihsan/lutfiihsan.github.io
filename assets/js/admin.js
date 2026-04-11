@@ -1,7 +1,9 @@
 // ============================================================
-// ADMIN BLOG PANEL — JavaScript Logic
-// Requires: supabase.js + Quill loaded first
+// ADMIN BLOG PANEL — JavaScript Logic (ES MODULE)
+// Requires: Quill loaded first
 // ============================================================
+import { sb } from './supabase.js';
+
 
 let quillEditor = null;
 let currentUserRole = "editor"; // Default role
@@ -575,11 +577,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (!sb) {
     if (loginError) {
-      loginError.textContent = "Koneksi Supabase gagal.";
+      loginError.textContent = "Koneksi Supabase gagal. Periksa Environment Variables.";
       loginError.style.display = "block";
     }
     return;
   }
+
 
   // ── REGISTER EVENT LISTENERS EARLY ──
   const postForm = document.getElementById("post-form");
@@ -690,3 +693,12 @@ async function showDashboard(user) {
   // Quietly refresh posts table
   refreshPosts();
 }
+
+// ── EXPOSE TO WINDOW (for HTML onclicks) ──
+window.switchTab = switchTab;
+window.openEditor = openEditor;
+window.closeEditor = closeEditor;
+window.handleTogglePublish = handleTogglePublish;
+window.handleDeletePost = handleDeletePost;
+window.promptChangeRole = promptChangeRole;
+window.adminLogout = adminLogout;

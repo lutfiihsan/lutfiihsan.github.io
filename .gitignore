@@ -8,3 +8,11 @@
 
 # Rahasia Lokal
 assets/js/env.js
+.env
+.env.*
+
+# Dependencies
+node_modules/
+
+# Build Output
+dist/
