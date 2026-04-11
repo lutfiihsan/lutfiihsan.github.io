@@ -289,11 +289,20 @@
             "status": "Online",
             "statusClass": "status-online",
             "desc": "An omnichannel WhatsApp CRM platform for Ummi Foundation featuring multi-agent live chat, broadcast messaging, contact management, automated responses, and real-time Sentry error monitoring with Webhook alerts.",
-            "tech": ["Laravel", "PHP", "MySQL", "WhatsApp API", "Sentry", "Bootstrap", "REST API"],
+            "tech": [
+                "Laravel",
+                "PHP",
+                "MySQL",
+                "WhatsApp API",
+                "Sentry",
+                "Bootstrap",
+                "REST API"
+            ],
             "year": "2024",
             "type": "Omnichannel CRM",
             "viewLink": "https://crm.ummifoundation.com",
-            "codeLink": null
+            "codeLink": null,
+            "id": "ummi-crm"
         },
         {
             "title": "Help Desk Sheet",
@@ -301,11 +310,19 @@
             "status": "Private",
             "statusClass": "status-private",
             "desc": "A developer task management system for Ummi Foundation integrated with Google Sheets API for structured tracking, WhatsApp Gateway for instant notifications, and Sentry Webhook for automatic bug reporting directly to developer channels.",
-            "tech": ["Laravel", "PHP", "MySQL", "Google Apps Script", "WhatsApp API", "Sentry"],
+            "tech": [
+                "Laravel",
+                "PHP",
+                "MySQL",
+                "Google Apps Script",
+                "WhatsApp API",
+                "Sentry"
+            ],
             "year": "2024",
             "type": "Task Management",
             "viewLink": null,
-            "codeLink": null
+            "codeLink": null,
+            "id": "help-desk-sheet"
         },
         {
             "title": "Cipta Inovasi",
@@ -313,11 +330,16 @@
             "status": "Online",
             "statusClass": "status-online",
             "desc": "Company profile website providing smarter business management solutions to achieve faster growth, combining efficiency and innovation. Built using WordPress.",
-            "tech": ["WordPress", "cPanel", "PHP"],
+            "tech": [
+                "WordPress",
+                "cPanel",
+                "PHP"
+            ],
             "year": "2022",
             "type": "Company Profile",
             "viewLink": "#",
-            "codeLink": null
+            "codeLink": null,
+            "id": "cipta-inovasi"
         },
         {
             "title": "WhatsApp Launcher",
@@ -325,11 +347,17 @@
             "status": "Private",
             "statusClass": "status-private",
             "desc": "A desktop application developed for PMY Net that allows users to seamlessly open and manage multiple WhatsApp accounts across several devices. Built with Laravel and Postman API.",
-            "tech": ["Laravel", "PHP", "Postman API", "MySQL"],
+            "tech": [
+                "Laravel",
+                "PHP",
+                "Postman API",
+                "MySQL"
+            ],
             "year": "2024",
             "type": "Desktop Tool",
             "viewLink": null,
-            "codeLink": null
+            "codeLink": null,
+            "id": "whatsapp-launcher"
         },
         {
             "title": "Jakarta Marathon",
@@ -337,11 +365,18 @@
             "status": "Online",
             "statusClass": "status-online",
             "desc": "Successfully migrated the Jakarta Marathon website to improve performance and scalability. Included VPS setup, cPanel installation, email hosting migration, and testing optimization.",
-            "tech": ["WordPress", "VPS", "cPanel", "Nginx", "Email Hosting"],
+            "tech": [
+                "WordPress",
+                "VPS",
+                "cPanel",
+                "Nginx",
+                "Email Hosting"
+            ],
             "year": "2022",
             "type": "Web Migration",
             "viewLink": "#",
-            "codeLink": null
+            "codeLink": null,
+            "id": "jakarta-marathon"
         },
         {
             "title": "SIS Dwita",
@@ -349,11 +384,18 @@
             "status": "Online",
             "statusClass": "status-online",
             "desc": "Adiwiyata Information System (Sisdwita) is a web-based app used to manage environmentally friendly program questionnaires sent by schools in Tangerang Regency.",
-            "tech": ["Laravel", "PHP", "MySQL", "Bootstrap", "jQuery"],
+            "tech": [
+                "Laravel",
+                "PHP",
+                "MySQL",
+                "Bootstrap",
+                "jQuery"
+            ],
             "year": "2022",
             "type": "Gov. Web App",
             "viewLink": "https://sisdwita.tangerangkab.go.id/",
-            "codeLink": "#"
+            "codeLink": "#",
+            "id": "sis-dwita"
         },
         {
             "title": "Siperling",
@@ -361,11 +403,17 @@
             "status": "Offline",
             "statusClass": "status-offline",
             "desc": "Environmental Reporting System (Siperling) to manage environmental permit reporting from companies to the Environmental Agency of Tangerang (DLHK).",
-            "tech": ["Laravel", "PHP", "MySQL", "Bootstrap"],
+            "tech": [
+                "Laravel",
+                "PHP",
+                "MySQL",
+                "Bootstrap"
+            ],
             "year": "2022",
             "type": "Gov. Web App",
             "viewLink": null,
-            "codeLink": "#"
+            "codeLink": "#",
+            "id": "siperling"
         },
         {
             "title": "SIM Kagegama",
@@ -373,11 +421,18 @@
             "status": "Online",
             "statusClass": "status-online",
             "desc": "A web-based platform designed to manage and connect the alumni of Universitas Gadjah Mada (UGM), keeping them updated with news and events.",
-            "tech": ["Laravel", "PHP", "MySQL", "jQuery", "Bootstrap"],
+            "tech": [
+                "Laravel",
+                "PHP",
+                "MySQL",
+                "jQuery",
+                "Bootstrap"
+            ],
             "year": "2023",
             "type": "Alumni Platform",
             "viewLink": "https://kagegama.id/simkagegama",
-            "codeLink": "#"
+            "codeLink": "#",
+            "id": "sim-kagegama"
         },
         {
             "title": "SIM Ummi Foundation",
@@ -385,11 +440,18 @@
             "status": "Online",
             "statusClass": "status-online",
             "desc": "A web application to manage Quran learning and training. The platform seamlessly connects students, teachers, and administrators to make learning efficient.",
-            "tech": ["Laravel", "PHP", "MySQL", "Firebase", "Bootstrap"],
+            "tech": [
+                "Laravel",
+                "PHP",
+                "MySQL",
+                "Firebase",
+                "Bootstrap"
+            ],
             "year": "2022",
             "type": "Ed-Tech Platform",
             "viewLink": "https://ummifoundation.com/simuf",
-            "codeLink": "#"
+            "codeLink": "#",
+            "id": "sim-ummi-foundation"
         },
         {
             "title": "MC Ummifoundation",
@@ -397,11 +459,18 @@
             "status": "Private",
             "statusClass": "status-private",
             "desc": "A web-based admin dashboard designed to manage the Santri Ummi Mobile app, including notifications, student registrations, and teacher data.",
-            "tech": ["Laravel", "PHP", "MySQL", "Firebase", "Bootstrap"],
+            "tech": [
+                "Laravel",
+                "PHP",
+                "MySQL",
+                "Firebase",
+                "Bootstrap"
+            ],
             "year": "2022",
             "type": "Mobile CMS",
             "viewLink": null,
-            "codeLink": null
+            "codeLink": null,
+            "id": "mc-ummifoundation"
         },
         {
             "title": "Kelurahan Bencongan",
@@ -409,11 +478,16 @@
             "status": "Online",
             "statusClass": "status-online",
             "desc": "An informative and responsive landing page profile developed for Kelurahan Bencongan using HTML, CSS, and modern web standards.",
-            "tech": ["HTML5", "CSS3", "JavaScript"],
+            "tech": [
+                "HTML5",
+                "CSS3",
+                "JavaScript"
+            ],
             "year": "2021",
             "type": "Landing Page",
             "viewLink": "#",
-            "codeLink": null
+            "codeLink": null,
+            "id": "kelurahan-bencongan"
         },
         {
             "title": "CV Saka Tunggal Jaya",
@@ -421,11 +495,16 @@
             "status": "Online",
             "statusClass": "status-online",
             "desc": "A professional landing page profile designed to establish the online presence and showcase the services of CV Saka Tunggal Jaya.",
-            "tech": ["HTML5", "CSS3", "JavaScript"],
+            "tech": [
+                "HTML5",
+                "CSS3",
+                "JavaScript"
+            ],
             "year": "2022",
             "type": "Company Profile",
             "viewLink": "#",
-            "codeLink": null
+            "codeLink": null,
+            "id": "cv-saka-tunggal-jaya"
         }
     ],
     "experience": [
@@ -435,7 +514,12 @@
             "period": "Feb 2025 - Present",
             "location": "Remote",
             "employmentType": "Freelance",
-            "tech": ["Laravel", "PHP", "MySQL", "REST API"],
+            "tech": [
+                "Laravel",
+                "PHP",
+                "MySQL",
+                "REST API"
+            ],
             "align": "left",
             "tasks": [
                 "Architect and develop robust backend solutions utilizing Laravel and PHP.",
@@ -448,7 +532,14 @@
             "period": "Jan 2024 - May 2025",
             "location": "Remote",
             "employmentType": "Freelance",
-            "tech": ["Laravel", "PHP", "MySQL", "jQuery", "Bootstrap", "AJAX"],
+            "tech": [
+                "Laravel",
+                "PHP",
+                "MySQL",
+                "jQuery",
+                "Bootstrap",
+                "AJAX"
+            ],
             "align": "right",
             "tasks": [
                 "Engineered and maintained a comprehensive internet billing information system to streamline operational workflows.",
@@ -461,11 +552,20 @@
             "period": "Jan 2022 - Present",
             "location": "Remote",
             "employmentType": "Freelance",
-            "tech": ["Laravel", "PHP", "MySQL", "WhatsApp API", "Google Apps Script", "Sentry", "Redis", "Bootstrap"],
+            "tech": [
+                "Laravel",
+                "PHP",
+                "MySQL",
+                "WhatsApp API",
+                "Google Apps Script",
+                "Sentry",
+                "Redis",
+                "Bootstrap"
+            ],
             "align": "left",
             "tasks": [
                 "Architected and launched an omnichannel WhatsApp CRM platform (crm.ummifoundation.com) with multi-agent live chat, broadcast messaging, and Sentry Webhook monitoring for real-time error alerting.",
-                "Developed Help Desk Sheet — a developer task management system integrated with WA Gateway for instant notifications and Sentry for automatic bug-report escalation.",
+                "Developed Help Desk Sheet \u2014 a developer task management system integrated with WA Gateway for instant notifications and Sentry for automatic bug-report escalation.",
                 "Administer and monitor server infrastructure to ensure high availability, optimal performance, and strict security compliance.",
                 "Coordinate and oversee programming tasks, facilitating seamless collaboration and efficient delivery within the development team."
             ]
@@ -476,7 +576,18 @@
             "period": "Aug 2021 - Present",
             "location": "Jakarta",
             "employmentType": "Contract",
-            "tech": ["Laravel", "PHP", "MySQL", "Python", "MinIO", "Docker", "REST API", "GIS", "Sentry", "Redis"],
+            "tech": [
+                "Laravel",
+                "PHP",
+                "MySQL",
+                "Python",
+                "MinIO",
+                "Docker",
+                "REST API",
+                "GIS",
+                "Sentry",
+                "Redis"
+            ],
             "align": "right",
             "tasks": [
                 "Spearhead the development and maintenance of critical information systems, including illegal fishing monitoring and marine data management.",
@@ -492,7 +603,12 @@
             "period": "Aug 2022 - Dec 2022",
             "location": "Remote",
             "employmentType": "Freelance",
-            "tech": ["Laravel", "PHP", "MySQL", "Bootstrap"],
+            "tech": [
+                "Laravel",
+                "PHP",
+                "MySQL",
+                "Bootstrap"
+            ],
             "align": "left",
             "tasks": [
                 "Delivered tailored web-based applications using the Laravel framework, translating complex client requirements into efficient and user-friendly digital solutions."
@@ -504,7 +620,15 @@
             "period": "Dec 2018 - Jan 2025",
             "location": "Remote",
             "employmentType": "Part-time",
-            "tech": ["PHP", "MySQL", "HTML5", "CSS3", "JavaScript", "jQuery", "Bootstrap"],
+            "tech": [
+                "PHP",
+                "MySQL",
+                "HTML5",
+                "CSS3",
+                "JavaScript",
+                "jQuery",
+                "Bootstrap"
+            ],
             "align": "right",
             "tasks": [
                 "Developed and maintained dynamic web applications leveraging HTML, CSS, JavaScript, PHP, and MySQL.",
@@ -518,7 +642,13 @@
             "period": "Mar 2018 - Aug 2021",
             "location": "Jakarta",
             "employmentType": "Contract",
-            "tech": ["Python", "WebGIS", "QGIS", "Google Apps Script", "GIS Tools"],
+            "tech": [
+                "Python",
+                "WebGIS",
+                "QGIS",
+                "Google Apps Script",
+                "GIS Tools"
+            ],
             "align": "left",
             "tasks": [
                 "Engineered and maintained WebGIS and advanced data analytics tools to streamline mapping operations and spatial data visualization.",
@@ -566,7 +696,7 @@
         },
         {
             "name": "upload-image-polymorph",
-            "description": "Polymorphic image upload implementation in Laravel — supporting flexible image association across multiple models.",
+            "description": "Polymorphic image upload implementation in Laravel \u2014 supporting flexible image association across multiple models.",
             "language": "PHP",
             "languageColor": "#4F5D95",
             "stars": 0,
@@ -575,7 +705,7 @@
         },
         {
             "name": "rabbitmq",
-            "description": "RabbitMQ integration with PHP — demonstrating publisher and consumer patterns for distributed message queue systems.",
+            "description": "RabbitMQ integration with PHP \u2014 demonstrating publisher and consumer patterns for distributed message queue systems.",
             "language": "PHP",
             "languageColor": "#4F5D95",
             "stars": 0,

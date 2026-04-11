@@ -70,16 +70,21 @@ async function fetchDataAndRender() {
         const data = await response.json();
         globalPortfolioData = data; // Simpan untuk PDF Generator
 
-        renderSkills(data.skills);
-        renderProjects(data.projects);
-        renderExperience(data.experience);
-        renderCertifications(data.certifications);
-        renderGithubRepos(data.githubRepos || []);
+        // Simple Router based on Pathname
+        if (window.location.pathname.includes('project.html')) {
+            renderProjectDetail(data.projects);
+        } else {
+            renderSkills(data.skills);
+            renderProjects(data.projects);
+            renderExperience(data.experience);
+            renderCertifications(data.certifications);
+            renderGithubRepos(data.githubRepos || []);
 
-        // Init animasi VanillaTilt & fitur View More setelah DOM diisi
-        VanillaTilt.init(document.querySelectorAll(".tilt"), { max: 15 });
-        initViewMoreLogic();
-        initScrollReveal();
+            // Init animasi VanillaTilt & fitur View More setelah DOM diisi
+            VanillaTilt.init(document.querySelectorAll(".tilt"), { max: 15 });
+            initViewMoreLogic();
+            initScrollReveal();
+        }
     } catch (error) {
         console.error("Error loading portfolio data:", error);
     }
@@ -178,6 +183,9 @@ function renderProjects(projects) {
     let html = "";
     projects.forEach(proj => {
         let btnsHtml = "";
+        if (proj.id) {
+            btnsHtml += `<a href="project.html?id=${proj.id}" class="btn btn-outline" style="margin-right: 0.5rem;"><i class="fas fa-info-circle" aria-hidden="true"></i> Details</a>`;
+        }
 
         if (proj.viewLink) {
             btnsHtml += `<a href="${proj.viewLink}" class="btn" target="_blank" rel="noopener noreferrer"><i class="fas fa-eye" aria-hidden="true"></i> Visit</a>`;
@@ -574,6 +582,82 @@ function initScrollReveal() {
     srtop.reveal('.experience .timeline', { delay: 400 });
     srtop.reveal('.experience .timeline .container', { interval: 400 });
     srtop.reveal('.contact .container', { delay: 400 });
+}
+
+// --- RENDER PROJECT DETAIL (project.html) ---
+function renderProjectDetail(projects) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const projId = urlParams.get('id');
+    const project = projects.find(p => p.id === projId);
+
+    const container = document.getElementById('project-detail-container');
+    if (!container) return;
+
+    if (!project) {
+        container.innerHTML = `
+            <div style="text-align:center; padding: 10rem 2rem;">
+                <h2 class="heading">Project <span style="color:red;">Not Found</span></h2>
+                <p style="font-size: 1.5rem; margin-bottom: 2rem;">Sorry, we couldn't find the requested project.</p>
+                <a href="index.html#work" class="btn">Go Back to Projects</a>
+            </div>`;
+        return;
+    }
+
+    let btnsHtml = "";
+    if (project.viewLink && project.viewLink !== "#") {
+        btnsHtml += `<a href="${project.viewLink}" class="btn" target="_blank" rel="noopener noreferrer"><i class="fas fa-eye" aria-hidden="true"></i> Live Preview</a>`;
+    }
+    if (project.codeLink && project.codeLink !== "#") {
+        btnsHtml += `<a href="${project.codeLink}" class="btn btn-outline" target="_blank" rel="noopener noreferrer" style="margin-left: 1.5rem;"><i class="fas fa-code" aria-hidden="true"></i> Source Code</a>`;
+    }
+
+    let techHtml = "";
+    if (project.tech && project.tech.length) {
+        techHtml = `<div class="tech-stack detail-tech-stack">${project.tech.map(t => `<span class="tech-tag" style="font-size: 1.3rem; padding: 0.6rem 1.8rem; margin: 0.5rem;">${t}</span>`).join("")}</div>`;
+    }
+
+    const html = `
+        <div class="project-detail-wrapper">
+            <div class="split left-split tilt" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-perspective="1000">
+                <img src="${project.image}" alt="${project.title} Cover" class="detail-img">
+            </div>
+            <div class="split right-split">
+                <h1 class="detail-title">${project.title}</h1>
+                
+                <div class="detail-badges">
+                    <span class="status-badge ${project.statusClass}">${project.status}</span>
+                    <span class="meta-badge"><i class="fas fa-calendar-alt"></i> ${project.year || 'Unknown Year'}</span>
+                    <span class="meta-badge"><i class="fas fa-tag"></i> ${project.type || 'Project'}</span>
+                </div>
+                
+                <div class="detail-section">
+                    <h3>About This Project</h3>
+                    <p class="detail-desc">${project.desc}</p>
+                </div>
+                
+                <div class="detail-section">
+                    <h3>Technologies Used</h3>
+                    ${techHtml}
+                </div>
+                
+                <div class="detail-actions">
+                    ${btnsHtml}
+                    <div style="margin-top: 3rem;">
+                        <a href="index.html#work" class="back-link"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    container.innerHTML = html;
+    
+    document.title = `${project.title} | Project Detail`;
+
+    // Re-init vanilla tilt explicitly
+    if (typeof VanillaTilt !== 'undefined') {
+        VanillaTilt.init(document.querySelectorAll(".tilt"), { max: 5, speed: 400 });
+    }
 }
 
 // --- DARK MODE TOGGLE ---

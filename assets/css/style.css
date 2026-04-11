@@ -2428,6 +2428,125 @@ header .navbar ul li a:hover {
   color: #f68c09;
 }
 
+/* ========================================= */
+/* PROJECT DETAIL VIEW (project.html)        */
+/* ========================================= */
+
+.project-detail-view {
+  min-height: 80vh;
+  padding: 5rem 9%;
+  background: #fdfdfd;
+}
+
+.project-detail-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5rem;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+  padding: 4rem;
+  margin-top: 4rem;
+  border: 1px solid #f0f2f6;
+}
+
+.split.left-split {
+  flex: 1 1 500px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.detail-img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  object-fit: cover;
+  border: 1px solid #eee;
+}
+
+.split.right-split {
+  flex: 1 1 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #02094b;
+  margin-bottom: 1.5rem;
+}
+
+.detail-badges {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid #f0f2f6;
+  padding-bottom: 2rem;
+}
+
+.meta-badge {
+  font-size: 1.3rem;
+  color: #666;
+  background: #f4f6fa;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 600;
+}
+.meta-badge i { color: #f68c09; }
+
+.detail-section {
+  margin-bottom: 3rem;
+}
+
+.detail-section h3 {
+  font-size: 2rem;
+  color: #02094b;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.detail-section h3::before {
+  content: "";
+  width: 4px;
+  height: 20px;
+  background: #f68c09;
+  border-radius: 10px;
+}
+
+.detail-desc {
+  font-size: 1.6rem;
+  color: #555;
+  line-height: 1.8;
+}
+
+.detail-tech-stack {
+  gap: 1rem;
+}
+
+.detail-actions {
+  margin-top: auto;
+}
+
+.back-link {
+  font-size: 1.5rem;
+  color: #666;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+.back-link:hover {
+  color: #f68c09;
+}
+.back-link i { margin-right: 0.5rem; }
+
 /* Responsive repos */
 @media (max-width: 768px) {
   .repos-grid {
@@ -2643,6 +2762,23 @@ body.dark-mode .contact-info .info-item address {
   color: #ffffff !important;
   font-style: normal;
 }
+
+/* Project Detail View (Dark Mode) */
+body.dark-mode .project-detail-view { background: #0d0f1a !important; }
+body.dark-mode .project-detail-wrapper {
+  background: #111424 !important;
+  border-color: #1a1e35 !important;
+}
+body.dark-mode .detail-title { color: #ffffff !important; }
+body.dark-mode .detail-badges { border-bottom-color: #1a1e35 !important; }
+body.dark-mode .meta-badge {
+  background: #181d33 !important;
+  color: #cbd5e1 !important;
+}
+body.dark-mode .detail-section h3 { color: #ffffff !important; }
+body.dark-mode .detail-desc { color: #a0aec0 !important; }
+body.dark-mode .back-link { color: #a0aec0 !important; }
+body.dark-mode .back-link:hover { color: #f68c09 !important; }
 
 /* Footer defaults to dark anyway, just ensuring blend */
 body.dark-mode .footer { background: #04050b !important; }
