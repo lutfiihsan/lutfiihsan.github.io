@@ -326,6 +326,51 @@
     ],
     "projects": [
         {
+            "title": "SIGAP (2026)",
+            "image": "./assets/images/projects/sigap-dashboard.png",
+            "images": [
+                "./assets/images/projects/sigap-dashboard.png",
+                "./assets/images/projects/sigap-attendance-1.png",
+                "./assets/images/projects/sigap-attendance-2.png",
+                "./assets/images/projects/sigap-login.png"
+            ],
+            "status": "Private",
+            "statusClass": "status-private",
+            "desc": "Sistem Informasi Guru dan Pegawai (SIGAP) — sistem manajemen kehadiran modern untuk SD Negeri Nguwok dengan integrasi AI Face Recognition dan Geofencing.",
+            "fullDesc": "SIGAP (Sistem Informasi Guru dan Pegawai) adalah solusi manajemen kehadiran sekolah yang komprehensif. Proyek ini menggabungkan teknologi AI dan Geospasial untuk menciptakan sistem presensi yang akurat dan aman. <br><br> <b>Fitur Utama:</b><br>• <b>AI Face Recognition:</b> Verifikasi kehadiran otomatis menggunakan face-api.js.<br>• <b>Geofencing Monitoring:</b> Memastikan presensi dilakukan dalam radius lokasi sekolah.<br>• <b>Bento Grid Dashboard:</b> Antarmuka modern yang menyajikan statistik kehadiran secara ringkas.<br>• <b>Real-time Analytics:</b> Laporan kedisiplinan otomatis untuk manajemen sekolah.<br>• <b>Anti-Spoofing:</b> Keamanan tingkat tinggi untuk mencegah kecurangan absensi.",
+            "tech": [
+                "Next.js 16",
+                "Supabase",
+                "PostgreSQL",
+                "face-api.js",
+                "Tailwind CSS v4"
+            ],
+            "year": "2026",
+            "type": "Sistem Informasi Sekolah",
+            "viewLink": null,
+            "codeLink": null,
+            "id": "sigap-sis-smart"
+        },
+        {
+            "title": "Kaluna Landing Page",
+            "image": "./assets/images/projects/kaluna.png",
+            "status": "Online",
+            "statusClass": "status-online",
+            "desc": "Landing page premium untuk pengembang properti Kaluna di Bali. Menampilkan gesture-supported carousel dan grafik ROI interaktif.",
+            "fullDesc": "Landing page Kaluna dirancang untuk menarik investor properti internasional dengan desain yang elegan dan informatif. Fokus utama proyek ini adalah konversi pengguna melalui visualisasi data investasi yang menarik. <br><br> <b>Fitur Utama:</b><br>• <b>Interactive ROI Calculator:</b> Proyeksi keuntungan investasi properti secara dinamis.<br>• <b>Gesture-Supported Carousel:</b> Navigasi portofolio properti yang mulus dan responsif.<br>• <b>Performance Optimized:</b> Optimasi WebP dan Next.js untuk skor Lighthouse yang tinggi.<br>• <b>SEO Ready:</b> Arsitektur konten yang optimal untuk peringkat mesin pencari global.<br>• <b>Interactive Timeline:</b> Visualisasi tahapan investasi untuk calon pembeli.",
+            "tech": [
+                "Next.js",
+                "React 19",
+                "Tailwind CSS v4",
+                "WebP Optimization"
+            ],
+            "year": "2026",
+            "type": "Property Landing Page",
+            "viewLink": "https://kalunadevelopment.com",
+            "codeLink": null,
+            "id": "kaluna-landing"
+        },
+        {
             "title": "Ummi CRM (2026)",
             "image": "./assets/images/projects/ummi-crm.png",
             "status": "Online",

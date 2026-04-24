@@ -1389,10 +1389,11 @@ header .navbar ul li a.active {
   border-radius: 18px;
   border: 1px solid #e8eaf0;
   box-shadow: 0 4px 20px rgba(2, 9, 75, 0.06);
-  overflow: hidden;
+  /* overflow: hidden; */ /* Removing to allow 3D pop-out */
   display: flex;
   flex-direction: column;
   transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+  transform-style: preserve-3d;
 }
 .work .box:hover {
   transform: translateY(-7px);
@@ -1408,8 +1409,9 @@ header .navbar ul li a.active {
   background: #f0f2f8;
   padding: 1.2rem;
   box-sizing: border-box;
-  overflow: hidden;
+  /* overflow: hidden; */ /* Removing to allow 3D pop-out */
   flex-shrink: 0;
+  transform-style: preserve-3d;
 }
 .work .box .image-wrapper img {
   width: 100%;
@@ -1438,13 +1440,13 @@ header .navbar ul li a.active {
   opacity: 1;
 }
 
-/* Zoom button */
+/* Zoom button - Hidden when carousel is present to avoid double icon */
 .work .box .zoom-btn {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.6);
-  background: rgba(246, 140, 9, 0.92);
+  transform: translate(-50%, -50%) scale(0.6) translateZ(0);
+  background: rgba(246, 140, 9, 0.95);
   color: #fff;
   border-radius: 50%;
   width: 52px;
@@ -1458,25 +1460,110 @@ header .navbar ul li a.active {
   align-items: center;
   border: 2px solid #fff;
   backdrop-filter: blur(4px);
-  z-index: 2;
+  z-index: 10000;
+  pointer-events: auto;
 }
-.work .box:hover .zoom-btn {
+/* Hide zoom button if carousel is present */
+.work .box:has(.carousel-btn) .zoom-btn {
+  display: none !important;
+}
+.image-wrapper:hover .zoom-btn {
   opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%) scale(1) translateZ(120px);
 }
-.work .box .zoom-btn:hover {
+
+.zoom-btn:hover {
   background: #02094b;
-  transform: translate(-50%, -50%) scale(1.1);
+  transform: translate(-50%, -50%) scale(1.1) translateZ(120px);
 }
+
+
+
+/* ── Carousel Controls ────────────────── */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) translateZ(100px);
+  background: rgba(2, 9, 75, 0.95);
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  font-size: 1.4rem;
+  cursor: pointer;
+  z-index: 9999; /* Topmost */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.22s ease;
+  opacity: 0;
+  pointer-events: auto !important;
+}
+.carousel-btn:hover {
+  background: #f68c09;
+  transform: translateY(-50%) translateZ(120px) scale(1.15);
+  box-shadow: 0 0 20px rgba(246, 140, 9, 0.6);
+}
+.carousel-btn.prev { left: 0.8rem; }
+.carousel-btn.next { right: 0.8rem; }
+.image-wrapper:hover .carousel-btn,
+.project-detail-wrapper:hover .carousel-btn {
+  opacity: 1;
+}
+
+
+.carousel-dots {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 50%;
+  transform: translateX(-50%) translateZ(100px);
+  display: flex;
+  gap: 1rem;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: auto !important;
+}
+.image-wrapper:hover .carousel-dots,
+.project-detail-wrapper:hover .carousel-dots {
+  opacity: 1;
+}
+
+
+
+.dot {
+  width: 12px;
+  height: 12px;
+  background: rgba(2, 9, 75, 0.5);
+  border: 1.5px solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  pointer-events: auto !important;
+}
+.dot.active {
+  background: #f68c09;
+  width: 24px;
+  border-radius: 6px;
+}
+
 
 /* ── Content area ────────────────── */
 .work .box .content {
-  padding: 2rem 2.2rem 2.2rem;
+  padding: 2.2rem;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   gap: 0.6rem;
+  position: relative;
+  z-index: 100; /* Above image wrapper */
+  background: #fff;
+  transform: translateZ(50px); /* Significant 3D separation */
+  transform-style: preserve-3d;
 }
+
+
 .work .box .content .title-wrap {
   display: flex;
   justify-content: space-between;
@@ -1541,16 +1628,24 @@ header .navbar ul li a.active {
   border: none;
   cursor: pointer;
 }
-.work .box .btns .btn-detail {
+.work .box .btns .btn.btn-detail {
   flex: 1 1 100%;
-  background: transparent;
-  color: #02094b;
-  border: 1px solid #02094b;
+  background: transparent !important;
+  color: #02094b !important;
+  border: 1.5px solid #02094b !important;
+  position: relative;
+  z-index: 101;
+  transition: all 0.3s ease;
 }
-.work .box .btns .btn-detail:hover {
-  background: #02094b;
-  color: #ffffff;
+.work .box .btns .btn.btn-detail:hover {
+  background: #02094b !important;
+  color: #ffffff !important;
+  transform: translateY(-4px) translateZ(80px) !important;
+  box-shadow: 0 10px 25px rgba(2, 9, 75, 0.25);
 }
+
+
+
 .work .box .btns .btn:hover {
   background: #f68c09;
   transform: translateY(-2px);

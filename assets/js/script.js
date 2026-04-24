@@ -220,7 +220,7 @@ function toggleSkillCard(btn) {
 
 function renderProjects(projects) {
     let html = "";
-    projects.forEach(proj => {
+    projects.forEach((proj, pIdx) => {
         let btnsHtml = "";
         if (proj.id) {
             btnsHtml += `<a href="project" onclick="sessionStorage.setItem('activeProjectId', '${proj.id}')" class="btn btn-detail"><i class="fas fa-info-circle" aria-hidden="true"></i> Details</a>`;
@@ -253,11 +253,24 @@ function renderProjects(projects) {
             metaHtml = `<div class="project-meta">${yearPart}${typePart}</div>`;
         }
 
+        // Carousel support
+        let carouselHtml = "";
+        let hasImages = proj.images && proj.images.length > 1;
+        if (hasImages) {
+            carouselHtml = `
+            <button class="carousel-btn prev" onclick="changeProjectImage(${pIdx}, -1, event)" aria-label="Previous image"><i class="fas fa-chevron-left"></i></button>
+            <button class="carousel-btn next" onclick="changeProjectImage(${pIdx}, 1, event)" aria-label="Next image"><i class="fas fa-chevron-right"></i></button>
+            <div class="carousel-dots">
+                ${proj.images.map((_, i) => `<span class="dot ${i === 0 ? 'active' : ''}" onclick="changeProjectImage(${pIdx}, ${i}, event, true)"></span>`).join("")}
+            </div>`;
+        }
+
         html += `
-        <div class="box tilt" role="listitem">
+        <div class="box tilt" role="listitem" id="project-${pIdx}" data-images='${JSON.stringify(proj.images || [proj.image])}' data-current="0">
             <div class="image-wrapper">
-                <img draggable="false" src="${proj.image}" alt="${proj.title} — project screenshot" loading="lazy" />
-                <button class="zoom-btn" onclick="openModal('${proj.image}', '${proj.title}')" aria-label="Preview ${proj.title} image"><i class="fas fa-search-plus" aria-hidden="true"></i></button>
+                <img draggable="false" src="${proj.image}" alt="${proj.title} — project screenshot" loading="lazy" class="project-img" />
+                ${carouselHtml}
+                <button class="zoom-btn" onclick="openModalFromProject(${pIdx}, event)" aria-label="Preview ${proj.title} image"><i class="fas fa-search-plus" aria-hidden="true"></i></button>
             </div>
             <div class="content">
                 <div class="title-wrap">
@@ -277,6 +290,84 @@ function renderProjects(projects) {
     if (!container) return;
     container.innerHTML = html;
 }
+
+function changeProjectImage(projIdx, directionOrIndex, event, isSpecific = false) {
+    if (event) event.stopPropagation();
+    const box = document.getElementById(`project-${projIdx}`);
+    if (!box) return;
+    const images = JSON.parse(box.dataset.images);
+    let current = parseInt(box.dataset.current);
+
+    if (isSpecific) {
+        current = directionOrIndex;
+    } else {
+        current = (current + directionOrIndex + images.length) % images.length;
+    }
+
+    box.dataset.current = current;
+    
+    // Update Image
+    const img = box.querySelector('.project-img');
+    img.style.opacity = '0';
+    setTimeout(() => {
+        img.src = images[current];
+        img.style.opacity = '1';
+    }, 200);
+
+    // Update Dots
+    const dots = box.querySelectorAll('.dot');
+    dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === current);
+    });
+}
+// Expose to window for onclick in module
+window.changeProjectImage = changeProjectImage;
+
+function openModalFromProject(projIdx, event) {
+    if (event) event.stopPropagation();
+    const box = document.getElementById(`project-${projIdx}`);
+    const images = JSON.parse(box.dataset.images);
+    const current = parseInt(box.dataset.current);
+    const title = box.querySelector('h3').innerText;
+    openModal(images[current], title);
+}
+// Expose to window for onclick in module
+window.openModalFromProject = openModalFromProject;
+
+function changeDetailImage(directionOrIndex, event, isSpecific = false) {
+    if (event) event.stopPropagation();
+    const box = document.getElementById('detail-carousel');
+    if (!box) return;
+    const images = JSON.parse(box.dataset.images);
+    let current = parseInt(box.dataset.current);
+
+    if (isSpecific) {
+        current = directionOrIndex;
+    } else {
+        current = (current + directionOrIndex + images.length) % images.length;
+    }
+
+    box.dataset.current = current;
+    
+    // Update Image
+    const img = box.querySelector('.project-img');
+    img.style.opacity = '0';
+    setTimeout(() => {
+        img.src = images[current];
+        img.style.opacity = '1';
+    }, 200);
+
+    // Update Dots
+    const dots = box.querySelectorAll('.dot');
+    dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === current);
+    });
+}
+window.changeDetailImage = changeDetailImage;
+
+
+
+
 
 function renderExperience(experiences) {
     let html = "";
@@ -885,10 +976,23 @@ function renderProjectDetail(projects) {
         techHtml = `<div class="tech-stack detail-tech-stack">${project.tech.map(t => `<span class="tech-tag" style="font-size: 1.3rem; padding: 0.6rem 1.8rem; margin: 0.5rem;">${t}</span>`).join("")}</div>`;
     }
 
+    // Carousel support for detail
+    let carouselHtml = "";
+    let hasImages = project.images && project.images.length > 1;
+    if (hasImages) {
+        carouselHtml = `
+        <button class="carousel-btn prev" onclick="changeDetailImage(-1, event)" aria-label="Previous image"><i class="fas fa-chevron-left"></i></button>
+        <button class="carousel-btn next" onclick="changeDetailImage(1, event)" aria-label="Next image"><i class="fas fa-chevron-right"></i></button>
+        <div class="carousel-dots">
+            ${project.images.map((_, i) => `<span class="dot ${i === 0 ? 'active' : ''}" onclick="changeDetailImage(${i}, event, true)"></span>`).join("")}
+        </div>`;
+    }
+
     const html = `
         <div class="project-detail-wrapper">
-            <div class="split left-split tilt" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-perspective="1000">
-                <img src="${project.image}" alt="${project.title} Cover" class="detail-img">
+            <div class="split left-split tilt" id="detail-carousel" data-images='${JSON.stringify(project.images || [project.image])}' data-current="0" style="position:relative;">
+                <img src="${project.image}" alt="${project.title} Cover" class="detail-img project-img">
+                ${carouselHtml}
             </div>
             <div class="split right-split">
                 <h1 class="detail-title">${project.title}</h1>
@@ -901,7 +1005,7 @@ function renderProjectDetail(projects) {
                 
                 <div class="detail-section">
                     <h3>About This Project</h3>
-                    <p class="detail-desc">${project.desc}</p>
+                    <p class="detail-desc">${project.fullDesc || project.desc}</p>
                 </div>
                 
                 <div class="detail-section">
@@ -920,6 +1024,7 @@ function renderProjectDetail(projects) {
     `;
 
     container.innerHTML = html;
+
     
     document.title = `${project.title} | Project Detail`;
 
