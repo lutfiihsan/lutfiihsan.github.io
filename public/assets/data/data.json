@@ -9,8 +9,14 @@
                     "img": "https://img.icons8.com/offices/48/000000/php-logo.png"
                 },
                 {
+                    "name": "FrankenPHP",
+                    "icon": "fas fa-biohazard",
+                    "style": "color: #ff2d20;"
+                },
+                {
                     "name": "Laravel",
-                    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Laravel.svg/1200px-Laravel.svg.png"
+                    "icon": "fab fa-laravel",
+                    "style": "color: #ff2d20; font-size: 2.2rem;"
                 },
                 {
                     "name": "Golang",
@@ -30,6 +36,11 @@
                 {
                     "name": "Python",
                     "img": "https://img.icons8.com/color/48/000000/python--v1.png"
+                },
+                {
+                    "name": "Image Optimization",
+                    "icon": "fas fa-compress-arrows-alt",
+                    "style": "color: #0066ff;"
                 },
                 {
                     "name": "G.A.S",
@@ -80,6 +91,10 @@
                 {
                     "name": "Alpine.js",
                     "icon": "fas fa-mountain"
+                },
+                {
+                    "name": "Tailwind CSS",
+                    "img": "https://img.icons8.com/color/48/000000/tailwindcss.png"
                 }
             ]
         },
@@ -248,6 +263,11 @@
                 {
                     "name": "Antigravity",
                     "icon": "fas fa-robot"
+                },
+                {
+                    "name": "Face-api.js",
+                    "icon": "fas fa-user-shield",
+                    "style": "color: #ff2d20;"
                 }
             ]
         },
@@ -327,12 +347,12 @@
     "projects": [
         {
             "title": "SIGAP (2026)",
-            "image": "./assets/images/projects/sigap-dashboard.png",
+            "image": "./assets/images/projects/sigap-dashboard.webp",
             "images": [
-                "./assets/images/projects/sigap-dashboard.png",
-                "./assets/images/projects/sigap-attendance-1.png",
-                "./assets/images/projects/sigap-attendance-2.png",
-                "./assets/images/projects/sigap-login.png"
+                "./assets/images/projects/sigap-dashboard.webp",
+                "./assets/images/projects/sigap-attendance-1.webp",
+                "./assets/images/projects/sigap-attendance-2.webp",
+                "./assets/images/projects/sigap-login.webp"
             ],
             "status": "Private",
             "statusClass": "status-private",
@@ -353,7 +373,7 @@
         },
         {
             "title": "Kaluna Landing Page",
-            "image": "./assets/images/projects/kaluna.png",
+            "image": "./assets/images/projects/kaluna.webp",
             "status": "Online",
             "statusClass": "status-online",
             "desc": "Landing page premium untuk pengembang properti Kaluna di Bali. Menampilkan gesture-supported carousel dan grafik ROI interaktif.",
@@ -372,7 +392,7 @@
         },
         {
             "title": "Ummi CRM (2026)",
-            "image": "./assets/images/projects/ummi-crm.png",
+            "image": "./assets/images/projects/ummi-crm.webp",
             "status": "Online",
             "statusClass": "status-online",
             "desc": "An omnichannel WhatsApp CRM platform for Ummi Foundation featuring multi-agent live chat, broadcast messaging, contact management, automated responses, and real-time Sentry error monitoring with Webhook alerts.",
@@ -393,7 +413,7 @@
         },
         {
             "title": "Help Desk Sheet",
-            "image": "./assets/images/projects/helpdesk-sheet.png",
+            "image": "./assets/images/projects/helpdesk-sheet.webp",
             "status": "Private",
             "statusClass": "status-private",
             "desc": "A developer task management system for Ummi Foundation integrated with Google Sheets API for structured tracking, WhatsApp Gateway for instant notifications, and Sentry Webhook for automatic bug reporting directly to developer channels.",
@@ -430,7 +450,7 @@
         },
         {
             "title": "WhatsApp Launcher",
-            "image": "./assets/images/projects/whatsapp-launcher.jpg",
+            "image": "./assets/images/projects/whatsapp-launcher.webp",
             "status": "Private",
             "statusClass": "status-private",
             "desc": "A desktop application developed for PMY Net that allows users to seamlessly open and manage multiple WhatsApp accounts across several devices. Built with Laravel and Postman API.",
@@ -448,7 +468,7 @@
         },
         {
             "title": "Jakarta Marathon",
-            "image": "./assets/images/projects/jakarta-marathon.jpg",
+            "image": "./assets/images/projects/jakarta-marathon.webp",
             "status": "Online",
             "statusClass": "status-online",
             "desc": "Successfully migrated the Jakarta Marathon website to improve performance and scalability. Included VPS setup, cPanel installation, email hosting migration, and testing optimization.",
@@ -467,7 +487,7 @@
         },
         {
             "title": "SIS Dwita",
-            "image": "./assets/images/projects/sisdwita.jpeg",
+            "image": "./assets/images/projects/sisdwita.webp",
             "status": "Online",
             "statusClass": "status-online",
             "desc": "Adiwiyata Information System (Sisdwita) is a web-based app used to manage environmentally friendly program questionnaires sent by schools in Tangerang Regency.",
@@ -486,7 +506,7 @@
         },
         {
             "title": "Siperling",
-            "image": "./assets/images/projects/siperling.jpeg",
+            "image": "./assets/images/projects/siperling.webp",
             "status": "Offline",
             "statusClass": "status-offline",
             "desc": "Environmental Reporting System (Siperling) to manage environmental permit reporting from companies to the Environmental Agency of Tangerang (DLHK).",
@@ -504,7 +524,7 @@
         },
         {
             "title": "SIM Kagegama",
-            "image": "./assets/images/projects/simkagegama.png",
+            "image": "./assets/images/projects/simkagegama.webp",
             "status": "Online",
             "statusClass": "status-online",
             "desc": "A web-based platform designed to manage and connect the alumni of Universitas Gadjah Mada (UGM), keeping them updated with news and events.",
@@ -523,7 +543,7 @@
         },
         {
             "title": "SIM Ummi Foundation",
-            "image": "./assets/images/projects/sim-ummi.png",
+            "image": "./assets/images/projects/sim-ummi.webp",
             "status": "Online",
             "statusClass": "status-online",
             "desc": "A web application to manage Quran learning and training. The platform seamlessly connects students, teachers, and administrators to make learning efficient.",
@@ -542,7 +562,7 @@
         },
         {
             "title": "MC Ummifoundation",
-            "image": "./assets/images/projects/santri-ummi.png",
+            "image": "./assets/images/projects/santri-ummi.webp",
             "status": "Private",
             "statusClass": "status-private",
             "desc": "A web-based admin dashboard designed to manage the Santri Ummi Mobile app, including notifications, student registrations, and teacher data.",
@@ -578,7 +598,7 @@
         },
         {
             "title": "CV Saka Tunggal Jaya",
-            "image": "./assets/images/projects/sakatunggaljaya.jpg",
+            "image": "./assets/images/projects/sakatunggaljaya.webp",
             "status": "Online",
             "statusClass": "status-online",
             "desc": "A professional landing page profile designed to establish the online presence and showcase the services of CV Saka Tunggal Jaya.",

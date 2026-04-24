@@ -216,6 +216,7 @@ function toggleSkillCard(btn) {
         btn.innerHTML = `<i class="fas fa-chevron-up" aria-hidden="true"></i><span>Show less</span>`;
     }
 }
+window.toggleSkillCard = toggleSkillCard;
 
 
 function renderProjects(projects) {
@@ -583,6 +584,8 @@ function openModal(imgSrc) {
 function closeModal() {
     document.getElementById('imageModal').style.display = "none";
 }
+window.openModal = openModal;
+window.closeModal = closeModal;
 window.onclick = function(event) {
     if (event.target == document.getElementById('imageModal')) closeModal();
 }
@@ -646,6 +649,7 @@ function generateResume() {
 
     _doGeneratePdf();
 }
+window.generateResume = generateResume;
 
 function _doGeneratePdf() {
     const btn = document.querySelector('.resumebtn .btn');
