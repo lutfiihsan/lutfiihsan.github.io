@@ -136,7 +136,7 @@ function renderSkills(skills) {
         'DEVOPS':   { gradient: 'linear-gradient(135deg, #43e97b, #38f9d7)', light: 'rgba(67,233,123,0.07)', border: 'rgba(67,233,123,0.2)' },
         'SECURITY': { gradient: 'linear-gradient(135deg, #fa709a, #fee140)', light: 'rgba(250,112,154,0.07)', border: 'rgba(250,112,154,0.2)' },
         'MOBILE':   { gradient: 'linear-gradient(135deg, #a18cd1, #fbc2eb)', light: 'rgba(161,140,209,0.07)', border: 'rgba(161,140,209,0.2)' },
-        'TOOLS':    { gradient: 'linear-gradient(135deg, #ffecd2, #fcb69f)', light: 'rgba(252,182,159,0.07)', border: 'rgba(252,182,159,0.2)' },
+        'TOOLS':    { gradient: 'linear-gradient(135deg, #6dd5ed, #2193b0)', light: 'rgba(109,213,237,0.07)', border: 'rgba(109,213,237,0.2)' },
         'APPROACH': { gradient: 'linear-gradient(135deg, #a1c4fd, #c2e9fb)', light: 'rgba(161,196,253,0.07)', border: 'rgba(161,196,253,0.2)' },
     };
     const VISIBLE_LIMIT = 5;
@@ -234,11 +234,6 @@ function renderProjects(projects) {
             btnsHtml += `<span class="btn btn-disabled">${label}</span>`;
         }
 
-        if (proj.codeLink) {
-            btnsHtml += `<a href="${proj.codeLink}" class="btn" target="_blank" rel="noopener noreferrer">Code <i class="fas fa-code" aria-hidden="true"></i></a>`;
-        } else {
-            btnsHtml += `<span class="btn btn-disabled">Code <i class="fas fa-lock" aria-hidden="true"></i></span>`;
-        }
 
         // Tech stack tags
         let techHtml = "";
@@ -671,12 +666,12 @@ function _doGeneratePdf() {
             const pageW = 210, pageH = 297, marginL = 15, contentW = pageW - marginL - 15;
             let y = 0;
 
-            const COLOR_PRIMARY   = [41, 182, 246];
-            const COLOR_DARK      = [30, 30, 47];
+            const COLOR_PRIMARY   = [0, 102, 255]; // Vibrant Blue
+            const COLOR_DARK      = [2, 9, 75];    // Navy
             const COLOR_GRAY      = [100, 100, 120];
             const COLOR_LIGHTGRAY = [230, 230, 240];
             const COLOR_WHITE     = [255, 255, 255];
-            const COLOR_ORANGE    = [246, 140, 9];
+            const COLOR_BLUE_ACCENT = [0, 102, 255]; 
 
             function checkPage(needed = 10) {
                 if (y + needed > pageH - 15) { doc.addPage(); y = 15; }
@@ -685,7 +680,7 @@ function _doGeneratePdf() {
             function drawSectionHeader(title) {
                 checkPage(14); y += 4;
                 doc.setFillColor(...COLOR_DARK); doc.rect(marginL, y, contentW, 8, 'F');
-                doc.setFillColor(...COLOR_ORANGE); doc.rect(marginL, y, 3, 8, 'F'); // accent bar
+                doc.setFillColor(...COLOR_BLUE_ACCENT); doc.rect(marginL, y, 3, 8, 'F'); // accent bar
                 doc.setTextColor(...COLOR_WHITE); doc.setFontSize(10.5); doc.setFont('helvetica', 'bold');
                 doc.text(title.toUpperCase(), marginL + 6, y + 5.5);
                 doc.setTextColor(...COLOR_DARK); y += 12;
@@ -694,7 +689,7 @@ function _doGeneratePdf() {
             // ── HEADER BLOCK ──
             doc.setFillColor(...COLOR_DARK); doc.rect(0, 0, pageW, 44, 'F');
             // Accent strip
-            doc.setFillColor(...COLOR_ORANGE); doc.rect(0, 40, pageW, 4, 'F');
+            doc.setFillColor(...COLOR_BLUE_ACCENT); doc.rect(0, 40, pageW, 4, 'F');
             doc.setTextColor(...COLOR_WHITE); doc.setFontSize(22); doc.setFont('helvetica', 'bold');
             doc.text('LUTFI IHSAN', pageW / 2, 15, { align: 'center' });
             doc.setFontSize(11); doc.setFont('helvetica', 'normal');
@@ -730,7 +725,7 @@ function _doGeneratePdf() {
                 
                 // Total Duration (Optional check)
                 if (exp.period && !exp.isGrouped) {
-                    doc.setFontSize(8.5); doc.setFont('helvetica', 'italic'); doc.setTextColor(...COLOR_ORANGE);
+                    doc.setFontSize(8.5); doc.setFont('helvetica', 'italic'); doc.setTextColor(...COLOR_BLUE_ACCENT);
                     doc.text(exp.period, marginL + contentW, y, { align: 'right' });
                 } else if (exp.period) {
                     doc.setFontSize(8); doc.setFont('helvetica', 'italic'); doc.setTextColor(...COLOR_GRAY);
@@ -747,7 +742,7 @@ function _doGeneratePdf() {
                         doc.text(subRole.title, marginL + 3, y);
                         
                         // SubRole Period
-                        doc.setFontSize(8); doc.setFont('helvetica', 'bold'); doc.setTextColor(...COLOR_ORANGE);
+                        doc.setFontSize(8); doc.setFont('helvetica', 'bold'); doc.setTextColor(...COLOR_BLUE_ACCENT);
                         doc.text(subRole.period, marginL + contentW, y, { align: 'right' });
                         y += 4.5;
                         
@@ -784,7 +779,7 @@ function _doGeneratePdf() {
                 doc.setFontSize(9.5); doc.setFont('helvetica', 'bold'); doc.setTextColor(...COLOR_DARK);
                 doc.text(proj.title, marginL, y);
                 
-                doc.setFontSize(8); doc.setFont('helvetica', 'italic'); doc.setTextColor(...COLOR_ORANGE);
+                doc.setFontSize(8); doc.setFont('helvetica', 'italic'); doc.setTextColor(...COLOR_BLUE_ACCENT);
                 doc.text(proj.year || '', marginL + contentW, y, { align: 'right' });
                 y += 4.5;
                 
@@ -809,7 +804,7 @@ function _doGeneratePdf() {
                 doc.text(nameLines, marginL + 2, y);
                 doc.setFont('helvetica', 'normal'); doc.setTextColor(...COLOR_GRAY); doc.setFontSize(8);
                 doc.text(cert.issuer, marginL + contentW - 40, y);
-                doc.setTextColor(...COLOR_ORANGE);
+                doc.setTextColor(...COLOR_BLUE_ACCENT);
                 doc.text(cert.date, marginL + contentW, y, { align: 'right' });
                 y += nameLines.length > 1 ? nameLines.length * 4.5 : 7.5;
             });

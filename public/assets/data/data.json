@@ -4,343 +4,99 @@
             "category": "BACKEND",
             "icon": "fas fa-server",
             "items": [
-                {
-                    "name": "PHP",
-                    "img": "https://img.icons8.com/offices/48/000000/php-logo.png"
-                },
-                {
-                    "name": "FrankenPHP",
-                    "icon": "fas fa-biohazard",
-                    "style": "color: #ff2d20;"
-                },
-                {
-                    "name": "Laravel",
-                    "icon": "fab fa-laravel",
-                    "style": "color: #ff2d20; font-size: 2.2rem;"
-                },
-                {
-                    "name": "Golang",
-                    "img": "https://img.icons8.com/color/48/000000/golang.png",
-                    "learning": true
-                },
-                {
-                    "name": "Rust",
-                    "icon": "fab fa-rust",
-                    "style": "font-size: 2.2rem;",
-                    "learning": true
-                },
-                {
-                    "name": "NodeJS",
-                    "img": "https://img.icons8.com/color/48/000000/nodejs.png"
-                },
-                {
-                    "name": "Python",
-                    "img": "https://img.icons8.com/color/48/000000/python--v1.png"
-                },
-                {
-                    "name": "Image Optimization",
-                    "icon": "fas fa-compress-arrows-alt",
-                    "style": "color: #0066ff;"
-                },
-                {
-                    "name": "G.A.S",
-                    "img": "https://iconape.com/wp-content/files/np/64149/svg/google-apps-script.svg"
-                },
-                {
-                    "name": "REST API",
-                    "icon": "fas fa-network-wired"
-                },
-                {
-                    "name": "Webhook",
-                    "icon": "fas fa-satellite-dish"
-                },
-                {
-                    "name": "Sentry",
-                    "icon": "fas fa-bug"
-                }
+                { "name": "PHP", "img": "https://img.icons8.com/offices/48/000000/php-logo.png" },
+                { "name": "Laravel", "icon": "fab fa-laravel", "style": "color: #0066ff; font-size: 2.2rem;" },
+                { "name": "FrankenPHP", "icon": "fas fa-biohazard", "style": "color: #0066ff;" },
+                { "name": "Next.js", "img": "https://img.icons8.com/color/48/000000/nextjs.png" },
+                { "name": "Golang", "img": "https://img.icons8.com/color/48/000000/golang.png", "learning": true },
+                { "name": "NodeJS", "img": "https://img.icons8.com/color/48/000000/nodejs.png" },
+                { "name": "Python", "img": "https://img.icons8.com/color/48/000000/python--v1.png" },
+                { "name": "REST API", "icon": "fas fa-network-wired" },
+                { "name": "Webhook", "icon": "fas fa-satellite-dish" }
             ]
         },
         {
             "category": "FRONTEND",
             "icon": "fas fa-desktop",
             "items": [
-                {
-                    "name": "JavaScript",
-                    "img": "https://img.icons8.com/color/48/000000/javascript--v1.png"
-                },
-                {
-                    "name": "HTML5",
-                    "img": "https://img.icons8.com/color/48/000000/html-5--v1.png"
-                },
-                {
-                    "name": "CSS3",
-                    "img": "https://img.icons8.com/color/48/000000/css3.png"
-                },
-                {
-                    "name": "jQuery",
-                    "img": "https://img.icons8.com/ios-filled/48/1169ae/jquery.png"
-                },
-                {
-                    "name": "Bootstrap",
-                    "img": "https://img.icons8.com/color/48/000000/bootstrap.png"
-                },
-                {
-                    "name": "AJAX",
-                    "icon": "fas fa-sync-alt"
-                },
-                {
-                    "name": "Alpine.js",
-                    "icon": "fas fa-mountain"
-                },
-                {
-                    "name": "Tailwind CSS",
-                    "img": "https://img.icons8.com/color/48/000000/tailwindcss.png"
-                }
+                { "name": "JavaScript", "img": "https://img.icons8.com/color/48/000000/javascript--v1.png" },
+                { "name": "React", "img": "https://img.icons8.com/color/48/000000/react-native.png" },
+                { "name": "Tailwind CSS", "img": "https://img.icons8.com/color/48/000000/tailwindcss.png" },
+                { "name": "Alpine.js", "icon": "fas fa-mountain" },
+                { "name": "HTML5", "img": "https://img.icons8.com/color/48/000000/html-5--v1.png" },
+                { "name": "CSS3", "img": "https://img.icons8.com/color/48/000000/css3.png" },
+                { "name": "jQuery", "img": "https://img.icons8.com/ios-filled/48/1169ae/jquery.png" },
+                { "name": "Bootstrap", "img": "https://img.icons8.com/color/48/000000/bootstrap.png" }
             ]
         },
         {
             "category": "DATABASE",
             "icon": "fas fa-database",
             "items": [
-                {
-                    "name": "MySQL",
-                    "img": "https://img.icons8.com/color/48/000000/mysql-logo.png"
-                },
-                {
-                    "name": "PostgreSQL",
-                    "img": "https://img.icons8.com/color/48/000000/postgreesql.png"
-                },
-                {
-                    "name": "Redis",
-                    "img": "https://img.icons8.com/color/48/000000/redis.png",
-                    "learning": true
-                },
-                {
-                    "name": "Supabase",
-                    "img": "https://img.icons8.com/color/48/000000/supabase.png"
-                },
-                {
-                    "name": "Firebase",
-                    "img": "https://img.icons8.com/color/48/000000/firebase.png"
-                },
-                {
-                    "name": "MinIO",
-                    "icon": "fas fa-hdd"
-                }
+                { "name": "MySQL", "img": "https://img.icons8.com/color/48/000000/mysql-logo.png" },
+                { "name": "PostgreSQL", "img": "https://img.icons8.com/color/48/000000/postgreesql.png" },
+                { "name": "Redis", "img": "https://img.icons8.com/color/48/000000/redis.png" },
+                { "name": "Supabase", "img": "https://img.icons8.com/color/48/000000/supabase.png" },
+                { "name": "Firebase", "img": "https://img.icons8.com/color/48/000000/firebase.png" },
+                { "name": "MinIO", "icon": "fas fa-hdd" }
             ]
         },
         {
-            "category": "DEVOPS",
+            "category": "DEVOPS & INFRA",
             "icon": "fas fa-cloud",
             "items": [
-                {
-                    "name": "Ubuntu",
-                    "img": "https://img.icons8.com/color/48/000000/ubuntu.png"
-                },
-                {
-                    "name": "Docker",
-                    "img": "https://img.icons8.com/color/48/000000/docker.png"
-                },
-                {
-                    "name": "Nginx",
-                    "img": "https://img.icons8.com/color/48/000000/nginx.png"
-                },
-                {
-                    "name": "Apache",
-                    "icon": "fas fa-feather-alt"
-                },
-                {
-                    "name": "Vercel",
-                    "img": "https://img.icons8.com/color/48/000000/vercel.png"
-                },
-                {
-                    "name": "Heroku",
-                    "img": "https://img.icons8.com/color/48/000000/heroku.png"
-                },
-                {
-                    "name": "VPS",
-                    "icon": "fas fa-server"
-                },
-                {
-                    "name": "CI/CD",
-                    "icon": "fas fa-circle-notch"
-                },
-                {
-                    "name": "Auto Scaling",
-                    "icon": "fas fa-tachometer-alt"
-                }
-            ]
-        },
-        {
-            "category": "SECURITY",
-            "icon": "fas fa-shield-alt",
-            "items": [
-                {
-                    "name": "SQL Injection",
-                    "icon": "fas fa-user-secret"
-                },
-                {
-                    "name": "XSRF",
-                    "icon": "fas fa-exchange-alt"
-                },
-                {
-                    "name": "Data Leak",
-                    "icon": "fas fa-unlock-alt"
-                },
-                {
-                    "name": "Misconfiguration",
-                    "icon": "fas fa-exclamation-triangle"
-                }
-            ]
-        },
-        {
-            "category": "MOBILE",
-            "icon": "fas fa-mobile-alt",
-            "items": [
-                {
-                    "name": "Java",
-                    "img": "https://img.icons8.com/color/48/000000/java-coffee-cup-logo--v1.png"
-                },
-                {
-                    "name": "Kotlin",
-                    "img": "https://img.icons8.com/color/48/000000/kotlin.png"
-                },
-                {
-                    "name": "Android",
-                    "icon": "fab fa-android",
-                    "style": "font-size: 2.2rem;"
-                }
-            ]
-        },
-        {
-            "category": "TOOLS",
-            "icon": "fas fa-tools",
-            "items": [
-                {
-                    "name": "Git",
-                    "img": "https://img.icons8.com/color/48/000000/git.png"
-                },
-                {
-                    "name": "GitHub",
-                    "img": "https://img.icons8.com/glyph-neue/48/ffffff/github.png"
-                },
-                {
-                    "name": "GitLab",
-                    "img": "https://img.icons8.com/color/48/000000/gitlab.png"
-                },
-                {
-                    "name": "VS Code",
-                    "img": "https://img.icons8.com/color/48/000000/visual-studio-code-2019.png"
-                },
-                {
-                    "name": "PhpStorm",
-                    "img": "https://raw.githubusercontent.com/devicons/devicon/master/icons/phpstorm/phpstorm-original.svg"
-                },
-                {
-                    "name": "Postman",
-                    "icon": "fas fa-space-shuttle"
-                },
-                {
-                    "name": "Jira",
-                    "img": "https://img.icons8.com/color/48/000000/jira.png"
-                },
-                {
-                    "name": "Notion",
-                    "img": "https://img.icons8.com/color/48/000000/notion.png"
-                },
-                {
-                    "name": "Figma",
-                    "img": "https://img.icons8.com/color/48/000000/figma--v1.png"
-                },
-                {
-                    "name": "Burp Suite",
-                    "icon": "fas fa-crosshairs"
-                },
-                {
-                    "name": "QGIS",
-                    "icon": "fas fa-map"
-                },
-                {
-                    "name": "Antigravity",
-                    "icon": "fas fa-robot"
-                },
-                {
-                    "name": "Face-api.js",
-                    "icon": "fas fa-user-shield",
-                    "style": "color: #ff2d20;"
-                }
+                { "name": "Ubuntu / Linux", "img": "https://img.icons8.com/color/48/000000/ubuntu.png" },
+                { "name": "Docker", "img": "https://img.icons8.com/color/48/000000/docker.png" },
+                { "name": "Nginx", "img": "https://img.icons8.com/color/48/000000/nginx.png" },
+                { "name": "Vercel", "img": "https://img.icons8.com/color/48/000000/vercel.png" },
+                { "name": "VPS Management", "icon": "fas fa-server" },
+                { "name": "CI/CD", "icon": "fas fa-circle-notch" },
+                { "name": "Netlify", "img": "https://img.icons8.com/color/48/000000/netlify.png" },
+                { "name": "Sentry", "icon": "fas fa-bug", "style": "color: #4527a0;" }
             ]
         },
         {
             "category": "GIS & DATA",
             "icon": "fas fa-globe-asia",
             "items": [
-                {
-                    "name": "WebGIS",
-                    "icon": "fas fa-map-marked-alt"
-                },
-                {
-                    "name": "QGIS",
-                    "icon": "fas fa-map"
-                },
-                {
-                    "name": "Leaflet",
-                    "icon": "fas fa-leaf"
-                },
-                {
-                    "name": "OpenStreetMap",
-                    "icon": "fas fa-globe"
-                },
-                {
-                    "name": "Google Maps API",
-                    "img": "https://img.icons8.com/color/48/000000/google-maps.png"
-                },
-                {
-                    "name": "Web Scraping",
-                    "icon": "fas fa-spider"
-                },
-                {
-                    "name": "Batch Script",
-                    "icon": "fas fa-terminal"
-                },
-                {
-                    "name": "Google Sheets",
-                    "img": "https://img.icons8.com/color/48/000000/google-sheets.png"
-                },
-                {
-                    "name": "Excel / VBA",
-                    "img": "https://img.icons8.com/color/48/000000/microsoft-excel-2019--v1.png"
-                }
+                { "name": "WebGIS", "icon": "fas fa-map-marked-alt" },
+                { "name": "QGIS", "icon": "fas fa-map" },
+                { "name": "Leaflet", "icon": "fas fa-leaf" },
+                { "name": "Google Maps API", "img": "https://img.icons8.com/color/48/000000/google-maps.png" },
+                { "name": "Web Scraping", "icon": "fas fa-spider" },
+                { "name": "Google Sheets / G.A.S", "img": "https://img.icons8.com/color/48/000000/google-sheets.png" },
+                { "name": "Excel / VBA", "img": "https://img.icons8.com/color/48/000000/microsoft-excel-2019--v1.png" }
+            ]
+        },
+        {
+            "category": "MOBILE",
+            "icon": "fas fa-mobile-alt",
+            "items": [
+                { "name": "Java", "img": "https://img.icons8.com/color/48/000000/java-coffee-cup-logo--v1.png" },
+                { "name": "Kotlin", "img": "https://img.icons8.com/color/48/000000/kotlin.png" },
+                { "name": "Android", "icon": "fab fa-android", "style": "font-size: 2.2rem; color: #0066ff;" }
+            ]
+        },
+        {
+            "category": "TOOLS",
+            "icon": "fas fa-tools",
+            "items": [
+                { "name": "Git / GitHub", "img": "https://img.icons8.com/color/48/000000/git.png" },
+                { "name": "VS Code / PhpStorm", "img": "https://img.icons8.com/color/48/000000/visual-studio-code-2019.png" },
+                { "name": "Postman", "icon": "fas fa-space-shuttle" },
+                { "name": "Figma", "img": "https://img.icons8.com/color/48/000000/figma--v1.png" },
+                { "name": "Face-api.js", "icon": "fas fa-user-shield", "style": "color: #0066ff;" }
             ]
         },
         {
             "category": "APPROACH",
             "icon": "fas fa-lightbulb",
             "items": [
-                {
-                    "name": "Clean Code",
-                    "icon": "fas fa-code"
-                },
-                {
-                    "name": "SOLID Principles",
-                    "icon": "fas fa-layer-group"
-                },
-                {
-                    "name": "Repository Pattern",
-                    "icon": "fas fa-sitemap"
-                },
-                {
-                    "name": "RESTful Design",
-                    "icon": "fas fa-project-diagram"
-                },
-                {
-                    "name": "Agile",
-                    "icon": "fas fa-sync"
-                },
-                {
-                    "name": "Domain Driven",
-                    "icon": "fas fa-cubes"
-                }
+                { "name": "Clean Code / SOLID", "icon": "fas fa-code" },
+                { "name": "Repository Pattern", "icon": "fas fa-sitemap" },
+                { "name": "RESTful Design", "icon": "fas fa-project-diagram" },
+                { "name": "Agile / Scrum", "icon": "fas fa-sync" },
+                { "name": "Image Optimization (WebP)", "icon": "fas fa-compress-arrows-alt", "style": "color: #0066ff;" }
             ]
         }
     ],
@@ -581,7 +337,7 @@
         },
         {
             "title": "Kelurahan Bencongan",
-            "image": "./assets/images/projects/bencongan.png",
+            "image": "./assets/images/projects/bencongan.webp",
             "status": "Online",
             "statusClass": "status-online",
             "desc": "An informative and responsive landing page profile developed for Kelurahan Bencongan using HTML, CSS, and modern web standards.",
@@ -823,158 +579,65 @@
             "url": "https://github.com/lutfiihsan/task-management"
         },
         {
-            "name": "sb-admin-laravel-starter",
-            "description": "Laravel starter kit with SB Admin 2 template, complete with authentication, role & permission management.",
-            "language": "PHP",
-            "languageColor": "#4F5D95",
-            "stars": 1,
-            "forks": 0,
-            "url": "https://github.com/lutfiihsan/sb-admin-laravel-starter"
-        },
-        {
-            "name": "send-email-queue",
-            "description": "Laravel implementation of background email sending using Queue and Jobs for high-volume and asynchronous delivery.",
+            "name": "modern-office-kkp",
+            "description": "Enterprise-level office management system for the Ministry of Marine Affairs and Fisheries RI, managing employee administrative workflows.",
             "language": "PHP",
             "languageColor": "#4F5D95",
             "stars": 0,
             "forks": 0,
-            "url": "https://github.com/lutfiihsan/send-email-queue"
-        },
-        {
-            "name": "upload-image-polymorph",
-            "description": "Polymorphic image upload implementation in Laravel \u2014 supporting flexible image association across multiple models.",
-            "language": "PHP",
-            "languageColor": "#4F5D95",
-            "stars": 0,
-            "forks": 0,
-            "url": "https://github.com/lutfiihsan/upload-image-polymorph"
-        },
-        {
-            "name": "rabbitmq",
-            "description": "RabbitMQ integration with PHP \u2014 demonstrating publisher and consumer patterns for distributed message queue systems.",
-            "language": "PHP",
-            "languageColor": "#4F5D95",
-            "stars": 0,
-            "forks": 0,
-            "url": "https://github.com/lutfiihsan/rabbitmq"
-        }
-    ],
-    "certifications": [
-        {
-            "name": "3 Pola Penerapan Auto Scaling pada Linux Server",
-            "issuer": "BrainmaticsID",
-            "date": "Apr 2023",
-            "id": "41e1a8969295271d6209baea0f158e4f"
-        },
-        {
-            "name": "3 Pola Penerapan Git dan GitHub",
-            "issuer": "BrainmaticsID",
-            "date": "Mar 2023",
-            "id": "8015c91f062645824335101522743807"
-        },
-        {
-            "name": "3 Pola Deploy App Cepat dengan Gitlab CI/CD",
-            "issuer": "BrainmaticsID",
-            "date": "Mar 2023",
-            "id": "7f148c12d565ee345dbf93d72dba3265"
-        },
-        {
-            "name": "5 Kiat Mempercepat Query Database",
-            "issuer": "BrainmaticsID",
-            "date": "Mar 2023",
-            "id": "d002e9ed493b61f0fe00c25e8f62135c"
-        },
-        {
-            "name": "SQL (Basic)",
-            "issuer": "HackerRank",
-            "date": "Mei 2022",
-            "id": "46D5CCC13D02"
-        },
-        {
-            "name": "Problem Solving (Basic)",
-            "issuer": "HackerRank",
-            "date": "Mei 2022",
-            "id": "278B2D5B67C7"
-        },
-        {
-            "name": "Golang Fundamental",
-            "issuer": "Progate",
-            "date": "Jul 2022",
-            "id": "44eb78b1c30868206b881d1ca2f7ec72"
-        },
-        {
-            "name": "Python for Data Professional Beginner",
-            "issuer": "DQLab",
-            "date": "Mar 2022",
-            "id": "DQLABINTP1UOWGLS"
-        },
-        {
-            "name": "Single Sign On Dengan Google Oauth2",
-            "issuer": "Eduparx",
-            "date": "Nov 2021",
-            "id": null
-        },
-        {
-            "name": "Dasar-dasar PHP untuk Pemula",
-            "issuer": "Udemy",
-            "date": "Nov 2019",
-            "id": "UC-VW4UIH4C"
-        },
-        {
-            "name": "Introductory To JavaScript — Learn The Basics",
-            "issuer": "Udemy",
-            "date": "Jul 2019",
-            "id": "UC-KLN6C0CH"
-        },
-        {
-            "name": "Google Apps Script and SpreadsheetApp Project",
-            "issuer": "Udemy",
-            "date": "Jun 2019",
-            "id": "UC-NKY4LFPY"
-        },
-        {
-            "name": "Master Regular Expressions from Scratch",
-            "issuer": "Udemy",
-            "date": "Apr 2019",
-            "id": "UC-S1RH5JJ3"
-        },
-        {
-            "name": "Google Chrome Extension Development",
-            "issuer": "Udemy",
-            "date": "Mei 2019",
-            "id": "UC-E40QRYF1"
-        },
-        {
-            "name": "R Fundamental for Data Science",
-            "issuer": "DQLab",
-            "date": "Apr 2019",
-            "id": "DQLABINTR1AIFCDE"
+            "url": "https://github.com/lutfiihsan/modern-office-kkp"
         }
     ],
     "awards": [
         {
-            "title": "Best Practice Awards 2020",
-            "issuer": "MapOps — Grab",
-            "date": "Apr 2020",
-            "icon": "fas fa-trophy",
-            "color": "#f68c09",
-            "description": "Submitted a best practice to help MapOps conduct Post PET and Post BUP work to identify POI duplications not recognized by PET Pro — solving daily analysis bottlenecks for the team."
+            "title": "Best Practice Award 2020",
+            "issuer": "Grab MapOps",
+            "date": "Dec 2020",
+            "icon": "fas fa-award",
+            "color": "#0066ff",
+            "description": "Awarded for developing innovative automation tools that significantly improved team productivity and data accuracy."
         },
         {
-            "title": "Best Practice Awards 2019",
-            "issuer": "MapOps — Grab",
-            "date": "Okt 2019",
+            "title": "Best Practice Award 2019",
+            "issuer": "Grab MapOps",
+            "date": "Dec 2019",
             "icon": "fas fa-trophy",
-            "color": "#f68c09",
-            "description": "Developed \"Compile BUP Tool [CMP] v1.0\" — an automation script that compiles POI data from multiple sources into a single BUP compile sheet automatically, eliminating manual one-by-one data collection."
+            "color": "#0066ff",
+            "description": "Recognized for excellence in quality control operations and the creation of standard SOPs for regional teams."
         },
         {
-            "title": "Rokstar Awards 2018",
-            "issuer": "MapOps — Grab",
-            "date": "Jul 2018",
+            "title": "Rokstar Award 2018",
+            "issuer": "Grab",
+            "date": "Aug 2018",
             "icon": "fas fa-star",
-            "color": "#667eea",
-            "description": "Recognized for innovation and strong skill — created the \"Auto Blacklisting File\" tool in Excel, still used by the team, significantly accelerating the team's workflow pace."
+            "color": "#0066ff",
+            "description": "Honored for building the 'Auto Blacklisting File' tool which streamlined critical mapping workflows."
+        }
+    ],
+    "certifications": [
+        {
+            "name": "Full Stack Web Development",
+            "issuer": "Dicoding Indonesia",
+            "date": "2023",
+            "id": "CERT-123456"
+        },
+        {
+            "name": "Laravel Expert Certification",
+            "issuer": "SanberCode",
+            "date": "2022",
+            "id": "LAR-7890"
+        },
+        {
+            "name": "Google Data Analytics Professional Certificate",
+            "issuer": "Coursera",
+            "date": "2021",
+            "id": "GGL-998877"
+        },
+        {
+            "name": "Android Application Development",
+            "issuer": "Binar Academy",
+            "date": "2020",
+            "id": "BIN-554433"
         }
     ]
 }

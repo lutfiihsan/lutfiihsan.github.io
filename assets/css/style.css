@@ -123,7 +123,7 @@ html::-webkit-scrollbar-thumb {
 }
 .pdf-spinner .path {
   stroke: url(#spinnerGradient);
-  stroke: #f68c09;
+  stroke: #0066ff;
   stroke-linecap: round;
   stroke-dasharray: 90, 150;
   stroke-dashoffset: 0;
@@ -367,12 +367,12 @@ header .navbar ul li a.active {
   margin-left: 1rem;
 }
 #menu:hover {
-  background: rgba(246,140,9,0.1);
-  color: #f68c09;
+  background: rgba(0,102,255,0.1);
+  color: #0066ff;
 }
 .fa-times {
   transform: rotate(180deg);
-  color: #f68c09 !important;
+  color: #0066ff !important;
 }
 
 @media (max-width: 768px) {
@@ -632,7 +632,7 @@ header .navbar ul li a.active {
   position: absolute;
   inset: -8px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #f68c09, #764ba2, #00b8ff);
+  background: linear-gradient(135deg, #0066ff, #764ba2, #00b8ff);
   z-index: -1;
   filter: blur(16px);
   opacity: 0.55;
@@ -722,7 +722,7 @@ header .navbar ul li a.active {
   color: #02094b;
 }
 .about .heading span {
-  color: #f68c09;
+  color: #0066ff;
 }
 .about .row {
   display: flex;
@@ -852,7 +852,7 @@ header .navbar ul li a.active {
   padding: 1.8rem 2rem;
   box-shadow: 0 4px 16px rgba(0,0,0,0.05);
   transition: all 0.25s ease;
-  border-left: 4px solid var(--stat-color, #f68c09);
+  border-left: 4px solid var(--stat-color, #0066ff);
 }
 .about-stat-card:hover {
   transform: translateY(-4px);
@@ -860,7 +860,7 @@ header .navbar ul li a.active {
 }
 .about-stat-card i {
   font-size: 1.8rem;
-  color: var(--stat-color, #f68c09);
+  color: var(--stat-color, #0066ff);
   margin-bottom: 0.3rem;
 }
 .about-stat-card strong {
@@ -901,8 +901,8 @@ header .navbar ul li a.active {
   transition: transform 0.3s ease;
 }
 .about .row .content .resumebtn .btn:hover {
-  background: #f68c09;
-  box-shadow: 0px 8px 20px rgba(246, 140, 9, 0.4);
+  background: #0066ff;
+  box-shadow: 0px 8px 20px rgba(0, 102, 255, 0.4);
   transform: translateY(-3px);
 }
 .about .row .content .resumebtn .btn:hover i {
@@ -952,7 +952,7 @@ header .navbar ul li a.active {
   color: #ffffff;
 }
 .skills .heading span {
-  color: #f68c09;
+  color: #0066ff;
 }
 
 /* Grid layout */
@@ -1070,7 +1070,7 @@ header .navbar ul li a.active {
 .skill-chip-img {
   width: 1.8rem;
   height: 1.8rem;
-  object-fit: contain;
+  object-fit: cover;
   display: block;
 }
 .skill-chip-icon i {
@@ -1090,9 +1090,9 @@ header .navbar ul li a.active {
 .learning-badge {
   font-size: 0.9rem;
   font-weight: 700;
-  color: #f68c09;
-  background: rgba(246, 140, 9, 0.1);
-  border: 1px solid rgba(246, 140, 9, 0.35);
+  color: #0066ff;
+  background: rgba(0, 102, 255, 0.1);
+  border: 1px solid rgba(0, 102, 255, 0.35);
   border-radius: 4px;
   padding: 0.1rem 0.45rem;
   margin-left: 0.2rem;
@@ -1187,7 +1187,7 @@ header .navbar ul li a.active {
   opacity: 0;
   transform: translateX(-5px);
   transition: all 0.3s ease;
-  color: #f68c09;
+  color: #0066ff;
 }
 .copyable-contact:hover .copy-icon {
   opacity: 1;
@@ -1198,7 +1198,7 @@ header .navbar ul li a.active {
   top: -25px;
   left: 50%;
   transform: translateX(-50%);
-  background: #f68c09;
+  background: #0066ff;
   color: #fff;
   padding: 2px 8px;
   border-radius: 4px;
@@ -1216,7 +1216,7 @@ header .navbar ul li a.active {
   background: rgba(66, 1, 119, 0.04);
 }
 .chip-expand-btn[aria-expanded="true"] {
-  color: #f68c09;
+  color: #0066ff;
 }
 .chip-expand-btn i {
   font-size: 1.1rem;
@@ -1237,7 +1237,7 @@ header .navbar ul li a.active {
   color: #02094b;
 }
 .education .heading span {
-  color: #f68c09;
+  color: #0066ff;
 }
 .education .quote {
   font-size: 1.6rem;
@@ -1274,8 +1274,8 @@ header .navbar ul li a.active {
 }
 .education-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(246, 140, 9, 0.15); /* Shadow berubah jadi sedikit oranye saat hover */
-  border-left-color: #f68c09; /* Garis aksen berubah oranye */
+  box-shadow: 0 15px 35px rgba(0, 102, 255, 0.15); 
+  border-left-color: #0066ff; /* Garis aksen berubah biru */
 }
 
 /* Area Gambar */
@@ -1316,7 +1316,7 @@ header .navbar ul li a.active {
 }
 .education-card .content .year i {
   margin-right: 0.8rem;
-  color: #f68c09;
+  color: #0066ff;
 }
 .education-card .content h3 {
   font-size: 2.2rem;
@@ -1328,7 +1328,7 @@ header .navbar ul li a.active {
 }
 .education-card .content .institution {
   font-size: 1.6rem;
-  color: #f68c09;
+  color: #0066ff;
   font-weight: 700;
   margin-bottom: 1.5rem;
   display: flex;
@@ -1351,7 +1351,7 @@ header .navbar ul li a.active {
     border-top: 6px solid #02094b; /* Garis aksen pindah ke atas */
   }
   .education-card:hover {
-    border-top-color: #f68c09;
+    border-top-color: #0066ff;
   }
   .education-card .image {
     flex: 0 0 220px; /* Menentukan tinggi gambar di versi mobile */
@@ -1374,7 +1374,7 @@ header .navbar ul li a.active {
   padding: 1rem;
 }
 .work .heading span {
-  color: #f68c09;
+  color: #0066ff;
 }
 .work .box-container {
   display: grid;
@@ -1393,7 +1393,7 @@ header .navbar ul li a.active {
   display: flex;
   flex-direction: column;
   transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
-  transform-style: preserve-3d;
+  transform-style: flat;
 }
 .work .box:hover {
   transform: translateY(-7px);
@@ -1401,26 +1401,26 @@ header .navbar ul li a.active {
   border-color: rgba(0, 102, 255, 0.35);
 }
 
-/* ── Image area: padded container ── */
+/* ── Image area: full bleed ── */
 .work .box .image-wrapper {
   position: relative;
   width: 100%;
-  height: 210px;
-  background: #f0f2f8;
-  padding: 1.2rem;
+  height: 220px;
+  background: #f8fafc;
+  padding: 0;
   box-sizing: border-box;
-  /* overflow: hidden; */ /* Removing to allow 3D pop-out */
+  overflow: hidden;
   flex-shrink: 0;
-  transform-style: preserve-3d;
+  transform-style: flat;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
 }
 .work .box .image-wrapper img {
   width: 100%;
   height: 100%;
-  object-fit: contain;     /* show full image — no crop */
+  object-fit: cover;
   object-position: center top;
-  border-radius: 8px;
   transition: transform 0.45s ease;
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.08));
 }
 .work .box:hover .image-wrapper img {
   transform: scale(1.04);
@@ -1469,12 +1469,12 @@ header .navbar ul li a.active {
 }
 .image-wrapper:hover .zoom-btn {
   opacity: 1;
-  transform: translate(-50%, -50%) scale(1) translateZ(120px);
+  transform: translate(-50%, -50%) scale(1) translateZ(0);
 }
 
 .zoom-btn:hover {
   background: #02094b;
-  transform: translate(-50%, -50%) scale(1.1) translateZ(120px);
+  transform: translate(-50%, -50%) scale(1.1) translateZ(0);
 }
 
 
@@ -1483,7 +1483,7 @@ header .navbar ul li a.active {
 .carousel-btn {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%) translateZ(100px);
+  transform: translateY(-50%) translateZ(0);
   background: rgba(2, 9, 75, 0.95);
   color: #fff;
   border: 2px solid #fff;
@@ -1502,7 +1502,7 @@ header .navbar ul li a.active {
 }
 .carousel-btn:hover {
   background: #0066ff;
-  transform: translateY(-50%) translateZ(120px) scale(1.15);
+  transform: translateY(-50%) translateZ(0) scale(1.15);
   box-shadow: 0 0 20px rgba(0, 102, 255, 0.6);
 }
 .carousel-btn.prev { left: 0.8rem; }
@@ -1517,7 +1517,7 @@ header .navbar ul li a.active {
   position: absolute;
   bottom: 1.2rem;
   left: 50%;
-  transform: translateX(-50%) translateZ(100px);
+  transform: translateX(-50%) translateZ(0);
   display: flex;
   gap: 1rem;
   z-index: 9999;
@@ -1557,10 +1557,10 @@ header .navbar ul li a.active {
   flex-grow: 1;
   gap: 0.6rem;
   position: relative;
-  z-index: 100; /* Above image wrapper */
+  z-index: 100;
   background: #fff;
-  transform: translateZ(50px); /* Significant 3D separation */
-  transform-style: preserve-3d;
+  transform: translateZ(0);
+  transform-style: flat;
 }
 
 
@@ -1600,7 +1600,7 @@ header .navbar ul li a.active {
   white-space: nowrap;
 }
 .status-online  { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
-.status-offline { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+.status-offline { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
 .status-private { background: #ede9fe; color: #4c1d95; border: 1px solid #c4b5fd; }
 
 /* Action buttons */
@@ -1629,7 +1629,7 @@ header .navbar ul li a.active {
   cursor: pointer;
 }
 .work .box .btns .btn.btn-detail {
-  flex: 1 1 100%;
+  flex: 1 1 calc(50% - 0.4rem);
   background: transparent !important;
   color: #0066ff !important;
   border: 1.5px solid #0066ff !important;
@@ -1640,23 +1640,28 @@ header .navbar ul li a.active {
 .work .box .btns .btn.btn-detail:hover {
   background: #0066ff !important;
   color: #ffffff !important;
-  transform: translateY(-4px) translateZ(80px) !important;
   box-shadow: 0 10px 25px rgba(0, 102, 255, 0.25);
 }
 
-
-
 .work .box .btns .btn:hover {
   background: #0066ff;
-  transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(0, 102, 255, 0.3);
 }
 .work .box .btns .btn-disabled {
-  background: #f4f4f6;
-  color: #aaa;
+  background: #f1f3f7;
+  color: #94a3b8;
   cursor: not-allowed;
   pointer-events: none;
-  border: 1px solid #e8e8e8;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1rem 1.2rem;
+  border-radius: 10px;
+  font-size: 1.35rem;
+  font-weight: 700;
+  flex: 1 1 calc(50% - 0.4rem);
 }
 
 /* Image Modal (Lightbox) Styles */
@@ -1694,7 +1699,7 @@ header .navbar ul li a.active {
   transition: 0.3s;
 }
 .image-modal .close-modal:hover {
-  color: #f68c09;
+  color: #0066ff;
 }
 /* work section ends */
 
@@ -1712,7 +1717,7 @@ header .navbar ul li a.active {
   content: "";
   position: absolute;
   width: 4px;
-  background: linear-gradient(to bottom, #f68c09, #ffae00, #00b8ff);
+  background: linear-gradient(to bottom, #02094b, #0066ff, #00b8ff);
   top: 0;
   bottom: 0;
   left: 50%;
@@ -1734,23 +1739,23 @@ header .navbar ul li a.active {
   height: 32px;
   right: -16px;
   background-color: #fff;
-  border: 3px solid #f68c09;
+  border: 3px solid #0066ff;
   top: 36px;
   border-radius: 50%;
   z-index: 100;
   font-size: 1.4rem;
   text-align: center;
   font-weight: 900;
-  color: #f68c09;
+  color: #0066ff;
   font-family: "Font Awesome 5 Free";
   line-height: 26px;
-  box-shadow: 0 0 0 5px rgba(246, 140, 9, 0.15);
+  box-shadow: 0 0 0 5px rgba(0, 102, 255, 0.15);
   transition: all 0.3s ease;
 }
 .experience .container:hover::after {
-  background-color: #f68c09;
+  background-color: #0066ff;
   color: #fff;
-  box-shadow: 0 0 0 8px rgba(246, 140, 9, 0.25);
+  box-shadow: 0 0 0 8px rgba(0, 102, 255, 0.25);
 }
 .experience .left {
   left: 0;
@@ -1778,7 +1783,7 @@ header .navbar ul li a.active {
 .experience .content:hover {
   transform: translateY(-5px);
   box-shadow: 0 20px 40px rgba(2, 9, 75, 0.08);
-  border-color: rgba(246, 140, 9, 0.3);
+  border-color: rgba(0, 102, 255, 0.3);
 }
 
 /* arrows pointing left/right from cards */
@@ -2000,7 +2005,7 @@ header .navbar ul li a.active {
 
 .tiered-role[open] {
   box-shadow: 0 10px 25px rgba(2, 9, 75, 0.05);
-  border-color: rgba(246, 140, 9, 0.3);
+  border-color: rgba(0, 102, 255, 0.3);
 }
 
 .role-summary {
@@ -2042,7 +2047,7 @@ header .navbar ul li a.active {
 }
 
 .toggle-icon {
-  color: #f68c09;
+  color: #0066ff;
   font-size: 1.4rem;
   transition: transform 0.3s ease;
 }
@@ -2084,7 +2089,7 @@ header .navbar ul li a.active {
   color: #02094b;
 }
 .certifications .heading span {
-  color: #f68c09;
+  color: #0066ff;
 }
 .certifications .box-container {
   display: grid;
@@ -2114,20 +2119,20 @@ header .navbar ul li a.active {
   left: 0; 
   right: 0;
   height: 5px;
-  background: linear-gradient(135deg, #f68c09, #ffae00);
+  background: linear-gradient(135deg, #02094b, #0066ff);
   transition: height 0.3s ease;
 }
 .certifications .box:hover {
   transform: translateY(-8px);
   box-shadow: 0 20px 40px rgba(2, 9, 75, 0.1);
-  border-color: rgba(246, 140, 9, 0.25);
+  border-color: rgba(0, 102, 255, 0.25);
 }
 
 /* Glowing Ribbon/Certificate Icon */
 .certifications .box .icon {
   font-size: 2.6rem;
-  color: #f68c09;
-  background: rgba(246, 140, 9, 0.1);
+  color: #0066ff;
+  background: rgba(0, 102, 255, 0.1);
   width: 6.5rem;
   height: 6.5rem;
   display: flex;
@@ -2138,10 +2143,10 @@ header .navbar ul li a.active {
   transition: all 0.4s ease;
 }
 .certifications .box:hover .icon {
-  background: linear-gradient(135deg, #f68c09, #ffae00);
+  background: linear-gradient(135deg, #02094b, #0066ff);
   color: #fff;
   transform: scale(1.08) rotate(5deg);
-  box-shadow: 0 10px 25px rgba(246, 140, 9, 0.35);
+  box-shadow: 0 10px 25px rgba(0, 102, 255, 0.35);
 }
 
 /* Content Area */
@@ -2214,7 +2219,7 @@ header .navbar ul li a.active {
   color: #02094b;
 }
 .contact .heading span {
-  color: #f68c09;
+  color: #0066ff;
 }
 
 /* Container Utama Split-Pane */
@@ -2487,7 +2492,7 @@ header .navbar ul li a.active {
   letter-spacing: 0.02em;
 }
 .footer .credit a {
-  color: #f68c09;
+  color: #0066ff;
   font-weight: 700;
   position: relative;
   transition: all 0.3s ease;
@@ -2498,7 +2503,7 @@ header .navbar ul li a.active {
   bottom: -2px; left: 0;
   width: 0;
   height: 1px;
-  background: #f68c09;
+  background: #0066ff;
   transition: width 0.3s ease;
 }
 .footer .credit a:hover::after {
@@ -2549,8 +2554,8 @@ header .navbar ul li a.active {
   right: 2rem;
   padding: 1rem 1.5rem;
   font-size: 2rem;
-  background: #ffae00;
-  color: rgb(13, 0, 44);
+  background: #0066ff;
+  color: #fff;
   border-radius: 50%;
   transition: 1s linear;
   z-index: 1000;
@@ -2602,8 +2607,8 @@ header .navbar ul li a.active {
   transition: transform 0.3s ease;
 }
 .morebtn .btn:hover {
-  background: #f68c09; /* Orange */
-  box-shadow: 0px 5px 15px rgba(246, 140, 9, 0.4);
+  background: #0066ff; /* Blue */
+  box-shadow: 0px 5px 15px rgba(0, 102, 255, 0.4);
   transform: translateY(-3px);
 }
 /* ========================================== */
@@ -2642,7 +2647,7 @@ header .navbar ul li a.active {
   transition: color 0.2s ease;
 }
 .about .row .content .personal-info .info-box span a:hover {
-  color: #f68c09;
+  color: #0066ff;
 }
 
 /* Footer contact info links */
@@ -2652,7 +2657,7 @@ header .navbar ul li a.active {
   transition: color 0.2s ease;
 }
 .footer .box p a:hover {
-  color: #f68c09;
+  color: #0066ff;
 }
 
 /* ========================================== */
@@ -2698,7 +2703,7 @@ header .navbar ul li a.active {
   gap: 0.4rem;
 }
 .project-meta i {
-  color: #f68c09;
+  color: #0066ff;
 }
 
 /* Experience tech badges */
@@ -2739,7 +2744,7 @@ header .navbar ul li a.active {
   gap: 0.4rem;
 }
 .exp-meta i {
-  color: #f68c09;
+  color: #0066ff;
 }
 
 /* Experience period */
@@ -2753,7 +2758,7 @@ header .navbar ul li a.active {
   gap: 0.5rem;
 }
 .exp-period i {
-  color: #f68c09;
+  color: #0066ff;
 }
 
 /* ========================================== */
@@ -2778,7 +2783,7 @@ header .navbar ul li a.active {
   transition: color 0.2s ease;
 }
 .repos-subtitle a:hover {
-  color: #f68c09;
+  color: #0066ff;
 }
 
 .repos-grid {
@@ -2800,8 +2805,8 @@ header .navbar ul li a.active {
   cursor: default;
 }
 .repo-card:hover {
-  border-color: #420177;
-  box-shadow: 0 8px 24px rgba(66, 1, 119, 0.1);
+  border-color: #02094b;
+  box-shadow: 0 8px 24px rgba(2, 9, 75, 0.1);
   transform: translateY(-3px);
 }
 
@@ -2812,19 +2817,19 @@ header .navbar ul li a.active {
   flex-wrap: wrap;
 }
 .repo-header > i {
-  color: #420177;
+  color: #02094b;
   font-size: 1.6rem;
 }
 .repo-name {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #420177;
+  color: #02094b;
   text-decoration: none;
   flex: 1;
   transition: color 0.2s ease;
 }
 .repo-name:hover {
-  color: #f68c09;
+  color: #0066ff;
   text-decoration: underline;
 }
 .repo-visibility {
@@ -2874,7 +2879,7 @@ header .navbar ul li a.active {
   gap: 0.3rem;
 }
 .repo-stats i {
-  color: #f68c09;
+  color: #0066ff;
 }
 
 /* ========================================= */
@@ -2947,7 +2952,7 @@ header .navbar ul li a.active {
   gap: 0.6rem;
   font-weight: 600;
 }
-.meta-badge i { color: #f68c09; }
+.meta-badge i { color: #0066ff; }
 
 .detail-section {
   margin-bottom: 3rem;
@@ -2966,7 +2971,7 @@ header .navbar ul li a.active {
   content: "";
   width: 4px;
   height: 20px;
-  background: #f68c09;
+  background: #0066ff;
   border-radius: 10px;
 }
 
@@ -2992,7 +2997,7 @@ header .navbar ul li a.active {
   transition: all 0.3s;
 }
 .back-link:hover {
-  color: #f68c09;
+  color: #0066ff;
 }
 .back-link i { margin-right: 0.5rem; }
 
@@ -3317,7 +3322,7 @@ body.dark-mode .footer { background: #04050b !important; }
   gap: 2rem;
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.1);
-  border-left: 4px solid var(--award-color, #f68c09);
+  border-left: 4px solid var(--award-color, #0066ff);
   border-radius: 18px;
   padding: 2.5rem 2.8rem;
   backdrop-filter: blur(8px);
@@ -3344,7 +3349,7 @@ body.dark-mode .footer { background: #04050b !important; }
   width: 58px;
   height: 58px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--award-color, #f68c09), rgba(255,255,255,0.1));
+  background: linear-gradient(135deg, var(--award-color, #0066ff), rgba(255,255,255,0.1));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3378,7 +3383,7 @@ body.dark-mode .footer { background: #04050b !important; }
 }
 .award-issuer i,
 .award-date i {
-  color: var(--award-color, #f68c09);
+  color: var(--award-color, #0066ff);
   font-size: 1.15rem;
 }
 .award-title {
@@ -3409,4 +3414,80 @@ body.dark-mode .footer { background: #04050b !important; }
 body.dark-mode .awards {
   background: linear-gradient(135deg, #010620 0%, #080e40 100%);
 }
-/* ================================================ */
+/* ================================================ */
+/* ================================================ */
+/* DARK MODE OVERRIDES FOR CARDS                    */
+/* ================================================ */
+
+body.dark-mode .work .box,
+body.dark-mode .experience .content,
+body.dark-mode .education-card,
+body.dark-mode .certifications .box {
+  background: #0a1128 !important; /* Deep Navy */
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #fff !important;
+}
+
+body.dark-mode .work .box .content,
+body.dark-mode .experience .content .desc,
+body.dark-mode .education-card .content,
+body.dark-mode .certifications .box .content {
+  background: #0a1128 !important;
+}
+
+body.dark-mode .work .box .content .title-wrap h3,
+body.dark-mode .experience .content .tag h2,
+body.dark-mode .education-card .content h3,
+body.dark-mode .certifications .box .content h3 {
+  color: #fff !important;
+}
+
+body.dark-mode .work .box .content .desc p,
+body.dark-mode .experience .content .desc ul li,
+body.dark-mode .education-card .content p,
+body.dark-mode .certifications .box .content .date {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+body.dark-mode .work .box .image-wrapper {
+  background: #02094b !important;
+}
+
+body.dark-mode .education-card .image {
+  background: #02094b !important;
+}
+
+body.dark-mode .about-stat-card {
+  background: #0a1128 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+body.dark-mode .about-stat-card strong {
+  color: #fff !important;
+}
+
+body.dark-mode .about-stat-card span {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+body.dark-mode .work .box .content .title-wrap {
+  border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+body.dark-mode .work .box .btns .btn-disabled {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: rgba(255, 255, 255, 0.35) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+body.dark-mode .work .box .btns .btn-detail {
+  border: 1px solid #0066ff !important;
+  color: #0066ff !important;
+}
+
+body.dark-mode .work .box .btns .btn-detail:hover {
+  background: #0066ff !important;
+  color: #fff !important;
+}
+
+/* ================================================ */
