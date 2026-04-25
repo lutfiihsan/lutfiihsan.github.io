@@ -1,7 +1,37 @@
-// Deklarasi variabel global untuk menyimpan data portfolio
 let globalPortfolioData = null;
 
+// --- DARK MODE INITIALIZATION ---
+(function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+    }
+})();
+
+function setupThemeToggle() {
+    const themeBtn = document.getElementById('theme-toggle');
+    if (!themeBtn) return;
+    const icon = themeBtn.querySelector('i');
+    const isDark = document.body.classList.contains('dark-mode');
+    
+    if (isDark && icon) {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+    }
+
+    themeBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const nowDark = document.body.classList.contains('dark-mode');
+        localStorage.setItem('theme', nowDark ? 'dark' : 'light');
+        if (icon) {
+            icon.classList.toggle('fa-moon', !nowDark);
+            icon.classList.toggle('fa-sun', nowDark);
+        }
+    });
+}
+
 $(document).ready(function () {
+    setupThemeToggle();
     // --- UI Interactions ---
     // Toggle navigation menu
     $('#menu').click(function () {
@@ -224,7 +254,7 @@ function renderProjects(projects) {
     projects.forEach((proj, pIdx) => {
         let btnsHtml = "";
         if (proj.id) {
-            btnsHtml += `<a href="project" onclick="sessionStorage.setItem('activeProjectId', '${proj.id}')" class="btn btn-detail"><i class="fas fa-info-circle" aria-hidden="true"></i> Details</a>`;
+            btnsHtml += `<a href="project?slug=${proj.id}" target="_blank" class="btn btn-detail"><i class="fas fa-info-circle" aria-hidden="true"></i> Details</a>`;
         }
 
         if (proj.viewLink) {
@@ -945,9 +975,9 @@ function initContactCopy() {
 function renderProjectDetail(projects) {
     // Try URL param first (GitHub Pages), then sessionStorage (local dev server)
     const urlParams = new URLSearchParams(window.location.search);
-    const projId = urlParams.get('id') || sessionStorage.getItem('activeProjectId');
-    if (projId) sessionStorage.removeItem('activeProjectId'); // Clean up after use
-    const project = projects.find(p => p.id === projId);
+    const projSlug = urlParams.get('slug') || sessionStorage.getItem('activeProjectId');
+    if (projSlug) sessionStorage.removeItem('activeProjectId'); // Clean up after use
+    const project = projects.find(p => p.id === projSlug);
 
     const container = document.getElementById('project-detail-container');
     if (!container) return;
@@ -985,6 +1015,9 @@ function renderProjectDetail(projects) {
     }
 
     const html = `
+        <div class="detail-nav-top">
+            <a href="index#work" class="btn btn-outline back-btn-top"><i class="fas fa-chevron-left"></i> Back to Portfolio</a>
+        </div>
         <div class="project-detail-wrapper">
             <div class="split left-split tilt" id="detail-carousel" data-images='${JSON.stringify(project.images || [project.image])}' data-current="0" style="position:relative;">
                 <img src="${project.image}" alt="${project.title} Cover" class="detail-img project-img">
@@ -1029,33 +1062,3 @@ function renderProjectDetail(projects) {
         VanillaTilt.init(document.querySelectorAll(".tilt"), { max: 5, speed: 400 });
     }
 }
-
-// --- DARK MODE TOGGLE ---
-document.addEventListener('DOMContentLoaded', () => {
-    const themeBtn = document.getElementById('theme-toggle');
-    if (!themeBtn) return;
-    
-    const bodyEl = document.body;
-    const icon = themeBtn.querySelector('i');
-
-    // Check localStorage
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        bodyEl.classList.add('dark-mode');
-        icon.classList.remove('fa-moon');
-        icon.classList.add('fa-sun');
-    }
-
-    themeBtn.addEventListener('click', () => {
-        bodyEl.classList.toggle('dark-mode');
-        if (bodyEl.classList.contains('dark-mode')) {
-            localStorage.setItem('theme', 'dark');
-            icon.classList.remove('fa-moon');
-            icon.classList.add('fa-sun');
-        } else {
-            localStorage.setItem('theme', 'light');
-            icon.classList.remove('fa-sun');
-            icon.classList.add('fa-moon');
-        }
-    });
-});

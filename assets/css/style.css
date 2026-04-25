@@ -356,20 +356,30 @@ header .navbar ul li a.active {
   align-items: center;
   justify-content: center;
   width: 4.5rem;
-  height: 4.5rem;
-  background: rgba(255,255,255,0.5);
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(0,0,0,0.1);
-  border-radius: 10px;
-  transition: all 0.3s ease;
+  font-size: 2.2rem;
+  cursor: pointer;
+  color: #02094b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.2rem;
+  height: 4.2rem;
+  background: rgba(0, 102, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(0, 102, 255, 0.1);
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 999;
-  order: 3; /* Pastikan selalu di kanan header */
+  order: 3;
   margin-left: 1rem;
 }
 #menu:hover {
-  background: rgba(0,102,255,0.1);
+  background: rgba(0, 102, 255, 0.15);
+  border-color: rgba(0, 102, 255, 0.3);
   color: #0066ff;
+  transform: translateY(-2px);
 }
+
 .fa-times {
   transform: rotate(180deg);
   color: #0066ff !important;
@@ -3058,6 +3068,16 @@ body.dark-mode header {
   background: rgba(13, 15, 26, 0.85) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
+body.dark-mode #menu {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+body.dark-mode #menu:hover {
+  color: #0066ff !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: #0066ff !important;
+}
 body.dark-mode header .logo,
 body.dark-mode header .navbar ul li a,
 body.dark-mode .theme-btn,
@@ -3523,6 +3543,51 @@ body.dark-mode .back-link {
 }
 
 body.dark-mode .back-link:hover {
+  color: #fff !important;
+}
+
+/* ================================================ */
+
+/* ================================================ */
+/* PROJECT DETAIL TOP NAV                           */
+/* ================================================ */
+
+.detail-nav-top {
+  margin-bottom: 3rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 2rem;
+}
+
+.back-btn-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem 2rem !important;
+  font-size: 1.4rem !important;
+  border-radius: 50px !important;
+  border: 1.5px solid #0066ff !important;
+  color: #0066ff !important;
+  background: transparent !important;
+  transition: all 0.3s ease !important;
+}
+
+.back-btn-top:hover {
+  background: #0066ff !important;
+  color: #fff !important;
+  transform: translateX(-5px);
+  box-shadow: 0 8px 20px rgba(0, 102, 255, 0.2);
+}
+
+body.dark-mode .back-btn-top {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+body.dark-mode .back-btn-top:hover {
+  background: #0066ff !important;
+  border-color: #0066ff !important;
   color: #fff !important;
 }
 
