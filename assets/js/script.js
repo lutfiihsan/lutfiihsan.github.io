@@ -396,78 +396,102 @@ window.changeDetailImage = changeDetailImage;
 
 
 function renderExperience(experiences) {
-    let html = "";
-    experiences.forEach((exp, index) => {
-        // Tech badges
-        let techHtml = "";
-        if (exp.tech && exp.tech.length) {
-            techHtml = `<div class="exp-tech" style="margin-top: 1.5rem;">${exp.tech.map(t => `<span class="tech-badge">${t}</span>`).join("")}</div>`;
-        }
-
-        // Meta: location + employment type
-        let metaHtml = "";
-        if (exp.location || exp.employmentType) {
-            let locPart = exp.location ? `<span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> ${exp.location}</span>` : "";
-            let typePart = exp.employmentType ? `<span><i class="fas fa-briefcase" aria-hidden="true"></i> ${exp.employmentType}</span>` : "";
-            metaHtml = `<div class="exp-meta" style="margin-bottom: 15px;">${locPart}${typePart}</div>`;
-        }
-
-        let companyHtml = `<div class="tag"><h2>${exp.company}</h2></div>`;
-
-        if (exp.isGrouped && exp.roles) {
-            let rolesHtml = exp.roles.map((role, rIndex) => {
-                let tasksHtml = role.tasks.map(task => `<li><i class="fas fa-check-circle" aria-hidden="true"></i> ${task}</li>`).join("");
-                let isOpen = rIndex === 0 ? "open" : "";
-                return `
-                <details class="tiered-role" ${isOpen}>
-                    <summary class="role-summary">
-                        <div class="summary-info">
-                            <span class="role-title">${role.title}</span>
-                            <span class="role-badge">${role.period}</span>
-                        </div>
-                        <i class="fas fa-chevron-down toggle-icon" aria-hidden="true"></i>
-                    </summary>
-                    <div class="role-body">
-                        <ul>${tasksHtml}</ul>
-                    </div>
-                </details>`;
-            }).join("");
-
-            html += `
-            <div class="container ${exp.align}" role="listitem">
-                <div class="content">
-                    ${companyHtml}
-                    <div class="desc tiered-desc">
-                        <p class="total-period"><i class="fas fa-calendar-alt" aria-hidden="true"></i> ${exp.period}</p>
-                        ${metaHtml}
-                        <div class="tiered-timeline-container">
-                            ${rolesHtml}
-                        </div>
-                        ${techHtml}
-                    </div>
-                </div>
-            </div>`;
-        } else {
-            // Standard single role experience
-            let tasksHtml = exp.tasks.map(task => `<li><i class="fas fa-check-circle" aria-hidden="true"></i> ${task}</li>`).join("");
-            html += `
-            <div class="container ${exp.align}" role="listitem">
-                <div class="content">
-                    ${companyHtml}
-                    <div class="desc">
-                        <h3>${exp.role}</h3>
-                        <p class="exp-period" style="margin-bottom: 12px; opacity: 0.8;"><i class="fas fa-calendar" aria-hidden="true"></i> ${exp.period}</p>
-                        ${metaHtml}
-                        <ul style="margin-top: 10px;">${tasksHtml}</ul>
-                        ${techHtml}
-                    </div>
-                </div>
-            </div>`;
-        }
-    });
     const container = document.getElementById("experience-container");
     if (!container) return;
-    container.innerHTML = html;
+
+    // Create the Tab Layout Structure
+    let sidebarHtml = "";
+    let contentHtml = "";
+
+    experiences.forEach((exp, index) => {
+        const isActive = index === 0 ? "active" : "";
+        const expId = `exp-${index}`;
+
+        // Sidebar Tab button
+        sidebarHtml += `<button class="exp-tab ${isActive}" onclick="switchExperienceTab('${expId}', this)">
+            <span>${exp.company}</span>
+        </button>`;
+
+        // Content Panel Detail
+        let techHtml = "";
+        if (exp.tech && exp.tech.length) {
+            techHtml = `<div class="exp-tech">${exp.tech.map(t => `<span class="tech-badge">${t}</span>`).join("")}</div>`;
+        }
+
+        let metaHtml = "";
+        if (exp.location || exp.employmentType) {
+            let locPart = exp.location ? `<span><i class="fas fa-map-marker-alt"></i> ${exp.location}</span>` : "";
+            let typePart = exp.employmentType ? `<span><i class="fas fa-briefcase"></i> ${exp.employmentType}</span>` : "";
+            metaHtml = `<div class="exp-meta-tabs">${locPart}${typePart}</div>`;
+        }
+
+        let innerContent = "";
+        if (exp.isGrouped && exp.roles) {
+            innerContent = exp.roles.map((role, rIndex) => {
+                let tasksHtml = role.tasks.map(task => `<li><i class="fas fa-check-circle"></i> ${task}</li>`).join("");
+                return `
+                <div class="exp-role-group">
+                    <div class="role-header-tabs">
+                        <h4>${role.title}</h4>
+                        <span class="role-period-tabs">${role.period}</span>
+                    </div>
+                    <ul class="exp-tasks-tabs">${tasksHtml}</ul>
+                </div>`;
+            }).join("");
+        } else {
+            let tasksHtml = exp.tasks.map(task => `<li><i class="fas fa-check-circle"></i> ${task}</li>`).join("");
+            innerContent = `
+            <div class="exp-role-group">
+                <div class="role-header-tabs">
+                    <h4>${exp.role}</h4>
+                    <span class="role-period-tabs">${exp.period}</span>
+                </div>
+                <ul class="exp-tasks-tabs">${tasksHtml}</ul>
+            </div>`;
+        }
+
+        contentHtml += `
+        <div class="exp-panel ${isActive}" id="${expId}">
+            <div class="exp-panel-header">
+                <h3>${exp.company}</h3>
+                <p class="exp-total-period">${exp.period}</p>
+                ${metaHtml}
+            </div>
+            <div class="exp-panel-body">
+                ${innerContent}
+                ${techHtml}
+            </div>
+        </div>`;
+    });
+
+    container.innerHTML = `
+        <div class="exp-tabs-layout">
+            <div class="exp-tabs-sidebar">
+                ${sidebarHtml}
+                <div class="active-indicator"></div>
+            </div>
+            <div class="exp-tabs-content">
+                ${contentHtml}
+            </div>
+        </div>
+    `;
+
+    // Expose switch function to window
+    window.switchExperienceTab = function(id, btn) {
+        // Toggle Buttons
+        document.querySelectorAll('.exp-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Toggle Panels
+        document.querySelectorAll('.exp-panel').forEach(p => p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+
+        // Move active indicator (desktop)
+        const indicator = document.querySelector('.active-indicator');
+        if (indicator && window.innerWidth > 768) {
+            indicator.style.top = `${btn.offsetTop}px`;
+        }
+    };
 }
 
 function renderGithubRepos(repos) {

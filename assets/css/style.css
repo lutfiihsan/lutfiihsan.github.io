@@ -3592,3 +3592,278 @@ body.dark-mode .back-btn-top:hover {
 }
 
 /* ================================================ */
+
+/* ================================================ */
+/* EXPERIENCE TABS LAYOUT                           */
+/* ================================================ */
+
+.exp-tabs-layout {
+  display: flex;
+  gap: 4rem;
+  margin-top: 3rem;
+  min-height: 400px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 20px;
+  padding: 1rem;
+}
+
+.exp-tabs-sidebar {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-width: 200px;
+  border-left: 2px solid rgba(0, 102, 255, 0.1);
+}
+
+.exp-tab {
+  background: transparent;
+  border: none;
+  padding: 1.5rem 2rem;
+  text-align: left;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  position: relative;
+  outline: none;
+}
+
+.exp-tab:hover {
+  color: #0066ff;
+  background: rgba(0, 102, 255, 0.05);
+}
+
+.exp-tab.active {
+  color: #0066ff;
+  background: rgba(0, 102, 255, 0.08);
+}
+
+.active-indicator {
+  position: absolute;
+  left: -2px;
+  top: 0;
+  width: 2px;
+  height: 52px; /* Matches tab height approx */
+  background: #0066ff;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 10px rgba(0, 102, 255, 0.5);
+}
+
+.exp-tabs-content {
+  flex: 1;
+  padding: 1rem 0;
+}
+
+.exp-panel {
+  display: none;
+  animation: fadeInTabs 0.5s ease forwards;
+}
+
+.exp-panel.active {
+  display: block;
+}
+
+@keyframes fadeInTabs {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.exp-panel-header h3 {
+  font-size: 2.4rem;
+  color: #02094b;
+  margin-bottom: 0.5rem;
+}
+
+.exp-total-period {
+  font-size: 1.4rem;
+  color: #0066ff;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.exp-meta-tabs {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  font-size: 1.3rem;
+  color: #64748b;
+}
+
+.exp-meta-tabs span {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.exp-role-group {
+  margin-bottom: 3rem;
+}
+
+.role-header-tabs {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding-bottom: 0.8rem;
+}
+
+.role-header-tabs h4 {
+  font-size: 1.8rem;
+  color: #02094b;
+}
+
+.role-period-tabs {
+  font-size: 1.3rem;
+  background: rgba(0, 102, 255, 0.08);
+  color: #0066ff;
+  padding: 0.4rem 1.2rem;
+  border-radius: 50px;
+  font-weight: 600;
+}
+
+.exp-tasks-tabs {
+  list-style: none;
+}
+
+.exp-tasks-tabs li {
+  font-size: 1.5rem;
+  line-height: 1.6;
+  color: #334155;
+  margin-bottom: 1.2rem;
+  display: flex;
+  gap: 1.2rem;
+}
+
+.exp-tasks-tabs li i {
+  color: #0066ff;
+  margin-top: 0.4rem;
+  flex-shrink: 0;
+}
+
+.exp-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* Dark Mode Overrides for Tabs */
+body.dark-mode .exp-panel-header h3,
+body.dark-mode .role-header-tabs h4 {
+  color: #fff !important;
+}
+
+body.dark-mode .exp-tasks-tabs li {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+body.dark-mode .exp-tab {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+body.dark-mode .exp-tab.active {
+  color: #0066ff;
+  background: rgba(0, 102, 255, 0.15);
+}
+
+body.dark-mode .role-header-tabs {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .exp-tabs-layout {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .exp-tabs-sidebar {
+    flex-direction: row;
+    overflow-x: auto;
+    border-left: none;
+    border-bottom: 2px solid rgba(0, 102, 255, 0.1);
+    padding-bottom: 0.5rem;
+  }
+  .exp-tab {
+    white-space: nowrap;
+    width: auto;
+    padding: 1rem 2rem;
+  }
+  .active-indicator {
+    display: none;
+  }
+}
+
+/* ================================================ */
+
+/* Override old experience styles to prevent clutter */
+.experience .timeline::after,
+.experience .container::after,
+.experience .container::before {
+  display: none !important;
+}
+
+/* Polish Experience Tabs */
+.exp-tabs-layout {
+  border: 1px solid rgba(0, 102, 255, 0.1);
+  background: rgba(2, 9, 75, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.exp-tabs-sidebar {
+  border-left: 2px solid rgba(255, 255, 255, 0.05);
+}
+
+.exp-tab {
+  padding: 1.8rem 2.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+  font-size: 1.4rem;
+}
+
+.exp-tab.active {
+  background: rgba(0, 102, 255, 0.12) !important;
+  color: #0066ff !important;
+}
+
+.exp-panel-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+}
+
+.exp-panel-header h3 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.role-header-tabs {
+  border-bottom: none;
+  margin-bottom: 0.5rem;
+}
+
+.role-header-tabs h4 {
+  font-weight: 700;
+  color: #0066ff;
+}
+
+.exp-tasks-tabs li {
+  margin-bottom: 1rem;
+}
+
+/* Dark mode specific fine-tuning */
+body.dark-mode .exp-tabs-layout {
+  background: rgba(10, 17, 40, 0.6) !important;
+  border-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+body.dark-mode .exp-tab:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Fix for the blue vertical line if it persists */
+.timeline::after {
+    display: none !important;
+}
