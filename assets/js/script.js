@@ -582,8 +582,9 @@ function initViewMoreLogic() {
     // Certifications
     const certItems = $('.certifications .box-container .box');
     const viewMoreCertsBtn = $('#viewMoreCerts');
-    if (certItems.length > itemsToShow) {
-        certItems.slice(itemsToShow).addClass('hidden-item');
+    const certsToShow = 3; 
+    if (certItems.length > certsToShow) {
+        certItems.slice(certsToShow).addClass('hidden-item');
     } else {
         viewMoreCertsBtn.parent().hide();
     }
@@ -594,7 +595,7 @@ function initViewMoreLogic() {
             hiddenCerts.addClass('revealed').removeClass('hidden-item').hide().fadeIn(600);
             $(this).html('<span>View Less</span> <i class="fas fa-chevron-up"></i>');
         } else {
-            certItems.slice(itemsToShow).removeClass('revealed').addClass('hidden-item');
+            certItems.slice(certsToShow).removeClass('revealed').addClass('hidden-item');
             $(this).html('<span>View More</span> <i class="fas fa-chevron-down"></i>');
             $('html, body').animate({ scrollTop: $("#certifications").offset().top - 80 }, 500);
         }
