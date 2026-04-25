@@ -966,9 +966,6 @@ function renderProjectDetail(projects) {
     if (project.viewLink && project.viewLink !== "#") {
         btnsHtml += `<a href="${project.viewLink}" class="btn" target="_blank" rel="noopener noreferrer"><i class="fas fa-eye" aria-hidden="true"></i> Live Preview</a>`;
     }
-    if (project.codeLink && project.codeLink !== "#") {
-        btnsHtml += `<a href="${project.codeLink}" class="btn btn-outline" target="_blank" rel="noopener noreferrer" style="margin-left: 1.5rem;"><i class="fas fa-code" aria-hidden="true"></i> Source Code</a>`;
-    }
 
     let techHtml = "";
     if (project.tech && project.tech.length) {

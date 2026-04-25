@@ -3491,3 +3491,39 @@ body.dark-mode .work .box .btns .btn-detail:hover {
 }
 
 /* ================================================ */
+
+/* ================================================ */
+/* DARK MODE FOR PROJECT DETAIL VIEW                */
+/* ================================================ */
+
+body.dark-mode .project-detail-view {
+  background: #010620 !important;
+}
+
+body.dark-mode .detail-title {
+  color: #fff !important;
+}
+
+body.dark-mode .detail-section h3 {
+  color: #0066ff !important;
+}
+
+body.dark-mode .detail-desc {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+body.dark-mode .meta-badge {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+body.dark-mode .back-link {
+  color: #0066ff !important;
+}
+
+body.dark-mode .back-link:hover {
+  color: #fff !important;
+}
+
+/* ================================================ */
