@@ -1,75 +1,60 @@
-# 🚀 Lutfi Ihsan — Professional Portfolio
+# Lutfi Ihsan — Professional Portfolio
 
-Selamat datang di repositori portofolio profesional saya. Website ini dirancang sebagai platform pameran karya, blog teknis, dan dasbor administrasi pribadi. Dibangun dengan fokus pada performa tinggi, desain premium (Glassmorphism), dan arsitektur kode yang bersih.
+Website portofolio profesional dengan blog terintegrasi, CMS admin, statistik pengunjung, dan backend serverless di Cloudflare.
 
----
-
-## ✨ Fitur Utama
-
-- **Modern Architecture**: Berbasis **Vite.js** untuk bundling aset yang super cepat.
-- **Modular Design**: Menggunakan sistem **HTML Components (Partials)** untuk pemeliharaan kode yang mudah.
-- **Clean URLs**: Navigasi tanpa ekstensi `.html`.
-- **Embedded Blog System**: CMS kustom dengan **Cloudflare D1** + **Quill.js**.
-- **Media Storage**: Upload cover blog ke **Cloudflare R2**.
-- **Advanced Statistics**: Pelacakan pengunjung anonim divisualisasikan dengan **Highcharts**.
-- **PDF Resume Generator**: CV profesional dinamis via **jsPDF**.
-- **RBAC Admin Panel**: Kontrol akses Admin & Editor.
+**Live:** [lutfiihsan.github.io](https://lutfiihsan.github.io)  
+**Admin:** [lutfiihsan.github.io/admin](https://lutfiihsan.github.io/admin)  
+**API:** `https://myporto-api.lawlieth404.workers.dev`
 
 ---
 
-## 🛠️ Stack Teknologi
+## Fitur
+
+| Modul | Deskripsi |
+|-------|-----------|
+| **Portfolio** | Landing page glassmorphism, CV PDF (jsPDF), data dari D1 atau fallback `data.json` |
+| **Blog** | Artikel publik dengan Quill rich text, cover image via R2 |
+| **Admin Panel** | React app — posts, users, stats, portfolio CMS, ganti password |
+| **Statistics** | Highcharts + Leaflet, retensi data 90 hari |
+| **Auth** | JWT (HS256), role Admin & Editor, session `localStorage` |
+| **Media** | Upload ke Cloudflare R2 (`covers/`, `content/`) |
+
+---
+
+## Stack
 
 | Layer | Teknologi |
 |-------|-----------|
-| Frontend | HTML5, Vanilla CSS, JavaScript (ES Modules) |
-| Build | Vite.js |
-| API | Cloudflare Workers + Hono |
+| Frontend | HTML, CSS, JavaScript (ES Modules), React (admin only) |
+| Build | Vite 8 + `@vitejs/plugin-react` |
+| API | Cloudflare Workers + Hono 4 |
 | Database | Cloudflare D1 (SQLite) |
 | Storage | Cloudflare R2 |
-| Hosting | Cloudflare Workers (static + API) |
+| Hosting | GitHub Pages (frontend) + Cloudflare Workers (API) |
 
 ---
 
-## 🚀 Pengembangan Lokal
-
-### 1. Prasyarat
-
-- [Node.js](https://nodejs.org/) 18+
-- [Cloudflare account](https://dash.cloudflare.com/) (gratis)
-- Wrangler CLI (terpasang via `npm install`)
-
-### 2. Instalasi
+## Quick Start
 
 ```bash
 git clone https://github.com/lutfiihsan/lutfiihsan.github.io.git
 cd lutfiihsan.github.io
 npm install
+
+cp .dev.vars.example .dev.vars   # isi JWT_SECRET
+npm run db:migrate               # skema D1 lokal
+
+# Terminal 1
+npm run dev:api
+
+# Terminal 2
+npm run dev
 ```
 
-### 3. Setup Cloudflare
+- Frontend: `http://localhost:5173` (proxy `/api` → Worker)
+- API: `http://localhost:8787`
 
-```bash
-# Buat database D1
-npm run db:create
-# Salin database_id ke wrangler.toml
-
-# Buat bucket R2 (via dashboard Cloudflare atau CLI)
-# Nama bucket: myporto-media
-
-# Migrasi skema database (lokal)
-npm run db:migrate
-
-# Salin secrets lokal
-cp .dev.vars.example .dev.vars
-# Edit JWT_SECRET di .dev.vars
-
-# Set secret production
-wrangler secret put JWT_SECRET
-```
-
-### 4. Buat Admin Pertama
-
-Setelah API berjalan, panggil endpoint setup (hanya sekali, saat belum ada user):
+Buat admin pertama (hanya sekali, saat belum ada user):
 
 ```bash
 curl -X POST http://localhost:8787/api/auth/setup \
@@ -77,81 +62,99 @@ curl -X POST http://localhost:8787/api/auth/setup \
   -d '{"email":"admin@example.com","password":"password123"}'
 ```
 
-### 5. Jalankan Dev
+---
 
-Terminal 1 — API Worker:
-```bash
-npm run build
-npm run dev:api
-```
+## Scripts
 
-Terminal 2 — Frontend Vite:
-```bash
-npm run dev
-```
-
-- Frontend: `http://localhost:5173` (proxy `/api` → Worker)
-- API langsung: `http://localhost:8787`
+| Perintah | Fungsi |
+|----------|--------|
+| `npm run dev` | Vite dev server (frontend) |
+| `npm run dev:api` | Wrangler dev (Worker API) |
+| `npm run build` | Build production → `dist/` |
+| `npm run deploy:api` | Deploy Worker ke Cloudflare |
+| `npm run db:migrate` | Migrasi D1 lokal |
+| `npm run db:migrate:remote` | Migrasi D1 production |
+| `npm run db:migrate:portfolio` | Migrasi tabel portfolio (remote) |
+| `node scripts/test-auth.mjs <email> <password>` | Tes login + endpoint auth |
 
 ---
 
-## 📂 Struktur Folder
+## Struktur Proyek
 
 ```text
-├── assets/js/          # Frontend modules (api.js, admin.js, blog.js, ...)
-├── worker/src/         # Cloudflare Worker API (Hono routes)
-├── worker/schema.sql   # Skema D1
-├── partials/           # Komponen HTML modular
-├── public/             # Aset statis (termasuk data.json)
-├── wrangler.toml       # Konfigurasi Cloudflare
-└── vite.config.js      # Build & dev proxy
+myporto/
+├── index.html, blog.html, admin.html   # Entry pages
+├── partials/                           # HTML components (vite-plugin-html-inject)
+├── assets/
+│   ├── css/                            # Styles (style.css, admin.css, admin-premium.css)
+│   ├── js/                             # api.js, script.js, blog.js, stats.js
+│   └── data/data.json                  # Fallback portfolio data
+├── admin-src/                          # React admin panel
+│   ├── components/                     # Dashboard, PostsTab, UsersTab, ...
+│   ├── context/AuthContext.jsx
+│   └── lib/                            # toast, format, apiError
+├── worker/
+│   ├── src/                            # Hono API routes
+│   │   ├── index.ts
+│   │   ├── jwt.ts                      # Sign/verify JWT (HS256)
+│   │   ├── middleware.ts
+│   │   └── routes/                     # auth, posts, users, stats, ...
+│   └── schema.sql                      # Skema D1
+├── wrangler.toml                       # Konfigurasi Cloudflare Worker
+├── .github/workflows/                  # CI/CD GitHub Pages + Worker
+└── docs/                               # Dokumentasi lengkap
 ```
 
 ---
 
-## 🚢 Deployment (GitHub Pages + Cloudflare API)
+## Deployment
 
-Arsitektur **split hosting** — domain `lutfiihsan.github.io` tetap di GitHub Pages, API di Cloudflare Worker:
+Arsitektur **split hosting**:
 
 ```text
-lutfiihsan.github.io     →  GitHub Pages (static frontend)
-myporto-api.*.workers.dev  →  Cloudflare Worker (API + D1 + R2)
+lutfiihsan.github.io          →  GitHub Pages (static)
+myporto-api.*.workers.dev     →  Cloudflare Worker (API + D1 + R2)
 ```
 
-### Setup sekali
+Push ke `master`/`main` memicu:
 
-1. Deploy API dulu:
-   ```bash
-   npm run deploy:api
-   ```
-   Catat URL worker, misalnya `https://myporto-api.account.workers.dev`
+- **GitHub Pages** — build Vite + deploy frontend (`deploy-pages.yml`)
+- **Cloudflare Worker** — deploy API jika `worker/` berubah (`deploy-api.yml`)
 
-2. Set `API_BASE_URL` di `wrangler.toml` (vars) ke URL worker tersebut, lalu deploy ulang API.
+GitHub Secrets yang diperlukan:
 
-3. Tambahkan GitHub Secrets:
-   - `VITE_API_URL` = URL worker (sama dengan API_BASE_URL)
-   - `CLOUDFLARE_API_TOKEN`
-   - `CLOUDFLARE_ACCOUNT_ID`
+| Secret | Keterangan |
+|--------|------------|
+| `VITE_API_URL` | URL Worker API |
+| `CLOUDFLARE_API_TOKEN` | Token deploy Worker |
+| `CLOUDFLARE_ACCOUNT_ID` | Account ID Cloudflare |
 
-4. Push ke `main`/`master` → otomatis deploy:
-   - **GitHub Pages** — frontend (workflow `deploy-pages.yml`)
-   - **Cloudflare Worker** — API (workflow `deploy-api.yml`, hanya saat `worker/` berubah)
+Cloudflare secret (via `wrangler secret put`):
 
-### Deploy manual
+| Secret | Keterangan |
+|--------|------------|
+| `JWT_SECRET` | String acak panjang untuk JWT |
 
-```bash
-# Frontend (set env dulu)
-$env:VITE_API_URL="https://myporto-api.account.workers.dev"
-npm run build
-# lalu push dist via GitHub Pages
-
-# API
-npm run deploy:api
-```
+Detail lengkap: [docs/deployment.md](docs/deployment.md)
 
 ---
 
-## 📄 Lisensi
+## Dokumentasi
 
-Proyek ini bersifat terbuka untuk tujuan pembelajaran.  
+| Dokumen | Isi |
+|---------|-----|
+| [docs/README.md](docs/README.md) | Indeks dokumentasi |
+| [docs/architecture.md](docs/architecture.md) | Arsitektur sistem & alur data |
+| [docs/setup.md](docs/setup.md) | Setup lokal & Cloudflare dari nol |
+| [docs/deployment.md](docs/deployment.md) | CI/CD, GitHub Pages, Worker |
+| [docs/api-reference.md](docs/api-reference.md) | Referensi REST API |
+| [docs/admin-panel.md](docs/admin-panel.md) | Panduan admin panel |
+| [docs/database.md](docs/database.md) | Skema D1 & migrasi |
+| [docs/troubleshooting.md](docs/troubleshooting.md) | FAQ & debugging |
+
+---
+
+## Lisensi
+
+Proyek terbuka untuk tujuan pembelajaran.  
 Copyright © 2026 **Lutfi Ihsan**.
