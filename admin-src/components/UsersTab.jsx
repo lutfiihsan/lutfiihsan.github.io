@@ -8,6 +8,7 @@ import {
 import { formatDate } from '../lib/format';
 import { toast } from '../lib/toast';
 import { handleApiError } from '../lib/apiError';
+import SidePanel from './SidePanel';
 
 export default function UsersTab({ currentUserId, onAuthFail }) {
   const [users, setUsers] = useState([]);
@@ -144,55 +145,36 @@ export default function UsersTab({ currentUserId, onAuthFail }) {
         )}
       </div>
 
-      {modalOpen && (
-        <div className="modal-overlay open" onClick={() => setModalOpen(false)}>
-          <div className="modal-card" style={{ maxWidth: 480 }} onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <h2>Tambah Pengguna</h2>
-              <button type="button" className="btn-close" onClick={() => setModalOpen(false)}>
-                <i className="fas fa-times" />
-              </button>
-            </div>
-            <form onSubmit={handleAddUser}>
-              <div className="form-group">
-                <label>Email</label>
-                <input
-                  type="email"
-                  required
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                />
-              </div>
-              <div className="form-group">
-                <label>Password (min. 8)</label>
-                <input
-                  type="password"
-                  required
-                  minLength={8}
-                  value={form.password}
-                  onChange={(e) => setForm({ ...form, password: e.target.value })}
-                />
-              </div>
-              <div className="form-group">
-                <label>Role</label>
-                <select
-                  value={form.role}
-                  onChange={(e) => setForm({ ...form, role: e.target.value })}
-                >
-                  <option value="editor">Editor</option>
-                  <option value="admin">Admin</option>
-                </select>
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn-secondary" onClick={() => setModalOpen(false)}>
-                  Batal
-                </button>
-                <button type="submit" className="btn-primary">Simpan</button>
-              </div>
-            </form>
+      <SidePanel
+        open={modalOpen}
+        title="Tambah Pengguna"
+        subtitle="Buat akun admin atau editor baru"
+        onClose={() => setModalOpen(false)}
+        footer={
+          <>
+            <button type="button" className="btn-secondary" onClick={() => setModalOpen(false)}>Batal</button>
+            <button type="submit" form="add-user-form" className="btn-primary">Simpan</button>
+          </>
+        }
+      >
+        <form id="add-user-form" onSubmit={handleAddUser} className="sidepanel-form">
+          <div className="form-group">
+            <label>Email</label>
+            <input type="email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
           </div>
-        </div>
-      )}
+          <div className="form-group">
+            <label>Password (min. 8)</label>
+            <input type="password" required minLength={8} value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
+          </div>
+          <div className="form-group">
+            <label>Role</label>
+            <select value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })}>
+              <option value="editor">Editor</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+        </form>
+      </SidePanel>
     </div>
   );
 }

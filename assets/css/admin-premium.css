@@ -363,3 +363,227 @@ body.admin-body::before {
   .premium-main { margin-left: 0; }
   .premium-content-wrap { padding: 1.5rem; }
 }
+
+/* ── Side Panel ── */
+.sidepanel-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 1100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.sidepanel-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sidepanel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(480px, 100vw);
+  height: 100vh;
+  background: #12122a;
+  border-left: 1px solid var(--premium-border);
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.45);
+  z-index: 1101;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sidepanel-wide {
+  width: min(640px, 100vw);
+}
+
+.sidepanel.open {
+  transform: translateX(0);
+}
+
+.sidepanel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 2rem 2rem 1.5rem;
+  border-bottom: 1px solid var(--premium-border);
+  flex-shrink: 0;
+}
+
+.sidepanel-header-text h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--premium-text);
+  margin: 0;
+}
+
+.sidepanel-header-text p {
+  font-size: 1.2rem;
+  color: var(--premium-muted);
+  margin: 0.4rem 0 0;
+}
+
+.sidepanel-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem 2rem 2rem;
+}
+
+.sidepanel-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid var(--premium-border);
+  background: rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+.sidepanel-form .form-group label {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--premium-muted);
+  margin-bottom: 0.6rem;
+}
+
+.sidepanel-form .form-group input,
+.sidepanel-form .form-group select,
+.sidepanel-form .form-group textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--premium-border);
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  color: var(--premium-text);
+  font-family: inherit;
+  font-size: 1.3rem;
+}
+
+.sidepanel-form .form-group input:focus,
+.sidepanel-form .form-group select:focus,
+.sidepanel-form .form-group textarea:focus {
+  outline: none;
+  border-color: var(--premium-gold);
+  box-shadow: 0 0 0 3px var(--premium-gold-soft);
+}
+
+.sidepanel-file-input {
+  margin-top: 0.8rem;
+  font-size: 1.2rem;
+  color: var(--premium-muted);
+}
+
+.sidepanel-section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1.5rem 0 1rem;
+  font-weight: 700;
+  color: var(--premium-gold);
+  font-size: 1.3rem;
+}
+
+.sidepanel-nested-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--premium-border);
+  border-radius: 12px;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.sidepanel-nested-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  color: var(--premium-text);
+}
+
+.sidepanel-check {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.3rem;
+  color: var(--premium-muted);
+  margin: 1rem 0;
+  cursor: pointer;
+}
+
+/* ── Portfolio CMS ── */
+.portfolio-meta {
+  font-size: 1.2rem;
+  color: var(--premium-muted);
+  margin-top: 0.4rem;
+}
+
+.portfolio-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.portfolio-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1.2rem;
+  border-radius: 10px;
+  border: 1px solid var(--premium-border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--premium-muted);
+  font-size: 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.portfolio-tab:hover,
+.portfolio-tab.active {
+  background: var(--premium-gold-soft);
+  border-color: rgba(212, 175, 55, 0.35);
+  color: var(--premium-gold);
+}
+
+.portfolio-tab-count {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-size: 1.1rem;
+}
+
+.portfolio-section-card {
+  padding: 2rem;
+}
+
+.portfolio-section-card h3 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.portfolio-section-card h3 i {
+  color: var(--premium-gold);
+}
+
+.empty-row {
+  text-align: center;
+  color: var(--premium-muted);
+  padding: 2rem !important;
+}
+
+.premium-layout .table-card {
+  background: var(--premium-surface);
+  border: 1px solid var(--premium-border);
+  border-radius: 16px;
+  overflow: hidden;
+}

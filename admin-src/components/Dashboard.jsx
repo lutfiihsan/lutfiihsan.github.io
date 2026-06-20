@@ -6,7 +6,7 @@ import PostsTab from './PostsTab';
 import StatsTab from './StatsTab';
 import UsersTab from './UsersTab';
 import PortfolioTab from './PortfolioTab';
-import PasswordModal from './PasswordModal';
+import PasswordPanel from './PasswordPanel';
 
 export default function Dashboard({ user, onLogout }) {
   const { refreshSession } = useAuth();
@@ -61,7 +61,7 @@ export default function Dashboard({ user, onLogout }) {
           {activeTab === 'portfolio' && isAdmin && <PortfolioTab onAuthFail={onLogout} />}
         </div>
       </div>
-      <PasswordModal open={passwordOpen} onClose={() => setPasswordOpen(false)} />
+      <PasswordPanel open={passwordOpen} onClose={() => setPasswordOpen(false)} />
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { loadAllPosts, togglePublish, deletePost } from '../../assets/js/api.js'
 import { formatDate } from '../lib/format';
 import { toast } from '../lib/toast';
 import { handleApiError } from '../lib/apiError';
-import PostEditorModal from './PostEditorModal';
+import PostEditorPanel from './PostEditorPanel';
 
 export default function PostsTab({ isAdmin, onAuthFail }) {
   const [posts, setPosts] = useState([]);
@@ -153,14 +153,13 @@ export default function PostsTab({ isAdmin, onAuthFail }) {
         )}
       </div>
 
-      {editorOpen && (
-        <PostEditorModal
-          key={editorId ?? 'new'}
-          postId={editorId}
-          onClose={() => setEditorOpen(false)}
-          onSaved={refresh}
-        />
-      )}
+      <PostEditorPanel
+        open={editorOpen}
+        key={editorId ?? 'new'}
+        postId={editorId}
+        onClose={() => setEditorOpen(false)}
+        onSaved={refresh}
+      />
     </div>
   );
 }

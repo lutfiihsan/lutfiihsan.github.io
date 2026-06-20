@@ -128,6 +128,118 @@
             "id": "sigap-sis-smart"
         },
         {
+            "title": "PT. Diti Annora Sukses",
+            "image": "./assets/images/projects/dtannora.svg",
+            "images": [
+                "./assets/images/projects/dtannora.svg"
+            ],
+            "status": "Online",
+            "statusClass": "status-online",
+            "desc": "Website company profile konsultan legal perizinan dan kepatuhan regulasi alat kesehatan & farmasi. Tema kuning-putih premium dengan landing page layanan OSS, IDAK, PBF, dan sertifikasi.",
+            "fullDesc": "Website resmi <b>PT. Diti Annora Sukses</b> — konsultan legal terpercaya sejak 2023 di bidang perizinan dan regulasi sektor alat kesehatan dan Pedagang Besar Farmasi (PBF). <br><br><b>Fitur Utama:</b><br>• Landing page profesional dengan hero, statistik, dan CTA konsultasi WhatsApp<br>• Halaman layanan perizinan (NIB, IDAK, AKL, CDOB, CDB, dll.)<br>• Showcase klien dan keunggulan perusahaan<br>• Form konsultasi terintegrasi WhatsApp<br>• Desain responsif tema kuning & putih",
+            "tech": [
+                "HTML5",
+                "CSS3",
+                "JavaScript",
+                "Responsive Design",
+                "WhatsApp Integration"
+            ],
+            "year": "2026",
+            "type": "Company Profile / Legal Consulting",
+            "viewLink": "https://dtannorasukses.com/",
+            "codeLink": null,
+            "id": "dtannora-sukses"
+        },
+        {
+            "title": "Grafisa ID",
+            "image": "./assets/images/projects/grafisa.svg",
+            "images": [
+                "./assets/images/projects/grafisa.svg"
+            ],
+            "status": "Online",
+            "statusClass": "status-online",
+            "desc": "Platform marketplace desainer Indonesia — mempertemukan bisnis dengan desainer terverifikasi untuk logo, branding, UI/UX, social media, dan kebutuhan kreatif lainnya.",
+            "fullDesc": "<b>Grafisa</b> adalah platform marketplace khusus desainer Indonesia yang menghubungkan klien dengan talenta kreatif terverifikasi. <br><br><b>Fitur Utama:</b><br>• Marketplace produk dan jasa desain<br>• Sistem filter dan pencarian desainer<br>• Profil desainer dengan portofolio<br>• Alur pemesanan dan kolaborasi terstruktur<br>• Platform dirancang untuk UMKM, startup, dan bisnis lokal",
+            "tech": [
+                "Web Platform",
+                "Marketplace",
+                "UI/UX",
+                "Responsive Design"
+            ],
+            "year": "2026",
+            "type": "Marketplace Platform",
+            "viewLink": "https://grafisa.id",
+            "codeLink": null,
+            "id": "grafisa-id"
+        },
+        {
+            "title": "SIGURU — SDN Kacangan",
+            "image": "./assets/images/projects/siguru-kacangan.svg",
+            "images": [
+                "./assets/images/projects/siguru-kacangan.svg"
+            ],
+            "status": "Online",
+            "statusClass": "status-online",
+            "desc": "SIGURU (Sistem Informasi Kehadiran Guru) untuk SD Negeri 1 Kacangan — aplikasi presensi guru dengan antarmuka login modern dan dashboard kehadiran.",
+            "fullDesc": "SIGURU adalah sistem informasi kehadiran guru yang dibangun untuk <b>SD Negeri 1 Kacangan</b>. Aplikasi web modern untuk mencatat dan memantau kehadiran guru secara digital. <br><br><b>Fitur Utama:</b><br>• Login berbasis username/NIP dan password<br>• Dashboard kehadiran guru<br>• Antarmuka responsif dan mobile-friendly<br>• Deploy via Netlify untuk akses cepat",
+            "tech": [
+                "React / Next.js",
+                "Netlify",
+                "Authentication",
+                "Tailwind CSS"
+            ],
+            "year": "2026",
+            "type": "Sistem Informasi Sekolah",
+            "viewLink": "https://siguru-sdn-kacangan.netlify.app/",
+            "codeLink": null,
+            "id": "siguru-sdn-kacangan"
+        },
+        {
+            "title": "KonterPro App",
+            "image": "./assets/images/projects/konterpro.svg",
+            "images": [
+                "./assets/images/projects/konterpro.svg"
+            ],
+            "status": "Online",
+            "statusClass": "status-online",
+            "desc": "Aplikasi manajemen konter/pulsa berbasis Google Apps Script, di-embed ke Blogger sebagai web app interaktif untuk operasional toko.",
+            "fullDesc": "<b>KonterPro</b> adalah aplikasi web untuk manajemen operasional konter pulsa dan retail, dibangun dengan <b>Google Apps Script</b> sebagai backend dan di-embed ke platform Blogger. <br><br><b>Fitur Utama:</b><br>• Web app GAS terintegrasi Google Sheets<br>• Embed seamless di halaman Blogspot<br>• Manajemen transaksi dan stok konter<br>• Tanpa server dedicated — serverless via Google",
+            "tech": [
+                "Google Apps Script",
+                "Google Sheets",
+                "Blogger Embed",
+                "HTML/CSS/JS"
+            ],
+            "year": "2025",
+            "type": "Retail / POS Web App",
+            "viewLink": "https://konterpro.blogspot.com/",
+            "codeLink": null,
+            "id": "konterpro-app"
+        },
+        {
+            "title": "Pay-Ex — SMK YAPEK Gombong",
+            "image": "./assets/images/projects/pay-ex-yapek.svg",
+            "images": [
+                "./assets/images/projects/pay-ex-yapek.svg"
+            ],
+            "status": "Online",
+            "statusClass": "status-online",
+            "desc": "Sistem keuangan sekolah untuk pembayaran SPP SMK YAPEK Gombong — login admin terenkripsi, manajemen transaksi, dan dashboard keuangan instansi pendidikan.",
+            "fullDesc": "<b>Pay-Ex</b> adalah sistem keuangan digital untuk <b>SMK YAPEK Gombong</b> yang menangani pembayaran SPP dan administrasi keuangan sekolah. <br><br><b>Fitur Utama:</b><br>• Login admin dengan autentikasi aman<br>• Manajemen pembayaran SPP siswa<br>• Dashboard keuangan sekolah<br>• Sistem terenkripsi (v2.1)<br>• Antarmuka responsif untuk operator sekolah",
+            "tech": [
+                "Laravel",
+                "PHP",
+                "MySQL",
+                "Authentication",
+                "Payment System"
+            ],
+            "year": "2024",
+            "type": "Sistem Keuangan Sekolah",
+            "viewLink": "https://pay-ex.smkyapekgombong.com/",
+            "codeLink": null,
+            "id": "pay-ex-yapek"
+        },
+        {
             "title": "Kaluna Landing Page",
             "image": "./assets/images/projects/kaluna.webp",
             "status": "Online",

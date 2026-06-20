@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0ea5e9"/>
+      <stop offset="100%" style="stop-color:#0369a1"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <rect x="60" y="80" width="680" height="340" rx="20" fill="#fff" opacity="0.95"/>
+  <text x="400" y="180" text-anchor="middle" font-family="Arial,sans-serif" font-size="48" font-weight="700" fill="#0369a1">SIGURU</text>
+  <text x="400" y="235" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" fill="#64748b">Sistem Informasi Kehadiran Guru</text>
+  <text x="400" y="290" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#334155">SD Negeri 1 Kacangan</text>
+  <rect x="280" y="320" width="240" height="8" rx="4" fill="#0ea5e9" opacity="0.3"/>
+  <rect x="280" y="320" width="160" height="8" rx="4" fill="#0ea5e9"/>
+</svg>

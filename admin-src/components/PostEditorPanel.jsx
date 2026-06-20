@@ -8,6 +8,7 @@ import {
 } from '../../assets/js/api.js';
 import { slugify } from '../lib/format';
 import { toast } from '../lib/toast';
+import SidePanel from './SidePanel';
 
 const QUILL_OPTS = {
   theme: 'snow',
@@ -26,7 +27,7 @@ const QUILL_OPTS = {
   },
 };
 
-export default function PostEditorModal({ postId, onClose, onSaved }) {
+export default function PostEditorPanel({ open, postId, onClose, onSaved }) {
   const [loading, setLoading] = useState(!!postId);
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState({
@@ -42,7 +43,7 @@ export default function PostEditorModal({ postId, onClose, onSaved }) {
   const editorEl = useRef(null);
 
   useEffect(() => {
-    if (typeof Quill === 'undefined' || !editorEl.current) return;
+    if (!open || typeof Quill === 'undefined' || !editorEl.current) return undefined;
 
     quillRef.current = new Quill(editorEl.current, QUILL_OPTS);
     quillRef.current.getModule('toolbar').addHandler('image', () => {
@@ -68,10 +69,16 @@ export default function PostEditorModal({ postId, onClose, onSaved }) {
     return () => {
       quillRef.current = null;
     };
-  }, []);
+  }, [open]);
 
   useEffect(() => {
-    if (!postId) return;
+    if (!open) return;
+    if (!postId) {
+      setForm({ id: '', title: '', slug: '', excerpt: '', cover: '', tags: '', published: '0' });
+      setLoading(false);
+      if (quillRef.current) quillRef.current.root.innerHTML = '';
+      return;
+    }
     setLoading(true);
     getPostById(postId)
       .then((post) => {
@@ -93,7 +100,7 @@ export default function PostEditorModal({ postId, onClose, onSaved }) {
         onClose();
       })
       .finally(() => setLoading(false));
-  }, [postId, onClose]);
+  }, [open, postId, onClose]);
 
   function setField(key, value) {
     setForm((f) => {
@@ -127,10 +134,7 @@ export default function PostEditorModal({ postId, onClose, onSaved }) {
         slug: form.slug.trim() || slugify(form.title),
         excerpt: form.excerpt.trim(),
         cover_image: form.cover.trim() || null,
-        tags: form.tags
-          .split(',')
-          .map((t) => t.trim())
-          .filter(Boolean),
+        tags: form.tags.split(',').map((t) => t.trim()).filter(Boolean),
         published: form.published === '1',
         content: quillRef.current?.root.innerHTML || '',
       };
@@ -147,98 +151,65 @@ export default function PostEditorModal({ postId, onClose, onSaved }) {
   }
 
   return (
-    <div className="modal-overlay open" onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="modal-card">
-        <div className="modal-header">
-          <h2>{postId ? 'Edit Artikel' : 'Artikel Baru'}</h2>
-          <button type="button" className="btn-close" onClick={onClose} aria-label="Tutup">
-            <i className="fas fa-times" />
+    <SidePanel
+      open={open}
+      wide
+      title={postId ? 'Edit Artikel' : 'Artikel Baru'}
+      subtitle="Kelola konten blog"
+      onClose={onClose}
+      footer={
+        <>
+          <button type="button" className="btn-secondary" onClick={onClose}>Batal</button>
+          <button type="submit" form="post-editor-form" className="btn-primary" disabled={saving || loading}>
+            {saving ? 'Menyimpan...' : 'Simpan'}
           </button>
-        </div>
-
-        {loading ? (
-          <div className="loading-spinner">
-            <i className="fas fa-spinner fa-spin" /> Memuat...
+        </>
+      }
+    >
+      {loading ? (
+        <div className="loading-spinner"><i className="fas fa-spinner fa-spin" /> Memuat...</div>
+      ) : (
+        <form id="post-editor-form" onSubmit={handleSubmit} className="sidepanel-form">
+          <div className="form-group">
+            <label htmlFor="post-title">Judul Artikel *</label>
+            <input id="post-title" value={form.title} onChange={(e) => setField('title', e.target.value)} required />
           </div>
-        ) : (
-          <form onSubmit={handleSubmit}>
+          <div className="form-row">
             <div className="form-group">
-              <label htmlFor="post-title">Judul Artikel *</label>
-              <input
-                id="post-title"
-                value={form.title}
-                onChange={(e) => setField('title', e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="post-slug">Slug</label>
-                <input
-                  id="post-slug"
-                  value={form.slug}
-                  onChange={(e) => setField('slug', e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="post-published">Status</label>
-                <select
-                  id="post-published"
-                  value={form.published}
-                  onChange={(e) => setField('published', e.target.value)}
-                >
-                  <option value="0">📝 Draft</option>
-                  <option value="1">🌐 Published</option>
-                </select>
-              </div>
+              <label htmlFor="post-slug">Slug</label>
+              <input id="post-slug" value={form.slug} onChange={(e) => setField('slug', e.target.value)} />
             </div>
             <div className="form-group">
-              <label htmlFor="post-excerpt">Excerpt</label>
-              <textarea
-                id="post-excerpt"
-                rows={2}
-                value={form.excerpt}
-                onChange={(e) => setField('excerpt', e.target.value)}
-              />
+              <label htmlFor="post-published">Status</label>
+              <select id="post-published" value={form.published} onChange={(e) => setField('published', e.target.value)}>
+                <option value="0">Draft</option>
+                <option value="1">Published</option>
+              </select>
+            </div>
+          </div>
+          <div className="form-group">
+            <label htmlFor="post-excerpt">Excerpt</label>
+            <textarea id="post-excerpt" rows={2} value={form.excerpt} onChange={(e) => setField('excerpt', e.target.value)} />
+          </div>
+          <div className="form-group">
+            <label>Konten *</label>
+            <div className="quill-wrapper">
+              <div ref={editorEl} />
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="post-cover">Cover URL</label>
+              <input id="post-cover" type="url" value={form.cover} onChange={(e) => setField('cover', e.target.value)} />
+              <input type="file" accept="image/*" onChange={handleCoverFile} className="sidepanel-file-input" />
             </div>
             <div className="form-group">
-              <label>Konten *</label>
-              <div className="quill-wrapper">
-                <div ref={editorEl} />
-              </div>
+              <label htmlFor="post-tags">Tags</label>
+              <input id="post-tags" value={form.tags} onChange={(e) => setField('tags', e.target.value)} placeholder="Laravel, PHP" />
             </div>
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="post-cover">Cover</label>
-                <input
-                  id="post-cover"
-                  type="url"
-                  value={form.cover}
-                  onChange={(e) => setField('cover', e.target.value)}
-                />
-                <input type="file" accept="image/*" onChange={handleCoverFile} style={{ marginTop: '0.8rem' }} />
-              </div>
-              <div className="form-group">
-                <label htmlFor="post-tags">Tags</label>
-                <input
-                  id="post-tags"
-                  value={form.tags}
-                  onChange={(e) => setField('tags', e.target.value)}
-                  placeholder="Laravel, PHP"
-                />
-              </div>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn-secondary" onClick={onClose}>
-                Batal
-              </button>
-              <button type="submit" className="btn-primary" disabled={saving}>
-                {saving ? 'Menyimpan...' : 'Simpan'}
-              </button>
-            </div>
-          </form>
-        )}
-      </div>
-    </div>
+          </div>
+        </form>
+      )}
+    </SidePanel>
   );
 }

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7c6cf0"/>
+      <stop offset="100%" style="stop-color:#d946ef"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <circle cx="650" cy="120" r="80" fill="#fff" opacity="0.08"/>
+  <circle cx="150" cy="380" r="120" fill="#fff" opacity="0.06"/>
+  <text x="400" y="210" text-anchor="middle" font-family="Arial,sans-serif" font-size="52" font-weight="700" fill="#fff">Grafisa</text>
+  <text x="400" y="270" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" fill="#e9d5ff">Marketplace Desainer Indonesia</text>
+  <text x="400" y="340" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#ddd6fe">grafisa.id</text>
+</svg>
