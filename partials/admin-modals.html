@@ -48,8 +48,11 @@
 
       <div class="form-row">
         <div class="form-group">
-          <label for="post-cover">URL Gambar Cover</label>
-          <input type="url" id="post-cover" placeholder="https://...">
+          <label for="post-cover">Gambar Cover</label>
+          <input type="url" id="post-cover" placeholder="https://... atau upload">
+          <div style="margin-top:0.8rem; display:flex; gap:0.8rem; align-items:center;">
+            <input type="file" id="post-cover-file" accept="image/jpeg,image/png,image/webp,image/gif" style="flex:1;">
+          </div>
         </div>
         <div class="form-group">
           <label for="post-tags">Tags (pisah dengan koma)</label>

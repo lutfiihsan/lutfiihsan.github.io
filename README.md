@@ -2,95 +2,152 @@
 
 Selamat datang di repositori portofolio profesional saya. Website ini dirancang sebagai platform pameran karya, blog teknis, dan dasbor administrasi pribadi. Dibangun dengan fokus pada performa tinggi, desain premium (Glassmorphism), dan arsitektur kode yang bersih.
 
-**🌐 Live Demo:** [lutfiihsan.github.io](https://lutfiihsan.github.io)
-
 ---
 
 ## ✨ Fitur Utama
 
 - **Modern Architecture**: Berbasis **Vite.js** untuk bundling aset yang super cepat.
 - **Modular Design**: Menggunakan sistem **HTML Components (Partials)** untuk pemeliharaan kode yang mudah.
-- **Clean URLs**: Navigasi tanpa ekstensi `.html` (terintegrasi dengan GitHub Pages).
-- **Embedded Blog System**: CMS kustom menggunakan **Supabase** sebagai database dan **Quill.js** sebagai Rich Text Editor.
-- **Advanced Statistics**: Pelacakan pengunjung kustom secara anonim yang divisualisasikan dengan **Highcharts**.
-- **PDF Resume Generator**: Menghasilkan CV profesional secara dinamis langsung dari browser menggunakan **jsPDF**.
-- **RBAC Admin Panel**: Manajemen konten dengan sistem kontrol akses berbasis peran (Admin & Editor).
+- **Clean URLs**: Navigasi tanpa ekstensi `.html`.
+- **Embedded Blog System**: CMS kustom dengan **Cloudflare D1** + **Quill.js**.
+- **Media Storage**: Upload cover blog ke **Cloudflare R2**.
+- **Advanced Statistics**: Pelacakan pengunjung anonim divisualisasikan dengan **Highcharts**.
+- **PDF Resume Generator**: CV profesional dinamis via **jsPDF**.
+- **RBAC Admin Panel**: Kontrol akses Admin & Editor.
 
 ---
 
 ## 🛠️ Stack Teknologi
 
-- **Frontend**: HTML5, Vanilla CSS (Glassmorphism), JavaScript (ES Modules).
-- **Build Tool**: [Vite.js](https://vitejs.dev/)
-- **Backend/Database**: [Supabase](https://supabase.com/) (PostgreSQL + Auth + RLS).
-- **Libraries**:
-  - `Highcharts`: Statistik visual.
-  - `Quill.js`: Editor artikel blog.
-  - `SweetAlert2`: Notifikasi & Modal UI.
-  - `Leaflet`: Visualisasi peta pengunjung.
-  - `Typed.js` & `ScrollReveal`: Animasi antarmuka.
+| Layer | Teknologi |
+|-------|-----------|
+| Frontend | HTML5, Vanilla CSS, JavaScript (ES Modules) |
+| Build | Vite.js |
+| API | Cloudflare Workers + Hono |
+| Database | Cloudflare D1 (SQLite) |
+| Storage | Cloudflare R2 |
+| Hosting | Cloudflare Workers (static + API) |
 
 ---
 
 ## 🚀 Pengembangan Lokal
 
-Ikuti langkah-langkah di bawah untuk menjalankan proyek ini di mesin lokal Anda:
-
 ### 1. Prasyarat
-Pastikan Anda sudah menginstal [Node.js](https://nodejs.org/) (versi 16+ disarankan).
+
+- [Node.js](https://nodejs.org/) 18+
+- [Cloudflare account](https://dash.cloudflare.com/) (gratis)
+- Wrangler CLI (terpasang via `npm install`)
 
 ### 2. Instalasi
+
 ```bash
-# Clone repositori
 git clone https://github.com/lutfiihsan/lutfiihsan.github.io.git
-
-# Masuk ke direktori
 cd lutfiihsan.github.io
-
-# Instal dependensi
 npm install
 ```
 
-### 3. Konfigurasi Environment
-Buat kode rahasia lokal Anda dengan membuat file `.env` di root direktori:
+### 3. Setup Cloudflare
 
-```env
-VITE_SUPABASE_URL=YOUR_SUPABASE_URL
-VITE_SUPABASE_ANON=YOUR_SUPABASE_ANON_KEY
+```bash
+# Buat database D1
+npm run db:create
+# Salin database_id ke wrangler.toml
+
+# Buat bucket R2 (via dashboard Cloudflare atau CLI)
+# Nama bucket: myporto-media
+
+# Migrasi skema database (lokal)
+npm run db:migrate
+
+# Salin secrets lokal
+cp .dev.vars.example .dev.vars
+# Edit JWT_SECRET di .dev.vars
+
+# Set secret production
+wrangler secret put JWT_SECRET
 ```
 
-### 4. Jalankan Server Dev
+### 4. Buat Admin Pertama
+
+Setelah API berjalan, panggil endpoint setup (hanya sekali, saat belum ada user):
+
+```bash
+curl -X POST http://localhost:8787/api/auth/setup \
+  -H "Content-Type: application/json" \
+  -d '{"email":"admin@example.com","password":"password123"}'
+```
+
+### 5. Jalankan Dev
+
+Terminal 1 — API Worker:
+```bash
+npm run build
+npm run dev:api
+```
+
+Terminal 2 — Frontend Vite:
 ```bash
 npm run dev
 ```
-Akses di `http://localhost:5173`. Perubahan kode akan otomatis diperbarui (*Hot Module Replacement*).
+
+- Frontend: `http://localhost:5173` (proxy `/api` → Worker)
+- API langsung: `http://localhost:8787`
 
 ---
 
 ## 📂 Struktur Folder
 
 ```text
-├── assets/             # Aset sumber (JS, CSS, Images, Data)
-│   ├── js/             # Skrip ES Modules (supabase.js, admin.js, dll)
-│   ├── css/            # File styling Vanilla CSS
-│   └── data/           # Data statis (proyek, skill, dll)
-├── partials/           # Komponen HTML modular (Nav, Footer, Sidebar)
-├── public/             # File statis yang tidak diproses Vite
-├── .github/workflows/  # Konfigurasi Otomatisasi CI/CD
-├── index.html          # Halaman Utama (Landing Page)
-├── admin.html          # Halaman Admin
-├── blog.html           # Halaman List Blog
-└── vite.config.js      # Konfigurasi utama Vite & HTML Inject
+├── assets/js/          # Frontend modules (api.js, admin.js, blog.js, ...)
+├── worker/src/         # Cloudflare Worker API (Hono routes)
+├── worker/schema.sql   # Skema D1
+├── partials/           # Komponen HTML modular
+├── public/             # Aset statis (termasuk data.json)
+├── wrangler.toml       # Konfigurasi Cloudflare
+└── vite.config.js      # Build & dev proxy
 ```
 
 ---
 
-## 🚢 Deployment
+## 🚢 Deployment (GitHub Pages + Cloudflare API)
 
-Proyek ini dipublikasikan secara otomatis ke **GitHub Pages** menggunakan **GitHub Actions**.
+Arsitektur **split hosting** — domain `lutfiihsan.github.io` tetap di GitHub Pages, API di Cloudflare Worker:
 
-- Setiap kali ada `push` ke branch `master`, workflow di `.github/workflows/deploy.yml` akan berjalan.
-- Workflow tersebut melakukan build aplikasi, menyuntikkan rahasia (secrets) secara aman, dan mengunggah folder `dist/` ke GitHub Pages.
+```text
+lutfiihsan.github.io     →  GitHub Pages (static frontend)
+myporto-api.*.workers.dev  →  Cloudflare Worker (API + D1 + R2)
+```
+
+### Setup sekali
+
+1. Deploy API dulu:
+   ```bash
+   npm run deploy:api
+   ```
+   Catat URL worker, misalnya `https://myporto-api.account.workers.dev`
+
+2. Set `API_BASE_URL` di `wrangler.toml` (vars) ke URL worker tersebut, lalu deploy ulang API.
+
+3. Tambahkan GitHub Secrets:
+   - `VITE_API_URL` = URL worker (sama dengan API_BASE_URL)
+   - `CLOUDFLARE_API_TOKEN`
+   - `CLOUDFLARE_ACCOUNT_ID`
+
+4. Push ke `main`/`master` → otomatis deploy:
+   - **GitHub Pages** — frontend (workflow `deploy-pages.yml`)
+   - **Cloudflare Worker** — API (workflow `deploy-api.yml`, hanya saat `worker/` berubah)
+
+### Deploy manual
+
+```bash
+# Frontend (set env dulu)
+$env:VITE_API_URL="https://myporto-api.account.workers.dev"
+npm run build
+# lalu push dist via GitHub Pages
+
+# API
+npm run deploy:api
+```
 
 ---
 
@@ -98,7 +155,3 @@ Proyek ini dipublikasikan secara otomatis ke **GitHub Pages** menggunakan **GitH
 
 Proyek ini bersifat terbuka untuk tujuan pembelajaran.  
 Copyright © 2026 **Lutfi Ihsan**.
-
----
-
-*Lakukan perbaikan, bangun sesuatu yang hebat, dan mari berkembang bersama!* 💻🔥

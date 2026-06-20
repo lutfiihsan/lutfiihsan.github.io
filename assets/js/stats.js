@@ -1,11 +1,8 @@
 // ============================================================
-// STATS.JS — Admin Statistics Dashboard (Highcharts Edition) (ES MODULE)
-// Requires: Highcharts loaded
+// STATS.JS — Admin Statistics Dashboard (Highcharts Edition)
 // ============================================================
-import { sb } from './supabase.js';
+import { fetchStats } from './api.js';
 
-
-// ── HIGHCHARTS GLOBAL LIGHT THEME ──
 Highcharts.setOptions({
     chart: {
         backgroundColor: 'transparent',
@@ -45,27 +42,17 @@ Highcharts.setOptions({
     exporting: { enabled: false }
 });
 
-// ── FETCH ALL STATS ──
 async function loadStats() {
     showStatsLoading(true);
     try {
-        const [summary, daily, topPages, topPosts, devices, referrers, countries] = await Promise.all([
-            fetchSummary(),
-            fetchDailyViews(30),
-            fetchTopPages(),
-            fetchTopBlogPosts(),
-            fetchDeviceBreakdown(),
-            fetchReferrers(),
-            fetchCountries()
-        ]);
-
-        renderSummaryCards(summary);
-        renderAreaChart(daily);
-        renderBarChart('chart-top-pages', topPages.map(p => p.page), topPages.map(p => p.count), 'Kunjungan', '#f68c09');
-        renderPieChart(devices);
-        renderBarChart('chart-top-posts', topPosts.map(p => p.page), topPosts.map(p => p.count), 'Pembaca', '#667eea');
-        renderReferrersChart(referrers);
-        renderMapChart(countries);
+        const data = await fetchStats();
+        renderSummaryCards(data.summary);
+        renderAreaChart(data.daily);
+        renderBarChart('chart-top-pages', data.topPages.map(p => p.page), data.topPages.map(p => p.count), 'Kunjungan', '#f68c09');
+        renderPieChart(data.devices);
+        renderBarChart('chart-top-posts', data.topPosts.map(p => p.page), data.topPosts.map(p => p.count), 'Pembaca', '#667eea');
+        renderReferrersChart(data.referrers);
+        renderMapChart(data.countries);
     } catch (err) {
         console.error('Stats load error:', err);
         const errEl = document.getElementById('stats-error');
@@ -75,111 +62,6 @@ async function loadStats() {
     }
 }
 
-// ── SUMMARY ──
-async function fetchSummary() {
-    const todayStart = new Date();
-    todayStart.setHours(0, 0, 0, 0);
-
-    const [total, today, unique] = await Promise.all([
-        sb.from('page_views').select('*', { count: 'exact', head: true }),
-        sb.from('page_views').select('*', { count: 'exact', head: true })
-            .gte('created_at', todayStart.toISOString()),
-        sb.from('page_views').select('session_id')
-    ]);
-
-    const uniqueSessions = new Set((unique.data || []).map(r => r.session_id)).size;
-    return { total: total.count || 0, today: today.count || 0, unique: uniqueSessions };
-}
-
-// ── DAILY VIEWS (last 30 days) ──
-async function fetchDailyViews(days = 30) {
-    const since = new Date();
-    since.setDate(since.getDate() - days);
-
-    const { data } = await sb.from('page_views')
-        .select('created_at')
-        .gte('created_at', since.toISOString())
-        .order('created_at');
-
-    const counts = {};
-    for (let i = days - 1; i >= 0; i--) {
-        const d = new Date();
-        d.setDate(d.getDate() - i);
-        const key = d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short' });
-        counts[key] = 0;
-    }
-    (data || []).forEach(row => {
-        const key = new Date(row.created_at).toLocaleDateString('id-ID', { day: '2-digit', month: 'short' });
-        if (counts[key] !== undefined) counts[key]++;
-    });
-    return { labels: Object.keys(counts), values: Object.values(counts) };
-}
-
-// ── TOP PAGES ──
-async function fetchTopPages() {
-    const { data } = await sb.from('page_views').select('page');
-    const counts = {};
-    (data || []).forEach(row => {
-        if (!row.page || row.page.startsWith('blog:') || row.page.startsWith('project:')) return;
-        counts[row.page] = (counts[row.page] || 0) + 1;
-    });
-    return Object.entries(counts)
-        .sort((a, b) => b[1] - a[1]).slice(0, 7)
-        .map(([page, count]) => ({ page: page === 'home' ? '🏠 Home' : page, count }));
-}
-
-// ── TOP BLOG POSTS ──
-async function fetchTopBlogPosts() {
-    const { data } = await sb.from('page_views').select('page');
-    const counts = {};
-    (data || []).forEach(row => {
-        if (!row.page || !row.page.startsWith('blog:')) return;
-        const slug = row.page.replace('blog:', '');
-        counts[slug] = (counts[slug] || 0) + 1;
-    });
-    return Object.entries(counts)
-        .sort((a, b) => b[1] - a[1]).slice(0, 7)
-        .map(([page, count]) => ({ page, count }));
-}
-
-// ── DEVICE BREAKDOWN ──
-async function fetchDeviceBreakdown() {
-    const { data } = await sb.from('page_views').select('device');
-    const counts = { Desktop: 0, Mobile: 0, Tablet: 0 };
-    (data || []).forEach(row => {
-        if (row.device === 'desktop') counts.Desktop++;
-        else if (row.device === 'mobile') counts.Mobile++;
-        else if (row.device === 'tablet') counts.Tablet++;
-    });
-    return counts;
-}
-
-// ── REFERRERS ──
-async function fetchReferrers() {
-    const { data } = await sb.from('page_views').select('referrer');
-    const counts = {};
-    (data || []).forEach(row => {
-        const ref = row.referrer || 'direct';
-        counts[ref] = (counts[ref] || 0) + 1;
-    });
-    return Object.entries(counts)
-        .sort((a, b) => b[1] - a[1]).slice(0, 8)
-        .map(([source, count]) => ({ source, count }));
-}
-
-// ── COUNTRY BREAKDOWN (MAPS) ──
-async function fetchCountries() {
-    const { data } = await sb.from('page_views').select('country');
-    const counts = {};
-    (data || []).forEach(row => {
-        const code = (row.country && row.country !== 'XX') ? row.country.toLowerCase() : null;
-        if (code) counts[code] = (counts[code] || 0) + 1;
-    });
-    // Highcharts maps expects array of arrays: [['id', count], ['us', count]]
-    return Object.entries(counts).map(([code, count]) => [code, count]);
-}
-
-// ── RENDER SUMMARY CARDS ──
 function renderSummaryCards({ total, today, unique }) {
     const el = (id, val) => { const e = document.getElementById(id); if (e) e.textContent = val; };
     el('stats-total-views',    total.toLocaleString('id-ID'));
@@ -187,7 +69,6 @@ function renderSummaryCards({ total, today, unique }) {
     el('stats-unique-visitors', unique.toLocaleString('id-ID'));
 }
 
-// ── AREA CHART: Daily Views ──
 function renderAreaChart({ labels, values }) {
     const el = document.getElementById('chart-daily');
     if (!el || typeof Highcharts === 'undefined') return;
@@ -222,7 +103,6 @@ function renderAreaChart({ labels, values }) {
     });
 }
 
-// ── BAR CHART: Top Pages / Top Posts ──
 function renderBarChart(containerId, categories, data, seriesName, color) {
     const el = document.getElementById(containerId);
     if (!el || typeof Highcharts === 'undefined') return;
@@ -269,7 +149,6 @@ function renderBarChart(containerId, categories, data, seriesName, color) {
     });
 }
 
-// ── PIE CHART: Device Breakdown ──
 function renderPieChart({ Desktop, Mobile, Tablet }) {
     const el = document.getElementById('chart-device');
     if (!el || typeof Highcharts === 'undefined') return;
@@ -278,7 +157,7 @@ function renderPieChart({ Desktop, Mobile, Tablet }) {
         chart: { type: 'pie' },
         plotOptions: {
             pie: {
-                innerSize: '55%',       // donut style
+                innerSize: '55%',
                 borderWidth: 0,
                 dataLabels: {
                     enabled: true,
@@ -306,7 +185,6 @@ function renderPieChart({ Desktop, Mobile, Tablet }) {
     });
 }
 
-// ── BAR CHART: Traffic Sources ──
 function renderReferrersChart(referrers) {
     const el = document.getElementById('chart-referrers');
     if (!el || typeof Highcharts === 'undefined') return;
@@ -354,10 +232,8 @@ function renderReferrersChart(referrers) {
     });
 }
 
-// ── WORLD MAP (LEAFLET DYNAMIC) ──
 let leafletMap = null;
 
-// Rough coordinate mapping for top countries (ISO Alpha-2 to [Lat, Lng])
 const countryCoords = {
     'id': [-0.7893, 113.9213], 'us': [37.0902, -95.7129], 'sg': [1.3521, 103.8198],
     'my': [4.2105, 101.9758],  'au': [-25.2744, 133.7751], 'gb': [55.3781, -3.4360],
@@ -372,7 +248,6 @@ function renderMapChart(countries) {
     if (!el || typeof L === 'undefined') return;
 
     if (!countries.length) {
-        // Jika belum ada data, tetap render peta dengan default Indonesia (0 kunjungan)
         countries = [['id', 0]];
     }
 
@@ -380,7 +255,6 @@ function renderMapChart(countries) {
         leafletMap.remove();
     }
 
-    // Initialize map centered on Asia/Global
     leafletMap = L.map('chart-map', {
         center: [15, 65],
         zoom: 2,
@@ -388,33 +262,27 @@ function renderMapChart(countries) {
         maxBounds: [[-90, -180], [90, 180]]
     });
 
-    // Google Maps Standard tiles for Leaflet mapping
     L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
         attribution: '&copy; Google Maps',
         subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
         maxZoom: 20
     }).addTo(leafletMap);
 
-    // Calculate max count for scaling markers
     const maxCount = Math.max(...countries.map(c => c[1]), 1);
 
     countries.forEach(([code, count]) => {
         const coords = countryCoords[code];
         if (coords) {
-            // Dynamic radius based on visits, min 7px, max 30px
             const radius = Math.max(7, (count / maxCount) * 30);
-            
-            // Marker styling adapted for bright Google Map tiles
             const marker = L.circleMarker(coords, {
                 radius: radius,
-                fillColor: '#e74c3c', // Red fill
-                color: '#c0392b',     // Dark red border
+                fillColor: '#e74c3c',
+                color: '#c0392b',
                 weight: 2,
                 opacity: 0.9,
                 fillOpacity: 0.6
             }).addTo(leafletMap);
 
-            // Tooltip
             marker.bindTooltip(`
                 <div style="text-align:center;">
                     <strong style="color: #667eea; text-transform: uppercase;">${code}</strong><br>
@@ -433,5 +301,4 @@ function showStatsLoading(show) {
     if (el) el.style.display = show ? 'block' : 'none';
 }
 
-// ── EXPOSE TO WINDOW ──
 window.loadStats = loadStats;

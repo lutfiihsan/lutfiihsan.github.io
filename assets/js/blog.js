@@ -1,32 +1,7 @@
 // ============================================================
 // BLOG PUBLIC — JavaScript Logic (ES MODULE)
-// Requires: supabase.js loaded first
 // ============================================================
-import { sb } from './supabase.js';
-
-
-// ── FETCH PUBLISHED POSTS ──
-async function fetchPublishedPosts() {
-    const { data, error } = await sb
-        .from('posts')
-        .select('id, title, slug, excerpt, cover_image, tags, created_at')
-        .eq('published', true)
-        .order('created_at', { ascending: false });
-    if (error) throw error;
-    return data || [];
-}
-
-// ── FETCH SINGLE POST BY SLUG ──
-async function fetchPostBySlug(slug) {
-    const { data, error } = await sb
-        .from('posts')
-        .select('*')
-        .eq('slug', slug)
-        .eq('published', true)
-        .single();
-    if (error) throw error;
-    return data;
-}
+import { fetchPublishedPosts, fetchPostBySlug, resolveMediaUrl } from './api.js';
 
 // ── FORMAT DATE (Bahasa Indonesia) ──
 function formatDateBlog(iso) {
@@ -52,7 +27,7 @@ function renderBlogPosts(posts, container) {
 
     container.innerHTML = posts.map(post => {
         const coverBg = post.cover_image
-            ? `background-image: url('${post.cover_image}'); background-size:cover; background-position:center;`
+            ? `background-image: url('${resolveMediaUrl(post.cover_image)}'); background-size:cover; background-position:center;`
             : `background: linear-gradient(135deg, #667eea, #764ba2);`;
 
         const tags = (post.tags || []).map(t =>
@@ -88,13 +63,11 @@ function renderSinglePost(post, container) {
     document.title = `${post.title} | Blog — Lutfi Ihsan`;
 
     const tags = (post.tags || []).map(t => `<span class="blog-tag">${t}</span>`).join('');
-
-    // Content from Quill is already HTML — render directly, safely wrapped
     const renderedContent = post.content || '<p><em>Konten belum tersedia.</em></p>';
 
     container.innerHTML = `
         <article class="post-article">
-            ${post.cover_image ? `<div class="post-hero" style="background-image:url('${post.cover_image}')"><div class="post-hero-overlay"></div></div>` : ''}
+            ${post.cover_image ? `<div class="post-hero" style="background-image:url('${resolveMediaUrl(post.cover_image)}')"><div class="post-hero-overlay"></div></div>` : ''}
             <div class="post-header">
                 <div class="blog-card-tags" style="margin-bottom:1.5rem;">${tags}</div>
                 <h1 class="post-title">${post.title}</h1>
@@ -135,7 +108,6 @@ async function initPostPage() {
     const container = document.getElementById('post-container');
     if (!container) return;
 
-    // Try URL param first, then sessionStorage
     const params = new URLSearchParams(window.location.search);
     const slug = params.get('slug') || sessionStorage.getItem('blogPostSlug');
     if (slug) sessionStorage.removeItem('blogPostSlug');
@@ -159,12 +131,9 @@ async function initPostPage() {
     }
 }
 
-// ── AUTO INIT ──
 document.addEventListener('DOMContentLoaded', () => {
-    if (!sb) return;
     if (document.getElementById('blog-posts-grid')) initBlogPage();
-    if (document.getElementById('post-container'))  initPostPage();
+    if (document.getElementById('post-container')) initPostPage();
 });
 
-// ── EXPOSE TO WINDOW ──
 window.openPost = openPost;

@@ -7,8 +7,13 @@ export default defineConfig({
     injectHTML(),
   ],
   server: {
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:8787',
+        changeOrigin: true,
+      },
+    },
     // Middleware to support clean URLs (resolve /blog to /blog.html)
-    proxy: {}, // Placeholder if needed
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
         if (req.url && req.url !== '/' && !req.url.includes('.') && !req.url.startsWith('/@')) {

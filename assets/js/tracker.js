@@ -1,20 +1,15 @@
 // ============================================================
-// TRACKER.JS — Lightweight Privacy-Friendly Page View Tracker (ES MODULE)
-// Sends anonymous visit data to Supabase (no cookies, no PII)
+// TRACKER.JS — Privacy-Friendly Page View Tracker (ES MODULE)
 // ============================================================
-import { sb } from './supabase.js';
+import { trackPageView } from './api.js';
 
 (function () {
-    if (!sb) return;
-
-    // ── Generate or retrieve session ID (anonymous, per-tab) ──
     let sessionId = sessionStorage.getItem('_sid');
     if (!sessionId) {
         sessionId = 'sid_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
         sessionStorage.setItem('_sid', sessionId);
     }
 
-    // ── Detect device type ──
     function getDevice() {
         const ua = navigator.userAgent;
         if (/Mobi|Android|iPhone|iPad|iPod/i.test(ua)) {
@@ -23,7 +18,6 @@ import { sb } from './supabase.js';
         return 'desktop';
     }
 
-    // ── Determine page identifier ──
     function getPageId() {
         const path   = window.location.pathname;
         const search = window.location.search;
@@ -42,7 +36,6 @@ import { sb } from './supabase.js';
         return 'home';
     }
 
-    // ── Fetch country from IP (cached in sessionStorage) ──
     async function getCountry() {
         const cached = sessionStorage.getItem('_country');
         if (cached) return cached;
@@ -54,12 +47,11 @@ import { sb } from './supabase.js';
             sessionStorage.setItem('_country', code);
             return code;
         } catch {
-            return 'XX'; // Unknown on failure / timeout
+            return 'XX';
         }
     }
 
-    // ── Send tracking data ──
-    async function trackPageView() {
+    async function track() {
         const page = getPageId();
         if (!page) return;
 
@@ -67,10 +59,10 @@ import { sb } from './supabase.js';
             ? (() => { try { return new URL(document.referrer).hostname; } catch { return 'direct'; } })()
             : 'direct';
 
-        const [country] = await Promise.all([getCountry()]);
+        const country = await getCountry();
 
         try {
-            await sb.from('page_views').insert({
+            await trackPageView({
                 page,
                 title:      document.title,
                 referrer,
@@ -78,10 +70,10 @@ import { sb } from './supabase.js';
                 country,
                 session_id: sessionId
             });
-        } catch (e) {
-            // Silently fail — tracking should never break the site
+        } catch {
+            // Silently fail
         }
     }
 
-    setTimeout(trackPageView, 1500);
+    setTimeout(track, 1500);
 })();

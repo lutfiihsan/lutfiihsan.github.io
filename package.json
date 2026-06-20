@@ -1,26 +1,24 @@
 {
   "name": "lutfiihsan.github.io",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "2.0.0",
+  "private": true,
   "scripts": {
     "dev": "vite",
+    "dev:api": "wrangler dev",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy:api": "wrangler deploy",
+    "deploy:pages": "npm run build",
+    "db:migrate": "wrangler d1 execute myporto-db --local --file=./worker/schema.sql",
+    "db:migrate:remote": "wrangler d1 execute myporto-db --remote --file=./worker/schema.sql",
+    "db:create": "wrangler d1 create myporto-db",
+    "setup:cloudflare": "node scripts/setup-cloudflare.mjs"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lutfiihsan/lutfiihsan.github.io.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/lutfiihsan/lutfiihsan.github.io/issues"
-  },
-  "homepage": "https://github.com/lutfiihsan/lutfiihsan.github.io#readme",
-  "description": "",
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250214.0",
+    "hono": "^4.7.4",
     "vite": "^8.0.8",
-    "vite-plugin-html-inject": "^1.1.2"
+    "vite-plugin-html-inject": "^1.1.2",
+    "wrangler": "^3.109.2"
   }
 }

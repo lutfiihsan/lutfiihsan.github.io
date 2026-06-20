@@ -2,7 +2,19 @@
 // ADMIN BLOG PANEL — JavaScript Logic (ES MODULE)
 // Requires: Quill loaded first
 // ============================================================
-import { sb } from './supabase.js';
+import {
+  getSession,
+  login,
+  logout,
+  loadAllPosts,
+  getPostById,
+  savePost as apiSavePost,
+  deletePost as apiDeletePost,
+  togglePublish as apiTogglePublish,
+  fetchAllUsers,
+  updateUserRole,
+  uploadCover,
+} from './api.js';
 
 
 let quillEditor = null;
@@ -80,28 +92,22 @@ function initQuillEditor() {
 
 // ── SESSION CHECK ──
 async function checkAdminSession() {
-  if (!sb) return null;
-  const {
-    data: { session },
-  } = await sb.auth.getSession();
-  return session;
+  return getSession();
 }
 
 // ── GET USER PROFILE ──
-async function fetchUserProfile(userId) {
+async function fetchUserProfile() {
   try {
-    const { data } = await sb.from("profiles").select("role").eq("id", userId).single();
-    if (data) currentUserRole = data.role;
-  } catch (e) {
+    const session = await getSession();
+    if (session?.user?.role) currentUserRole = session.user.role;
+  } catch {
     currentUserRole = "editor";
   }
 }
 
 // ── LOGIN ──
 async function adminLogin(email, password) {
-  const { data, error } = await sb.auth.signInWithPassword({ email, password });
-  if (error) throw error;
-  return data;
+  return login(email, password);
 }
 
 // ── LOGOUT ──
@@ -120,79 +126,29 @@ async function adminLogout() {
   });
 
   if (result.isConfirmed) {
-    await sb.auth.signOut();
+    logout();
     showToast("Berhasil logout dari sistem");
     setTimeout(() => location.reload(), 1200);
   }
 }
 
-// ── LOAD ALL POSTS (admin sees drafts too) ──
-async function loadAllPosts() {
-  const { data, error } = await sb
-    .from("posts")
-    .select("id, title, slug, published, created_at, updated_at")
-    .order("created_at", { ascending: false });
-  if (error) throw error;
-  return data || [];
-}
-
 // ── SAVE POST (insert or update) ──
 async function savePost(postData) {
-  const isEdit = !!postData.id;
-
-  // Auto-generate slug from title if not set
   if (!postData.slug) {
     postData.slug = slugify(postData.title);
   }
-  postData.updated_at = new Date().toISOString();
-
-  if (isEdit) {
-    const id = postData.id;
-    delete postData.id;
-    const { data, error } = await sb
-      .from("posts")
-      .update(postData)
-      .eq("id", id)
-      .select()
-      .single();
-    if (error) throw error;
-    return data;
-  } else {
-    const { data, error } = await sb
-      .from("posts")
-      .insert(postData)
-      .select()
-      .single();
-    if (error) throw error;
-    return data;
-  }
-}
-
-// ── LOAD SINGLE POST by ID ──
-async function getPostById(id) {
-  const { data, error } = await sb
-    .from("posts")
-    .select("*")
-    .eq("id", id)
-    .single();
-  if (error) throw error;
-  return data;
+  return apiSavePost(postData);
 }
 
 // ── DELETE POST ──
 async function deletePost(id) {
   if (currentUserRole !== 'admin') throw new Error('Hanya Admin yang dapat menghapus artikel.');
-  const { error } = await sb.from("posts").delete().eq("id", id);
-  if (error) throw error;
+  return apiDeletePost(id);
 }
 
 // ── TOGGLE PUBLISH ──
-async function togglePublish(id, currentStatus) {
-  const { error } = await sb
-    .from("posts")
-    .update({ published: !currentStatus, updated_at: new Date().toISOString() })
-    .eq("id", id);
-  if (error) throw error;
+async function togglePublish(id) {
+  return apiTogglePublish(id);
 }
 
 // ── HELPER: Slugify title ──
@@ -421,7 +377,7 @@ async function handlePostSubmit(e) {
 // ── TOGGLE PUBLISH HANDLER ──
 async function handleTogglePublish(id, currentStatus) {
   try {
-    await togglePublish(id, currentStatus);
+    await togglePublish(id);
     showToast(
       currentStatus
         ? "Artikel dipindah ke Draft"
@@ -487,18 +443,6 @@ function setupAutoSlug() {
   });
 }
 
-// ── USER MANAGEMENT FUNCTIONS (RBAC) ──
-async function fetchAllUsers() {
-  const { data, error } = await sb.from("profiles").select("*").order("created_at", { ascending: false });
-  if (error) throw error;
-  return data || [];
-}
-
-async function updateUserRole(id, newRole) {
-  const { error } = await sb.from("profiles").update({ role: newRole }).eq("id", id);
-  if (error) throw error;
-}
-
 async function refreshUsersTable() {
   const tbody = document.getElementById("users-tbody");
   if (!tbody) return;
@@ -508,7 +452,7 @@ async function refreshUsersTable() {
     const users = await fetchAllUsers();
     
     // Prevent admin from downgrading themselves easily
-    const { data: { session } } = await sb.auth.getSession();
+    const session = await getSession();
     const currentUid = session?.user?.id;
 
     if (dtUsers) {
@@ -541,7 +485,7 @@ async function refreshUsersTable() {
     dtUsers = new simpleDatatables.DataTable("#table-users", dtConfig);
 
   } catch (e) {
-    showToast("Gagal memuat peran pengguna. Mungkin RLS Anda menolak akses.", "error");
+    showToast("Gagal memuat peran pengguna.", "error");
     tbody.innerHTML = `<tr><td colspan="4"><div class="empty-state">Akses Ditolak / Anda bukan Admin</div></td></tr>`;
   }
 }
@@ -568,21 +512,38 @@ async function promptChangeRole(userId, email, currentRole) {
   }
 }
 
+// ── COVER IMAGE UPLOAD (R2) ──
+function setupCoverUpload() {
+  const input = document.getElementById('post-cover-file');
+  if (!input) return;
+
+  input.addEventListener('change', async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const coverInput = document.getElementById('post-cover');
+    const btn = input.nextElementSibling;
+
+    try {
+      if (btn) btn.disabled = true;
+      const result = await uploadCover(file);
+      if (coverInput) coverInput.value = result.url;
+      showToast('Cover berhasil diupload!');
+    } catch (err) {
+      showToast(err.message || 'Gagal upload cover', 'error');
+    } finally {
+      if (btn) btn.disabled = false;
+      input.value = '';
+    }
+  });
+}
+
 // ── INIT ADMIN PAGE ──
 document.addEventListener("DOMContentLoaded", async () => {
   const loginSection = document.getElementById("admin-login");
   const dashboardSection = document.getElementById("admin-dashboard");
   const loginForm = document.getElementById("login-form");
   const loginError = document.getElementById("login-error");
-
-  if (!sb) {
-    if (loginError) {
-      loginError.textContent = "Koneksi Supabase gagal. Periksa Environment Variables.";
-      loginError.style.display = "block";
-    }
-    return;
-  }
-
 
   // ── REGISTER EVENT LISTENERS EARLY ──
   const postForm = document.getElementById("post-form");
@@ -608,12 +569,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   setupAutoSlug();
+  setupCoverUpload();
   initQuillEditor();
 
   // Check existing session
   try {
     const session = await checkAdminSession();
-    if (session) {
+    if (session?.user) {
       showDashboard(session.user);
     } else {
       if (loginSection) loginSection.style.display = "flex";
@@ -622,16 +584,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   } catch (e) {
     console.error("Session check error", e);
   }
-
-  // Listen for auth changes
-  sb.auth.onAuthStateChange((event, session) => {
-    if (event === "SIGNED_IN" && session) {
-      showDashboard(session.user);
-    } else if (event === "SIGNED_OUT") {
-      if (loginSection) loginSection.style.display = "flex";
-      if (dashboardSection) dashboardSection.style.display = "none";
-    }
-  });
 
   // Login form submit
   if (loginForm) {
@@ -646,8 +598,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (loginError) loginError.style.display = "none";
 
       try {
-        await adminLogin(email, password);
+        const data = await adminLogin(email, password);
         showToast("Login berhasil!");
+        showDashboard(data.user);
       } catch (err) {
         if (loginError) {
           loginError.textContent = err.message || "Email atau password salah.";
@@ -676,7 +629,7 @@ async function showDashboard(user) {
   if (userAvatar) userAvatar.textContent = (user.email || "A")[0].toUpperCase();
 
   // Load their RBAC profile
-  await fetchUserProfile(user.id);
+  await fetchUserProfile();
 
   // Apply RBAC UI Rules
   if (currentUserRole === 'admin') {
