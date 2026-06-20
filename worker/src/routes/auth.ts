@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
-import { sign } from 'hono/jwt';
 import { hashPassword, verifyPassword } from '../crypto';
+import { createToken } from '../jwt';
 import type { AppVariables, Env, UserRow } from '../types';
 import { requireAuth } from '../middleware';
 
@@ -25,11 +25,13 @@ auth.post('/login', async (c) => {
     return c.json({ error: 'Email atau password salah' }, 401);
   }
 
-  const exp = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7;
-  const token = await sign(
-    { sub: user.id, email: user.email, role: user.role, exp },
-    c.env.JWT_SECRET
-  );
+  const exp = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30;
+  const token = await createToken(c.env, {
+    sub: user.id,
+    email: user.email,
+    role: user.role,
+    exp,
+  });
 
   return c.json({
     token,
@@ -60,8 +62,8 @@ auth.post('/setup', async (c) => {
     .bind(id, email, password_hash, 'admin')
     .run();
 
-  const exp = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7;
-  const token = await sign({ sub: id, email, role: 'admin', exp }, c.env.JWT_SECRET);
+  const exp = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30;
+  const token = await createToken(c.env, { sub: id, email, role: 'admin', exp });
 
   return c.json({
     token,

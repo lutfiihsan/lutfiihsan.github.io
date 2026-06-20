@@ -2,9 +2,10 @@ import { useCallback, useEffect, useState } from 'react';
 import { loadAllPosts, togglePublish, deletePost } from '../../assets/js/api.js';
 import { formatDate } from '../lib/format';
 import { toast } from '../lib/toast';
+import { handleApiError } from '../lib/apiError';
 import PostEditorModal from './PostEditorModal';
 
-export default function PostsTab({ isAdmin }) {
+export default function PostsTab({ isAdmin, onAuthFail }) {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editorId, setEditorId] = useState(null);
@@ -15,11 +16,11 @@ export default function PostsTab({ isAdmin }) {
     try {
       setPosts(await loadAllPosts());
     } catch (err) {
-      toast(err.message, 'error');
+      handleApiError(err, onAuthFail);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [onAuthFail]);
 
   useEffect(() => {
     refresh();

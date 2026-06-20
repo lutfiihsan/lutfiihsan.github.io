@@ -1,13 +1,13 @@
 import { Hono } from 'hono';
-import { verify } from 'hono/jwt';
 import type { AppVariables, AuthPayload, Env, PostRow } from '../types';
 import { requireAuth, requireAdmin } from '../middleware';
+import { parseToken } from '../jwt';
 
 async function isValidToken(c: { env: Env; req: { header: (n: string) => string | undefined } }): Promise<boolean> {
   const header = c.req.header('Authorization');
   if (!header?.startsWith('Bearer ')) return false;
   try {
-    const payload = (await verify(header.slice(7), c.env.JWT_SECRET)) as AuthPayload;
+    const payload = (await parseToken(c.env, header.slice(7))) as AuthPayload;
     return !!(payload?.sub && payload.exp * 1000 >= Date.now());
   } catch {
     return false;

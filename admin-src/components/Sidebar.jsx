@@ -7,10 +7,10 @@ const NAV = [
 
 export default function Sidebar({ activeTab, onTabChange, isAdmin, onLogout }) {
   return (
-    <aside className="admin-sidebar">
+    <aside className="admin-sidebar premium-sidebar">
       <div className="sidebar-logo">
-        <i className="fas fa-shield-alt" />
-        <span>Admin</span>
+        <i className="fas fa-crown" />
+        <span>Golden Admin</span>
       </div>
       <nav className="sidebar-nav">
         {NAV.filter((n) => !n.adminOnly || isAdmin).map((item) => (

@@ -1,6 +1,6 @@
 import { createMiddleware } from 'hono/factory';
-import { verify } from 'hono/jwt';
-import type { AppVariables, AuthPayload, Env } from './types';
+import type { AppVariables, Env } from './types';
+import { jwtSecret, parseToken } from './jwt';
 
 export const requireAuth = createMiddleware<{ Bindings: Env; Variables: AppVariables }>(
   async (c, next) => {
@@ -9,9 +9,16 @@ export const requireAuth = createMiddleware<{ Bindings: Env; Variables: AppVaria
       return c.json({ error: 'Unauthorized' }, 401);
     }
 
+    if (!jwtSecret(c.env)) {
+      return c.json({ error: 'Server auth misconfigured' }, 500);
+    }
+
     try {
-      const payload = (await verify(header.slice(7), c.env.JWT_SECRET)) as AuthPayload;
-      if (!payload?.sub || payload.exp * 1000 < Date.now()) {
+      const payload = await parseToken(c.env, header.slice(7));
+      if (!payload?.sub) {
+        return c.json({ error: 'Invalid token' }, 401);
+      }
+      if (payload.exp && payload.exp * 1000 < Date.now()) {
         return c.json({ error: 'Token expired' }, 401);
       }
       c.set('user', payload);

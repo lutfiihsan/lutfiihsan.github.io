@@ -7,17 +7,17 @@ const TITLES = {
 
 export default function Topbar({ activeTab, user, onChangePassword }) {
   return (
-    <div className="admin-topbar">
+    <div className="admin-topbar premium-topbar">
       <span className="topbar-title">{TITLES[activeTab] || 'Dashboard'}</span>
       <div className="topbar-user">
+        <span className="role-badge">{user.role}</span>
         <button
           type="button"
           className="btn-sm btn-edit"
           onClick={onChangePassword}
           title="Ganti Password"
-          style={{ marginRight: '1rem' }}
         >
-          <i className="fas fa-key" />
+          <i className="fas fa-key" /> Password
         </button>
         <div className="avatar">{(user.email || 'A')[0].toUpperCase()}</div>
         <span>{user.email}</span>

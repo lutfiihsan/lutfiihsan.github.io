@@ -1,36 +1,31 @@
-import { useEffect, useState } from 'react';
-import { getSession, logout } from '../assets/js/api.js';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import LoginPage from './components/LoginPage';
 import Dashboard from './components/Dashboard';
 
-export default function App() {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    getSession()
-      .then((s) => setUser(s?.user ?? null))
-      .finally(() => setLoading(false));
-  }, []);
-
-  function handleLogout() {
-    logout();
-    setUser(null);
-  }
+function AppContent() {
+  const { user, loading, logout } = useAuth();
 
   if (loading) {
     return (
-      <div className="admin-login-page" style={{ display: 'flex' }}>
-        <div className="loading-spinner">
-          <i className="fas fa-spinner fa-spin" /> Memuat...
+      <div className="admin-login-page admin-premium-bg" style={{ display: 'flex' }}>
+        <div className="loading-spinner premium-loader">
+          <i className="fas fa-spinner fa-spin" /> Memuat sesi...
         </div>
       </div>
     );
   }
 
   if (!user) {
-    return <LoginPage onLogin={setUser} />;
+    return <LoginPage />;
   }
 
-  return <Dashboard user={user} onLogout={handleLogout} />;
+  return <Dashboard user={user} onLogout={logout} />;
+}
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
+  );
 }

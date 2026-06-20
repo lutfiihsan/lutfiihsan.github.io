@@ -2,8 +2,17 @@
 // API CLIENT — Cloudflare Workers (D1 + R2)
 // ============================================================
 
-const API_URL = import.meta.env.VITE_API_URL || '';
+const PRODUCTION_API = 'https://myporto-api.lawlieth404.workers.dev';
+const API_URL = (import.meta.env.VITE_API_URL || PRODUCTION_API).replace(/\/$/, '');
 const TOKEN_KEY = 'auth_token';
+
+export class AuthError extends Error {
+  constructor(message, status = 401) {
+    super(message);
+    this.name = 'AuthError';
+    this.status = status;
+  }
+}
 
 /** Resolve media URL — relative paths need API base when frontend is on GitHub Pages */
 export function resolveMediaUrl(url) {
@@ -12,20 +21,37 @@ export function resolveMediaUrl(url) {
   return `${API_URL}${url.startsWith('/') ? '' : '/'}${url}`;
 }
 
+function isValidJwt(token) {
+  return typeof token === 'string' && token.split('.').length === 3;
+}
+
 export function getToken() {
-  return sessionStorage.getItem(TOKEN_KEY);
+  let token = localStorage.getItem(TOKEN_KEY)?.trim();
+  if (!token) {
+    token = sessionStorage.getItem(TOKEN_KEY)?.trim();
+    if (isValidJwt(token)) {
+      localStorage.setItem(TOKEN_KEY, token);
+      sessionStorage.removeItem(TOKEN_KEY);
+    }
+  }
+  return isValidJwt(token) ? token : null;
 }
 
 export function setToken(token) {
-  sessionStorage.setItem(TOKEN_KEY, token);
-}
-
-export function clearToken() {
+  const t = token?.trim();
+  if (!isValidJwt(t)) return;
+  localStorage.setItem(TOKEN_KEY, t);
   sessionStorage.removeItem(TOKEN_KEY);
 }
 
+export function clearToken() {
+  localStorage.removeItem(TOKEN_KEY);
+  sessionStorage.removeItem(TOKEN_KEY);
+  window.dispatchEvent(new CustomEvent('auth:logout'));
+}
+
 export function isApiConfigured() {
-  return true;
+  return !!API_URL;
 }
 
 async function request(path, options = {}) {
@@ -37,7 +63,13 @@ async function request(path, options = {}) {
     headers['Content-Type'] = headers['Content-Type'] || 'application/json';
   }
 
-  const res = await fetch(`${API_URL}/api${path}`, { ...options, headers });
+  let res;
+  try {
+    res = await fetch(`${API_URL}/api${path}`, { ...options, headers });
+  } catch {
+    throw new Error('Koneksi API gagal. Periksa jaringan Anda.');
+  }
+
   const text = await res.text();
   let data = null;
 
@@ -50,9 +82,19 @@ async function request(path, options = {}) {
   }
 
   if (!res.ok) {
-    const err = new Error(data?.error || `Request failed (${res.status})`);
-    err.status = res.status;
-    throw err;
+    const msg = data?.error || `Request failed (${res.status})`;
+    if (res.status === 401) {
+      const keepToken =
+        path === '/auth/login' ||
+        path === '/auth/setup' ||
+        path === '/auth/change-password';
+      if (token && !keepToken) {
+        clearToken();
+        throw new AuthError(msg, 401);
+      }
+      throw new Error(msg);
+    }
+    throw new Error(msg);
   }
 
   return data;
@@ -63,10 +105,10 @@ export async function getSession() {
   if (!getToken()) return null;
   try {
     const data = await request('/auth/session');
-    return { user: data.user };
-  } catch {
-    clearToken();
-    return null;
+    return { user: { id: data.user.id, email: data.user.email, role: data.user.role } };
+  } catch (err) {
+    if (err instanceof AuthError) return null;
+    throw err;
   }
 }
 
@@ -199,3 +241,5 @@ export async function savePortfolio(data) {
     body: JSON.stringify(data),
   });
 }
+
+export { API_URL };

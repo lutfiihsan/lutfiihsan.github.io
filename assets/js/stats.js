@@ -44,22 +44,38 @@ Highcharts.setOptions({
 
 async function loadStats() {
     showStatsLoading(true);
+    hideStatsError();
     try {
         const data = await fetchStats();
-        renderSummaryCards(data.summary);
-        renderAreaChart(data.daily);
-        renderBarChart('chart-top-pages', data.topPages.map(p => p.page), data.topPages.map(p => p.count), 'Kunjungan', '#f68c09');
-        renderPieChart(data.devices);
-        renderBarChart('chart-top-posts', data.topPosts.map(p => p.page), data.topPosts.map(p => p.count), 'Pembaca', '#667eea');
-        renderReferrersChart(data.referrers);
-        renderMapChart(data.countries);
+        renderStatsData(data);
     } catch (err) {
         console.error('Stats load error:', err);
-        const errEl = document.getElementById('stats-error');
-        if (errEl) errEl.style.display = 'block';
+        showStatsError();
+        throw err;
     } finally {
         showStatsLoading(false);
     }
+}
+
+export function renderStatsData(data) {
+    hideStatsError();
+    renderSummaryCards(data.summary);
+    renderAreaChart(data.daily);
+    renderBarChart('chart-top-pages', data.topPages.map(p => p.page), data.topPages.map(p => p.count), 'Kunjungan', '#f68c09');
+    renderPieChart(data.devices);
+    renderBarChart('chart-top-posts', data.topPosts.map(p => p.page), data.topPosts.map(p => p.count), 'Pembaca', '#667eea');
+    renderReferrersChart(data.referrers);
+    renderMapChart(data.countries);
+}
+
+function showStatsError() {
+    const errEl = document.getElementById('stats-error');
+    if (errEl) errEl.style.display = 'block';
+}
+
+function hideStatsError() {
+    const errEl = document.getElementById('stats-error');
+    if (errEl) errEl.style.display = 'none';
 }
 
 function renderSummaryCards({ total, today, unique }) {

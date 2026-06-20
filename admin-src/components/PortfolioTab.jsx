@@ -2,8 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { fetchPortfolio, savePortfolio } from '../../assets/js/api.js';
 import { formatDate } from '../lib/format';
 import { toast } from '../lib/toast';
+import { handleApiError } from '../lib/apiError';
 
-export default function PortfolioTab() {
+export default function PortfolioTab({ onAuthFail }) {
   const [json, setJson] = useState('');
   const [updatedAt, setUpdatedAt] = useState('');
   const [error, setError] = useState('');
@@ -18,7 +19,8 @@ export default function PortfolioTab() {
       delete data._meta;
       setJson(JSON.stringify(data, null, 2));
       if (meta?.updated_at) setUpdatedAt(formatDate(meta.updated_at));
-    } catch {
+    } catch (err) {
+      if (handleApiError(err, onAuthFail)) return;
       try {
         const res = await fetch('./assets/data/data.json');
         const data = await res.json();
@@ -30,7 +32,7 @@ export default function PortfolioTab() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [onAuthFail]);
 
   useEffect(() => {
     load();
@@ -61,6 +63,7 @@ export default function PortfolioTab() {
       toast('Portfolio disimpan!');
       if (result.updated_at) setUpdatedAt(formatDate(result.updated_at));
     } catch (err) {
+      if (handleApiError(err, onAuthFail)) return;
       setError(err.message || 'Gagal menyimpan');
     }
   }

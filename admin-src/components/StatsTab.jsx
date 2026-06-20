@@ -1,11 +1,30 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
+import { fetchStats } from '../../assets/js/api.js';
+import { handleApiError } from '../lib/apiError';
 
-export default function StatsTab() {
+export default function StatsTab({ onAuthFail }) {
+  const load = useCallback(async () => {
+    const loading = document.getElementById('stats-loading');
+    const errEl = document.getElementById('stats-error');
+    if (loading) loading.style.display = 'block';
+    if (errEl) errEl.style.display = 'none';
+
+    try {
+      const data = await fetchStats();
+      const mod = await import('../../assets/js/stats.js');
+      mod.renderStatsData(data);
+    } catch (err) {
+      console.error('Stats load error:', err);
+      if (errEl) errEl.style.display = 'block';
+      handleApiError(err, onAuthFail);
+    } finally {
+      if (loading) loading.style.display = 'none';
+    }
+  }, [onAuthFail]);
+
   useEffect(() => {
-    import('../../assets/js/stats.js').then(() => {
-      if (typeof window.loadStats === 'function') window.loadStats();
-    });
-  }, []);
+    load();
+  }, [load]);
 
   return (
     <div className="admin-content">
@@ -34,7 +53,7 @@ export default function StatsTab() {
       <div className="stat-chart-card" style={{ marginBottom: '2.5rem' }}>
         <div className="section-header" style={{ marginBottom: 0 }}>
           <h2><i className="fas fa-chart-area" /> Kunjungan 30 Hari Terakhir</h2>
-          <button type="button" className="btn-sm btn-edit" onClick={() => window.loadStats?.()}>
+          <button type="button" className="btn-sm btn-edit" onClick={load}>
             <i className="fas fa-sync-alt" /> Refresh
           </button>
         </div>

@@ -7,8 +7,9 @@ import {
 } from '../../assets/js/api.js';
 import { formatDate } from '../lib/format';
 import { toast } from '../lib/toast';
+import { handleApiError } from '../lib/apiError';
 
-export default function UsersTab({ currentUserId }) {
+export default function UsersTab({ currentUserId, onAuthFail }) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
@@ -19,11 +20,11 @@ export default function UsersTab({ currentUserId }) {
     try {
       setUsers(await fetchAllUsers());
     } catch (err) {
-      toast(err.message, 'error');
+      handleApiError(err, onAuthFail);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [onAuthFail]);
 
   useEffect(() => {
     refresh();

@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { login } from '../../assets/js/api.js';
+import { useAuth } from '../context/AuthContext';
 import { toast } from '../lib/toast';
 
-export default function LoginPage({ onLogin }) {
+export default function LoginPage() {
+  const { setUser } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPass, setShowPass] = useState(false);
@@ -16,7 +18,7 @@ export default function LoginPage({ onLogin }) {
     try {
       const data = await login(email.trim(), password);
       toast('Login berhasil!');
-      onLogin(data.user);
+      setUser(data.user);
     } catch (err) {
       setError(err.message || 'Email atau password salah.');
     } finally {
@@ -25,25 +27,23 @@ export default function LoginPage({ onLogin }) {
   }
 
   return (
-    <div className="admin-login-page" style={{ display: 'flex' }}>
-      <div className="login-card">
-        <div className="login-logo">
-          <i className="fas fa-key" style={{ color: '#f68c09' }} />
+    <div className="admin-login-page admin-premium-bg" style={{ display: 'flex' }}>
+      <div className="login-card premium-login-card">
+        <div className="login-logo premium-logo">
+          <i className="fas fa-shield-alt" />
         </div>
         <h1 className="login-title">Golden Access</h1>
         <p className="login-subtitle">
-          Management Shell for authorized personnel only.
+          Admin Panel — Lutfi Ihsan
           <br />
-          Please authenticate to access the core systems.
+          <span style={{ fontSize: '1.2rem', opacity: 0.7 }}>Masuk untuk mengelola konten</span>
         </p>
 
         <form onSubmit={handleSubmit} noValidate>
           <div className="form-group">
-            <label htmlFor="admin-email">Email</label>
             <i className="fas fa-envelope input-icon" />
             <input
               type="email"
-              id="admin-email"
               placeholder="Email"
               required
               autoComplete="email"
@@ -52,11 +52,9 @@ export default function LoginPage({ onLogin }) {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="admin-pass">Password</label>
             <i className="fas fa-lock input-icon" />
             <input
               type={showPass ? 'text' : 'password'}
-              id="admin-pass"
               placeholder="Password"
               required
               autoComplete="current-password"
@@ -72,8 +70,8 @@ export default function LoginPage({ onLogin }) {
             />
           </div>
 
-          <button type="submit" className="btn-login" disabled={busy}>
-            {busy ? 'Memproses...' : 'Authorize & Enter'}
+          <button type="submit" className="btn-login premium-btn" disabled={busy}>
+            {busy ? 'Memproses...' : 'Masuk ke Dashboard'}
           </button>
 
           {error && (
@@ -84,7 +82,7 @@ export default function LoginPage({ onLogin }) {
         </form>
 
         <a href="index" className="back-to-home">
-          <i className="fas fa-arrow-left" /> Kembali ke Beranda
+          <i className="fas fa-arrow-left" /> Kembali ke Portfolio
         </a>
       </div>
     </div>
