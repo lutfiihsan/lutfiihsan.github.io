@@ -1,9 +1,11 @@
 import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 import injectHTML from 'vite-plugin-html-inject';
 import { resolve } from 'path';
 
 export default defineConfig({
   plugins: [
+    react(),
     injectHTML(),
   ],
   server: {
@@ -13,7 +15,6 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
-    // Middleware to support clean URLs (resolve /blog to /blog.html)
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
         if (req.url && req.url !== '/' && !req.url.includes('.') && !req.url.startsWith('/@')) {
