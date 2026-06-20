@@ -129,9 +129,9 @@
         },
         {
             "title": "PT. Diti Annora Sukses",
-            "image": "./assets/images/projects/dtannora.svg",
+            "image": "./assets/images/projects/dtannora.png",
             "images": [
-                "./assets/images/projects/dtannora.svg"
+                "./assets/images/projects/dtannora.png"
             ],
             "status": "Online",
             "statusClass": "status-online",
@@ -152,9 +152,9 @@
         },
         {
             "title": "Grafisa ID",
-            "image": "./assets/images/projects/grafisa.svg",
+            "image": "./assets/images/projects/grafisa.png",
             "images": [
-                "./assets/images/projects/grafisa.svg"
+                "./assets/images/projects/grafisa.png"
             ],
             "status": "Online",
             "statusClass": "status-online",
@@ -174,9 +174,9 @@
         },
         {
             "title": "SIGURU — SDN Kacangan",
-            "image": "./assets/images/projects/siguru-kacangan.svg",
+            "image": "./assets/images/projects/siguru-kacangan.png",
             "images": [
-                "./assets/images/projects/siguru-kacangan.svg"
+                "./assets/images/projects/siguru-kacangan.png"
             ],
             "status": "Online",
             "statusClass": "status-online",
@@ -196,9 +196,9 @@
         },
         {
             "title": "KonterPro App",
-            "image": "./assets/images/projects/konterpro.svg",
+            "image": "./assets/images/projects/konterpro.png",
             "images": [
-                "./assets/images/projects/konterpro.svg"
+                "./assets/images/projects/konterpro.png"
             ],
             "status": "Online",
             "statusClass": "status-online",
@@ -218,12 +218,12 @@
         },
         {
             "title": "Pay-Ex — SMK YAPEK Gombong",
-            "image": "./assets/images/projects/pay-ex-yapek.svg",
+            "image": "./assets/images/projects/pay-ex-yapek.png",
             "images": [
-                "./assets/images/projects/pay-ex-yapek.svg"
+                "./assets/images/projects/pay-ex-yapek.png"
             ],
-            "status": "Online",
-            "statusClass": "status-online",
+            "status": "Private",
+            "statusClass": "status-private",
             "desc": "Sistem keuangan sekolah untuk pembayaran SPP SMK YAPEK Gombong — login admin terenkripsi, manajemen transaksi, dan dashboard keuangan instansi pendidikan.",
             "fullDesc": "<b>Pay-Ex</b> adalah sistem keuangan digital untuk <b>SMK YAPEK Gombong</b> yang menangani pembayaran SPP dan administrasi keuangan sekolah. <br><br><b>Fitur Utama:</b><br>• Login admin dengan autentikasi aman<br>• Manajemen pembayaran SPP siswa<br>• Dashboard keuangan sekolah<br>• Sistem terenkripsi (v2.1)<br>• Antarmuka responsif untuk operator sekolah",
             "tech": [
@@ -235,7 +235,7 @@
             ],
             "year": "2024",
             "type": "Sistem Keuangan Sekolah",
-            "viewLink": "https://pay-ex.smkyapekgombong.com/",
+            "viewLink": null,
             "codeLink": null,
             "id": "pay-ex-yapek"
         },
