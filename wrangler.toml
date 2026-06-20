@@ -16,13 +16,9 @@ binding = "DB"
 database_name = "myporto-db"
 database_id = "f82bb04c-8cd7-4bea-bcee-57dbec9fab93"
 
-# Aktifkan setelah R2 di-enable di dashboard Cloudflare:
-# https://dash.cloudflare.com → R2 → Enable R2
-# Lalu: npx wrangler r2 bucket create myporto-media
-# Uncomment baris di bawah dan deploy ulang:
-# [[r2_buckets]]
-# binding = "MEDIA"
-# bucket_name = "myporto-media"
+[[r2_buckets]]
+binding = "MEDIA"
+bucket_name = "myporto-media"
 
 # Set via: wrangler secret put JWT_SECRET
 
