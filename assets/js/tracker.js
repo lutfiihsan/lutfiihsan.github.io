@@ -1,5 +1,6 @@
 // ============================================================
 // TRACKER.JS — Privacy-Friendly Page View Tracker (ES MODULE)
+// Hemat quota: 1x per halaman per session, tanpa API geo eksternal
 // ============================================================
 import { trackPageView } from './api.js';
 
@@ -36,16 +37,12 @@ import { trackPageView } from './api.js';
         return 'home';
     }
 
-    async function getCountry() {
-        const cached = sessionStorage.getItem('_country');
-        if (cached) return cached;
-
+    /** Country dari browser locale — gratis, tanpa request eksternal */
+    function getCountry() {
         try {
-            const res  = await fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(3000) });
-            const data = await res.json();
-            const code = data.country_code || 'XX';
-            sessionStorage.setItem('_country', code);
-            return code;
+            const locale = navigator.language || 'id-ID';
+            const region = locale.split('-')[1];
+            return region ? region.toUpperCase() : 'XX';
         } catch {
             return 'XX';
         }
@@ -55,11 +52,13 @@ import { trackPageView } from './api.js';
         const page = getPageId();
         if (!page) return;
 
+        // Client-side dedup: jangan track halaman yang sama 2x per session
+        const trackKey = '_tracked_' + page;
+        if (sessionStorage.getItem(trackKey)) return;
+
         const referrer = document.referrer
             ? (() => { try { return new URL(document.referrer).hostname; } catch { return 'direct'; } })()
             : 'direct';
-
-        const country = await getCountry();
 
         try {
             await trackPageView({
@@ -67,9 +66,10 @@ import { trackPageView } from './api.js';
                 title:      document.title,
                 referrer,
                 device:     getDevice(),
-                country,
+                country:    getCountry(),
                 session_id: sessionId
             });
+            sessionStorage.setItem(trackKey, '1');
         } catch {
             // Silently fail
         }

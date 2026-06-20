@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import type { Env } from '../types';
+import { isTrackRateLimited } from '../utils/rateLimit';
 
 const track = new Hono<{ Bindings: Env }>();
 
@@ -14,6 +15,14 @@ track.post('/', async (c) => {
   }>();
 
   if (!body.page) return c.json({ error: 'page required' }, 400);
+
+  // Rate limit: max 1 track per session+page per 30 menit
+  if (body.session_id) {
+    const limited = await isTrackRateLimited(c.env.DB, body.session_id, body.page, 30);
+    if (limited) {
+      return c.json({ ok: true, skipped: true });
+    }
+  }
 
   await c.env.DB.prepare(
     `INSERT INTO page_views (id, page, title, referrer, device, country, session_id)

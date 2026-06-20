@@ -14,6 +14,8 @@ import {
   fetchAllUsers,
   updateUserRole,
   uploadCover,
+  createUser,
+  changePassword,
 } from './api.js';
 
 
@@ -512,6 +514,91 @@ async function promptChangeRole(userId, email, currentRole) {
   }
 }
 
+// ── ADD USER MODAL ──
+function openAddUserModal() {
+  const modal = document.getElementById('user-modal');
+  const form = document.getElementById('user-form');
+  if (form) form.reset();
+  if (modal) modal.classList.add('open');
+}
+
+function closeAddUserModal() {
+  const modal = document.getElementById('user-modal');
+  if (modal) modal.classList.remove('open');
+}
+
+async function handleAddUser(e) {
+  e.preventDefault();
+  const btn = document.getElementById('btn-save-user');
+  const email = document.getElementById('user-email-input').value.trim();
+  const password = document.getElementById('user-pass-input').value;
+  const role = document.getElementById('user-role-input').value;
+
+  btn.disabled = true;
+  try {
+    await createUser(email, password, role);
+    showToast('Pengguna berhasil ditambahkan!');
+    closeAddUserModal();
+    refreshUsersTable();
+  } catch (err) {
+    showToast(err.message || 'Gagal menambah pengguna', 'error');
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+// ── CHANGE PASSWORD MODAL ──
+function openChangePasswordModal() {
+  const dashboard = document.getElementById('admin-dashboard');
+  const isLoggedIn = dashboard && dashboard.style.display !== 'none';
+
+  if (!isLoggedIn) {
+    Swal.fire({
+      title: 'Ganti Password',
+      text: 'Login terlebih dahulu, lalu gunakan tombol kunci di dashboard.',
+      icon: 'info',
+      confirmButtonText: 'OK',
+      background: '#13132a',
+      color: '#f0f0ff',
+    });
+    return;
+  }
+
+  const modal = document.getElementById('password-modal');
+  const form = document.getElementById('password-form');
+  if (form) form.reset();
+  if (modal) modal.classList.add('open');
+}
+
+function closeChangePasswordModal() {
+  const modal = document.getElementById('password-modal');
+  if (modal) modal.classList.remove('open');
+}
+
+async function handleChangePassword(e) {
+  e.preventDefault();
+  const btn = document.getElementById('btn-save-password');
+  const current = document.getElementById('current-password').value;
+  const newPass = document.getElementById('new-password').value;
+  const confirm = document.getElementById('confirm-password').value;
+
+  if (newPass !== confirm) {
+    showToast('Konfirmasi password tidak cocok', 'error');
+    return;
+  }
+
+  btn.disabled = true;
+  try {
+    await changePassword(current, newPass);
+    showToast('Password berhasil diubah!');
+    closeChangePasswordModal();
+  } catch (err) {
+    showToast(err.message || 'Gagal mengubah password', 'error');
+  } finally {
+    btn.disabled = false;
+  }
+}
+
 // ── COVER IMAGE UPLOAD (R2) ──
 function setupCoverUpload() {
   const input = document.getElementById('post-cover-file');
@@ -567,6 +654,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (postForm) {
     postForm.addEventListener("submit", handlePostSubmit);
   }
+
+  const userForm = document.getElementById("user-form");
+  if (userForm) userForm.addEventListener("submit", handleAddUser);
+
+  const passwordForm = document.getElementById("password-form");
+  if (passwordForm) passwordForm.addEventListener("submit", handleChangePassword);
 
   setupAutoSlug();
   setupCoverUpload();
@@ -655,3 +748,7 @@ window.handleTogglePublish = handleTogglePublish;
 window.handleDeletePost = handleDeletePost;
 window.promptChangeRole = promptChangeRole;
 window.adminLogout = adminLogout;
+window.openAddUserModal = openAddUserModal;
+window.closeAddUserModal = closeAddUserModal;
+window.openChangePasswordModal = openChangePasswordModal;
+window.closeChangePasswordModal = closeChangePasswordModal;

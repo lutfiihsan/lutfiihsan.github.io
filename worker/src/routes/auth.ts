@@ -74,4 +74,33 @@ auth.get('/session', requireAuth, async (c) => {
   return c.json({ user: { id: user.sub, email: user.email, role: user.role } });
 });
 
+auth.post('/change-password', requireAuth, async (c) => {
+  const user = c.get('user');
+  const body = await c.req.json<{ current_password?: string; new_password?: string }>();
+
+  if (!body.current_password || !body.new_password) {
+    return c.json({ error: 'Password lama dan baru wajib diisi' }, 400);
+  }
+  if (body.new_password.length < 8) {
+    return c.json({ error: 'Password baru minimal 8 karakter' }, 400);
+  }
+
+  const row = await c.env.DB.prepare(
+    'SELECT password_hash FROM users WHERE id = ?'
+  )
+    .bind(user.sub)
+    .first<{ password_hash: string }>();
+
+  if (!row || !(await verifyPassword(body.current_password, row.password_hash))) {
+    return c.json({ error: 'Password lama salah' }, 401);
+  }
+
+  const password_hash = await hashPassword(body.new_password);
+  await c.env.DB.prepare('UPDATE users SET password_hash = ? WHERE id = ?')
+    .bind(password_hash, user.sub)
+    .run();
+
+  return c.json({ ok: true });
+});
+
 export default auth;

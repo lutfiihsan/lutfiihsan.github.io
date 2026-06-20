@@ -155,6 +155,23 @@ export async function updateUserRole(id, role) {
   });
 }
 
+export async function createUser(email, password, role = 'editor') {
+  return request('/users', {
+    method: 'POST',
+    body: JSON.stringify({ email, password, role }),
+  });
+}
+
+export async function changePassword(currentPassword, newPassword) {
+  return request('/auth/change-password', {
+    method: 'POST',
+    body: JSON.stringify({
+      current_password: currentPassword,
+      new_password: newPassword,
+    }),
+  });
+}
+
 // ── UPLOAD (R2) ──
 export async function uploadCover(file) {
   const form = new FormData();

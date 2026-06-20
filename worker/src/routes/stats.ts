@@ -1,10 +1,14 @@
 import { Hono } from 'hono';
 import type { AppVariables, Env } from '../types';
 import { requireAuth, requireAdmin } from '../middleware';
+import { pruneOldPageViews } from '../utils/retention';
 
 const stats = new Hono<{ Bindings: Env; Variables: AppVariables }>();
 
 stats.get('/', requireAuth, requireAdmin, async (c) => {
+  // Retention: hapus data >90 hari (hemat D1 storage & writes)
+  await pruneOldPageViews(c.env.DB);
+
   const todayStart = new Date();
   todayStart.setHours(0, 0, 0, 0);
   const todayIso = todayStart.toISOString();

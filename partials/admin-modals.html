@@ -71,3 +71,66 @@
     </form>
   </div>
 </div>
+
+<!-- ADD USER MODAL -->
+<div id="user-modal" class="modal-overlay" role="dialog" aria-modal="true">
+  <div class="modal-card" style="max-width:480px;">
+    <div class="modal-header">
+      <h2>Tambah Pengguna</h2>
+      <button class="btn-close" onclick="closeAddUserModal()" aria-label="Tutup"><i class="fas fa-times"></i></button>
+    </div>
+    <form id="user-form">
+      <div class="form-group">
+        <label for="user-email-input">Email *</label>
+        <input type="email" id="user-email-input" placeholder="editor@example.com" required>
+      </div>
+      <div class="form-group">
+        <label for="user-pass-input">Password * (min. 8 karakter)</label>
+        <input type="password" id="user-pass-input" placeholder="Password" required minlength="8">
+      </div>
+      <div class="form-group">
+        <label for="user-role-input">Role</label>
+        <select id="user-role-input">
+          <option value="editor">Editor</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" onclick="closeAddUserModal()">Batal</button>
+        <button type="submit" id="btn-save-user" class="btn-primary">
+          <i class="fas fa-user-plus"></i> Simpan
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- CHANGE PASSWORD MODAL -->
+<div id="password-modal" class="modal-overlay" role="dialog" aria-modal="true">
+  <div class="modal-card" style="max-width:480px;">
+    <div class="modal-header">
+      <h2>Ganti Password</h2>
+      <button class="btn-close" onclick="closeChangePasswordModal()" aria-label="Tutup"><i class="fas fa-times"></i></button>
+    </div>
+    <form id="password-form">
+      <div class="form-group">
+        <label for="current-password">Password Lama *</label>
+        <input type="password" id="current-password" required autocomplete="current-password">
+      </div>
+      <div class="form-group">
+        <label for="new-password">Password Baru * (min. 8 karakter)</label>
+        <input type="password" id="new-password" required minlength="8" autocomplete="new-password">
+      </div>
+      <div class="form-group">
+        <label for="confirm-password">Konfirmasi Password Baru *</label>
+        <input type="password" id="confirm-password" required minlength="8" autocomplete="new-password">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" onclick="closeChangePasswordModal()">Batal</button>
+        <button type="submit" id="btn-save-password" class="btn-primary">
+          <i class="fas fa-key"></i> Simpan
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
