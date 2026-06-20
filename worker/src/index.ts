@@ -7,6 +7,7 @@ import track from './routes/track';
 import stats from './routes/stats';
 import users from './routes/users';
 import upload from './routes/upload';
+import portfolio from './routes/portfolio';
 
 const DEFAULT_ORIGINS = [
   'https://lutfiihsan.github.io',
@@ -43,6 +44,7 @@ app.route('/api/track', track);
 app.route('/api/stats', stats);
 app.route('/api/users', users);
 app.route('/api/upload', upload);
+app.route('/api/portfolio', portfolio);
 
 app.get('/api/media/*', async (c) => {
   if (!c.env.MEDIA) return c.json({ error: 'R2 not configured' }, 503);

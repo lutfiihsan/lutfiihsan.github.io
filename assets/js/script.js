@@ -125,11 +125,28 @@ $(document).ready(function () {
 });
 
 // --- FETCH & RENDER LOGIC ---
+async function fetchPortfolioData() {
+    const apiUrl = import.meta.env.VITE_API_URL || '';
+    if (apiUrl) {
+        try {
+            const res = await fetch(`${apiUrl}/api/portfolio`);
+            if (res.ok) {
+                const data = await res.json();
+                delete data._meta;
+                return data;
+            }
+        } catch {
+            // fallback ke data.json
+        }
+    }
+    const response = await fetch('./assets/data/data.json');
+    return response.json();
+}
+
 async function fetchDataAndRender() {
     try {
-        const response = await fetch("./assets/data/data.json");
-        const data = await response.json();
-        globalPortfolioData = data; // Simpan untuk PDF Generator
+        const data = await fetchPortfolioData();
+        globalPortfolioData = data;
 
         // Simple Router based on Pathname
         // Router: matches both '/project'

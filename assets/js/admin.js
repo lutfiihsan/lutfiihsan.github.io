@@ -14,8 +14,13 @@ import {
   fetchAllUsers,
   updateUserRole,
   uploadCover,
+  uploadMedia,
   createUser,
   changePassword,
+  deleteUser,
+  fetchPortfolio,
+  savePortfolio,
+  resolveMediaUrl,
 } from './api.js';
 
 
@@ -49,11 +54,13 @@ function switchTab(tab, linkEl) {
   const postContent = document.getElementById("section-posts");
   const statsSection = document.getElementById("section-stats");
   const usersSection = document.getElementById("section-users");
+  const portfolioSection = document.getElementById("section-portfolio");
   const topbarTitle = document.querySelector(".topbar-title");
 
   if (postContent) postContent.style.display = "none";
   if (statsSection) statsSection.style.display = "none";
   if (usersSection) usersSection.style.display = "none";
+  if (portfolioSection) portfolioSection.style.display = "none";
 
   if (tab === "stats") {
     if (statsSection) statsSection.style.display = "block";
@@ -63,6 +70,10 @@ function switchTab(tab, linkEl) {
     if (usersSection) usersSection.style.display = "block";
     if (topbarTitle) topbarTitle.textContent = "User Management";
     refreshUsersTable();
+  } else if (tab === "portfolio") {
+    if (portfolioSection) portfolioSection.style.display = "block";
+    if (topbarTitle) topbarTitle.textContent = "Portfolio CMS";
+    loadPortfolioEditor();
   } else {
     if (postContent) postContent.style.display = "block";
     if (topbarTitle) topbarTitle.textContent = "Blog Posts";
@@ -90,6 +101,32 @@ function initQuillEditor() {
       ],
     },
   });
+
+  quillEditor.getModule("toolbar").addHandler("image", quillImageHandler);
+}
+
+function quillImageHandler() {
+  const input = document.createElement("input");
+  input.setAttribute("type", "file");
+  input.setAttribute("accept", "image/jpeg,image/png,image/webp,image/gif");
+  input.click();
+
+  input.onchange = async () => {
+    const file = input.files?.[0];
+    if (!file) return;
+
+    try {
+      showToast("Mengupload gambar...");
+      const result = await uploadMedia(file, "content");
+      const url = resolveMediaUrl(result.url);
+      const range = quillEditor.getSelection(true);
+      quillEditor.insertEmbed(range.index, "image", url);
+      quillEditor.setSelection(range.index + 1);
+      showToast("Gambar berhasil diupload!");
+    } catch (err) {
+      showToast(err.message || "Gagal upload gambar", "error");
+    }
+  };
 }
 
 // ── SESSION CHECK ──
@@ -477,9 +514,15 @@ async function refreshUsersTable() {
         </td>
         <td>${formatDate(u.created_at)}</td>
         <td>
-          <button class="btn-sm btn-edit" onclick="promptChangeRole('${u.id}', '${escapeHtml(u.email)}', '${u.role}')" ${u.id === currentUid ? 'disabled style="opacity:0.5;cursor:not-allowed;" title="Tidak bisa diubah"' : ''}>
-            Ubah Role
-          </button>
+          <div class="table-actions">
+            <button class="btn-sm btn-edit" onclick="promptChangeRole('${u.id}', '${escapeHtml(u.email)}', '${u.role}')" ${u.id === currentUid ? 'disabled style="opacity:0.5;cursor:not-allowed;" title="Tidak bisa diubah"' : ''}>
+              Ubah Role
+            </button>
+            ${u.id !== currentUid ? `
+            <button class="btn-sm btn-delete" onclick="handleDeleteUser('${u.id}', '${escapeHtml(u.email)}', this)">
+              <i class="fas fa-trash"></i>
+            </button>` : ''}
+          </div>
         </td>
       </tr>
     `).join("");
@@ -510,6 +553,109 @@ async function promptChangeRole(userId, email, currentRole) {
       refreshUsersTable();
     } catch (e) {
       showToast('Gagal update akses role.', 'error');
+    }
+  }
+}
+
+async function handleDeleteUser(id, email, btn) {
+  const result = await Swal.fire({
+    title: 'Hapus Pengguna?',
+    text: `Yakin hapus akun ${email}? Tindakan ini permanen.`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#e74c3c',
+    cancelButtonColor: '#667eea',
+    confirmButtonText: 'Ya, Hapus',
+    cancelButtonText: 'Batal',
+    background: '#13132a',
+    color: '#f0f0ff',
+  });
+
+  if (!result.isConfirmed) return;
+
+  btn.disabled = true;
+  try {
+    await deleteUser(id);
+    showToast('Pengguna berhasil dihapus!');
+    refreshUsersTable();
+  } catch (err) {
+    showToast(err.message || 'Gagal menghapus', 'error');
+    btn.disabled = false;
+  }
+}
+
+// ── PORTFOLIO CMS ──
+async function loadPortfolioEditor() {
+  const textarea = document.getElementById('portfolio-json');
+  const errEl = document.getElementById('portfolio-error');
+  const updatedEl = document.getElementById('portfolio-updated');
+  if (!textarea) return;
+
+  if (errEl) errEl.style.display = 'none';
+
+  try {
+    const data = await fetchPortfolio();
+    const meta = data._meta;
+    delete data._meta;
+    textarea.value = JSON.stringify(data, null, 2);
+    if (updatedEl && meta?.updated_at) {
+      updatedEl.textContent = `Terakhir diupdate: ${formatDate(meta.updated_at)} (D1)`;
+    }
+  } catch {
+    try {
+      const res = await fetch('./assets/data/data.json');
+      const data = await res.json();
+      textarea.value = JSON.stringify(data, null, 2);
+      if (updatedEl) updatedEl.textContent = 'Belum disimpan ke database — menampilkan data.json default';
+    } catch {
+      if (errEl) {
+        errEl.textContent = 'Gagal memuat data portfolio';
+        errEl.style.display = 'block';
+      }
+    }
+  }
+}
+
+async function importPortfolioDefault() {
+  try {
+    const res = await fetch('./assets/data/data.json');
+    const data = await res.json();
+    const textarea = document.getElementById('portfolio-json');
+    if (textarea) textarea.value = JSON.stringify(data, null, 2);
+    showToast('data.json dimuat ke editor. Klik Simpan untuk publish.');
+  } catch {
+    showToast('Gagal import data.json', 'error');
+  }
+}
+
+async function savePortfolioData() {
+  const textarea = document.getElementById('portfolio-json');
+  const errEl = document.getElementById('portfolio-error');
+  if (!textarea) return;
+
+  let data;
+  try {
+    data = JSON.parse(textarea.value);
+  } catch {
+    if (errEl) {
+      errEl.textContent = 'JSON tidak valid. Periksa syntax.';
+      errEl.style.display = 'block';
+    }
+    return;
+  }
+
+  try {
+    const result = await savePortfolio(data);
+    if (errEl) errEl.style.display = 'none';
+    showToast('Portfolio berhasil disimpan!');
+    const updatedEl = document.getElementById('portfolio-updated');
+    if (updatedEl && result.updated_at) {
+      updatedEl.textContent = `Terakhir diupdate: ${formatDate(result.updated_at)} (D1)`;
+    }
+  } catch (err) {
+    if (errEl) {
+      errEl.textContent = err.message || 'Gagal menyimpan';
+      errEl.style.display = 'block';
     }
   }
 }
@@ -714,6 +860,7 @@ async function showDashboard(user) {
   const userAvatar = document.getElementById("user-avatar");
   const navStats = document.getElementById("nav-stats");
   const navUsers = document.getElementById("nav-users");
+  const navPortfolio = document.getElementById("nav-portfolio");
 
   if (loginSection) loginSection.style.display = "none";
   if (dashboardSection) dashboardSection.style.display = "flex";
@@ -721,18 +868,17 @@ async function showDashboard(user) {
   if (userEmail) userEmail.textContent = user.email;
   if (userAvatar) userAvatar.textContent = (user.email || "A")[0].toUpperCase();
 
-  // Load their RBAC profile
   await fetchUserProfile();
 
-  // Apply RBAC UI Rules
   if (currentUserRole === 'admin') {
       if (navStats) navStats.style.display = 'block';
       if (navUsers) navUsers.style.display = 'block';
+      if (navPortfolio) navPortfolio.style.display = 'block';
       switchTab("stats", navStats);
   } else {
-      // Hide admin-only tabs
       if (navStats) navStats.style.display = 'none';
       if (navUsers) navUsers.style.display = 'none';
+      if (navPortfolio) navPortfolio.style.display = 'none';
       switchTab("posts", document.getElementById("nav-posts"));
   }
 
@@ -752,3 +898,6 @@ window.openAddUserModal = openAddUserModal;
 window.closeAddUserModal = closeAddUserModal;
 window.openChangePasswordModal = openChangePasswordModal;
 window.closeChangePasswordModal = closeChangePasswordModal;
+window.handleDeleteUser = handleDeleteUser;
+window.savePortfolioData = savePortfolioData;
+window.importPortfolioDefault = importPortfolioDefault;

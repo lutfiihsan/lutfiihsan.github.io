@@ -232,6 +232,31 @@
         </div>
       </div>
 
+      <!-- ══ PORTFOLIO CMS SECTION ══ -->
+      <div class="admin-content" id="section-portfolio" style="display:none;">
+        <div class="section-header">
+          <h2><i class="fas fa-briefcase"></i> Portfolio CMS</h2>
+          <div style="display:flex; gap:0.8rem;">
+            <button class="btn-sm btn-edit" onclick="importPortfolioDefault()">
+              <i class="fas fa-file-import"></i> Import data.json
+            </button>
+            <button class="btn-primary" onclick="savePortfolioData()">
+              <i class="fas fa-save"></i> Simpan
+            </button>
+          </div>
+        </div>
+        <p style="color:var(--text-muted); font-size:1.4rem; margin-bottom:1.5rem;">
+          Edit data portofolio (skills, projects, experience, dll.) dalam format JSON.
+          Setelah disimpan, website akan memuat data dari database — bukan file statis.
+        </p>
+        <p id="portfolio-updated" style="color:#667eea; font-size:1.2rem; margin-bottom:1rem;"></p>
+        <div id="portfolio-error" class="login-error" style="display:none; margin-bottom:1rem;"></div>
+        <textarea id="portfolio-json" spellcheck="false"
+          style="width:100%; min-height:520px; font-family:Consolas,monospace; font-size:1.3rem;
+          padding:1.5rem; border-radius:var(--radius); background:var(--card-bg,#13132a);
+          color:var(--text-primary,#f0f0ff); border:1px solid rgba(255,255,255,0.1); resize:vertical;"></textarea>
+      </div>
+
     </div> <!-- End of admin-main -->
   </div> <!-- End of admin-layout -->
 

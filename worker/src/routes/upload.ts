@@ -31,7 +31,8 @@ upload.post('/', requireAuth, async (c) => {
   }
 
   const ext = file.type.split('/')[1] || 'bin';
-  const key = `covers/${crypto.randomUUID()}.${ext}`;
+  const folder = (form.get('folder') as string) === 'content' ? 'content' : 'covers';
+  const key = `${folder}/${crypto.randomUUID()}.${ext}`;
 
   await c.env.MEDIA.put(key, file.stream(), {
     httpMetadata: { contentType: file.type },

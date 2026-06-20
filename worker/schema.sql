@@ -39,3 +39,9 @@ CREATE INDEX IF NOT EXISTS idx_posts_slug ON posts(slug);
 CREATE INDEX IF NOT EXISTS idx_page_views_created ON page_views(created_at);
 CREATE INDEX IF NOT EXISTS idx_page_views_page ON page_views(page);
 CREATE INDEX IF NOT EXISTS idx_page_views_session ON page_views(session_id);
+
+CREATE TABLE IF NOT EXISTS portfolio (
+  id TEXT PRIMARY KEY DEFAULT 'main',
+  data TEXT NOT NULL,
+  updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+);

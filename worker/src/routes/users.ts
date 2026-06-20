@@ -72,4 +72,30 @@ users.patch('/:id/role', requireAuth, requireAdmin, async (c) => {
   return c.json({ ok: true });
 });
 
+users.delete('/:id', requireAuth, requireAdmin, async (c) => {
+  const id = c.req.param('id');
+  const currentUser = c.get('user');
+
+  if (id === currentUser.sub) {
+    return c.json({ error: 'Tidak bisa menghapus akun sendiri' }, 400);
+  }
+
+  const admins = await c.env.DB.prepare(
+    "SELECT COUNT(*) as n FROM users WHERE role = 'admin'"
+  ).first<{ n: number }>();
+
+  const target = await c.env.DB.prepare('SELECT role FROM users WHERE id = ?')
+    .bind(id)
+    .first<{ role: string }>();
+
+  if (!target) return c.json({ error: 'User tidak ditemukan' }, 404);
+
+  if (target.role === 'admin' && (admins?.n ?? 0) <= 1) {
+    return c.json({ error: 'Tidak bisa menghapus admin terakhir' }, 400);
+  }
+
+  await c.env.DB.prepare('DELETE FROM users WHERE id = ?').bind(id).run();
+  return c.json({ ok: true });
+});
+
 export default users;

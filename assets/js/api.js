@@ -162,6 +162,10 @@ export async function createUser(email, password, role = 'editor') {
   });
 }
 
+export async function deleteUser(id) {
+  return request(`/users/${id}`, { method: 'DELETE' });
+}
+
 export async function changePassword(currentPassword, newPassword) {
   return request('/auth/change-password', {
     method: 'POST',
@@ -173,8 +177,25 @@ export async function changePassword(currentPassword, newPassword) {
 }
 
 // ── UPLOAD (R2) ──
-export async function uploadCover(file) {
+export async function uploadMedia(file, folder = 'covers') {
   const form = new FormData();
   form.append('file', file);
+  form.append('folder', folder);
   return request('/upload', { method: 'POST', body: form });
+}
+
+export async function uploadCover(file) {
+  return uploadMedia(file, 'covers');
+}
+
+// ── PORTFOLIO CMS ──
+export async function fetchPortfolio() {
+  return request('/portfolio');
+}
+
+export async function savePortfolio(data) {
+  return request('/portfolio', {
+    method: 'PUT',
+    body: JSON.stringify(data),
+  });
 }
