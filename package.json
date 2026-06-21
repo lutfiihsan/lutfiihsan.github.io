@@ -3,10 +3,12 @@
   "version": "2.0.0",
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "dev": "node scripts/dev.mjs",
+    "dev:site": "astro dev",
+    "dev:admin": "vite --config vite.admin.config.js",
     "dev:api": "wrangler dev",
-    "build": "vite build",
-    "preview": "vite preview",
+    "build": "astro build && vite build --config vite.admin.config.js",
+    "preview": "astro preview",
     "deploy:api": "wrangler deploy",
     "deploy:pages": "npm run build",
     "db:migrate": "wrangler d1 execute myporto-db --local --file=./worker/schema.sql",
@@ -18,6 +20,7 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250214.0",
     "@vitejs/plugin-react": "^6.0.2",
+    "astro": "^6.4.8",
     "hono": "^4.7.4",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",

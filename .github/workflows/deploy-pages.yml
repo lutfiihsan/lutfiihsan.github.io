@@ -33,9 +33,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build with Vite
+      - name: Build site (Astro) and admin (Vite)
         env:
-          # URL Worker API Cloudflare, contoh: https://myporto-api.account.workers.dev
+          PUBLIC_API_URL: ${{ secrets.VITE_API_URL }}
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
         run: npm run build
 

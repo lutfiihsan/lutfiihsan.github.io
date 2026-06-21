@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Halaman Tidak Ditemukan | Lutfi Ihsan" extraCss={['/assets/css/404.css']} disableContextMenu={true}>
+  <section
+    class="page_404"
+    style="padding: 10rem 2rem; text-align: center; background: var(--bg-dark); min-height: 80vh; display: flex; align-items: center; justify-content: center;"
+  >
+    <div class="container">
+      <div class="error-wrapper">
+        <h1
+          style="font-size: 12rem; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 2rem;"
+        >
+          404
+        </h1>
+      </div>
+
+      <div class="msg" style="color: var(--text-light);">
+        <h3 style="font-size: 2.5rem; margin-bottom: 1.5rem;">Oops! Kamu tersesat?</h3>
+        <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 3rem;">
+          Halaman yang kamu cari tidak tersedia atau telah dipindahkan.
+        </p>
+
+        <div class="backbtn">
+          <a
+            href="/"
+            class="btn"
+            style="padding: 1.2rem 2.5rem; background: var(--gradient-primary); color: #fff; border-radius: 50px; text-decoration: none; display: inline-flex; align-items: center; gap: 1rem; transition: all 0.3s ease;"
+          >
+            <i class="fas fa-arrow-left"></i>
+            <span>Kembali ke Home</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Fragment slot="after-scripts">
+    <script type="module" src="/assets/js/404.js"></script>
+  </Fragment>
+</BaseLayout>

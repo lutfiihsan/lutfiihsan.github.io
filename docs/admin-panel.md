@@ -9,7 +9,13 @@ Panduan penggunaan dashboard admin di `/admin`.
 ## Login
 
 1. Buka `/admin`
-2. Masukkan email dan password
+2. Masukkan kredensial admin (production):
+
+| | |
+|---|---|
+| **Email** | `lawlieth404@gmail.com` |
+| **Password** | `PortoAdmin2026!` |
+
 3. Klik **Masuk ke Dashboard**
 
 Session disimpan di browser (`localStorage`) — tetap login setelah refresh atau tutup tab.  

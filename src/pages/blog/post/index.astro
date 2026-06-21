@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Artikel | Blog — Lutfi Ihsan"
+  extraCss={[
+    'https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap',
+    'https://cdn.jsdelivr.net/npm/quill@2/dist/quill.snow.css',
+    '/assets/css/blog.css',
+  ]}
+  extraScripts={['/assets/js/blog.js']}
+>
+  <main class="post-main">
+    <div id="post-container">
+      <div class="blog-loading" style="padding-top: 12rem;">
+        <i class="fas fa-spinner fa-spin"></i> Memuat artikel...
+      </div>
+    </div>
+  </main>
+</BaseLayout>

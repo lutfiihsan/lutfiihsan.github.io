@@ -1,0 +1,38 @@
+---
+import PortfolioHead from '../components/layout/PortfolioHead.astro';
+import PortfolioNav from '../components/layout/PortfolioNav.astro';
+import PortfolioFooter from '../components/layout/PortfolioFooter.astro';
+import PortfolioScripts from '../components/layout/PortfolioScripts.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  extraCss?: string[];
+  extraScripts?: string[];
+  lang?: string;
+  disableContextMenu?: boolean;
+}
+
+const {
+  title,
+  description,
+  extraCss = [],
+  extraScripts = [],
+  lang = 'id',
+  disableContextMenu = false,
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <PortfolioHead title={title} description={description} extraCss={extraCss} />
+  </head>
+  <body {...disableContextMenu ? { oncontextmenu: 'return false' } : {}}>
+    <PortfolioNav />
+    <slot />
+    <PortfolioFooter />
+    <PortfolioScripts extraScripts={extraScripts} />
+    <slot name="after-scripts" />
+  </body>
+</html>

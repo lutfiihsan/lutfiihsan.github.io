@@ -6,6 +6,17 @@ Website portofolio profesional dengan blog terintegrasi, CMS admin, statistik pe
 **Admin:** [lutfiihsan.github.io/admin](https://lutfiihsan.github.io/admin)  
 **API:** `https://myporto-api.lawlieth404.workers.dev`
 
+### Akun Admin (production)
+
+| | |
+|---|---|
+| **URL** | [lutfiihsan.github.io/admin](https://lutfiihsan.github.io/admin) |
+| **Email** | `lawlieth404@gmail.com` |
+| **Password** | `PortoAdmin2026!` |
+| **Role** | Admin |
+
+> Ganti password setelah login pertama lewat menu **Ganti Password** di dashboard.
+
 ---
 
 ## Fitur
@@ -25,8 +36,8 @@ Website portofolio profesional dengan blog terintegrasi, CMS admin, statistik pe
 
 | Layer | Teknologi |
 |-------|-----------|
-| Frontend | HTML, CSS, JavaScript (ES Modules), React (admin only) |
-| Build | Vite 8 + `@vitejs/plugin-react` |
+| Frontend | Astro 6 (site) + React (admin) |
+| Build | Astro (site) + Vite (admin panel) |
 | API | Cloudflare Workers + Hono 4 |
 | Database | Cloudflare D1 (SQLite) |
 | Storage | Cloudflare R2 |
@@ -47,11 +58,15 @@ npm run db:migrate               # skema D1 lokal
 # Terminal 1
 npm run dev:api
 
-# Terminal 2
+# Terminal 2 — site (Astro)
 npm run dev
+
+# Terminal 3 — admin (opsional, port 5173)
+npm run dev:admin
 ```
 
-- Frontend: `http://localhost:5173` (proxy `/api` → Worker)
+- Site: `http://localhost:4321` (proxy `/api` → Worker, `/admin` → admin dev)
+- Admin langsung: `http://localhost:5173/admin/`
 - API: `http://localhost:8787`
 
 Buat admin pertama (hanya sekali, saat belum ada user):
@@ -68,9 +83,10 @@ curl -X POST http://localhost:8787/api/auth/setup \
 
 | Perintah | Fungsi |
 |----------|--------|
-| `npm run dev` | Vite dev server (frontend) |
+| `npm run dev` | Astro dev server (site publik) |
+| `npm run dev:admin` | Vite dev server (admin panel) |
 | `npm run dev:api` | Wrangler dev (Worker API) |
-| `npm run build` | Build production → `dist/` |
+| `npm run build` | Build Astro → `dist/` + admin → `dist/admin/` |
 | `npm run deploy:api` | Deploy Worker ke Cloudflare |
 | `npm run db:migrate` | Migrasi D1 lokal |
 | `npm run db:migrate:remote` | Migrasi D1 production |
@@ -83,26 +99,28 @@ curl -X POST http://localhost:8787/api/auth/setup \
 
 ```text
 myporto/
-├── index.html, blog.html, admin.html   # Entry pages
-├── partials/                           # HTML components (vite-plugin-html-inject)
-├── assets/
-│   ├── css/                            # Styles (style.css, admin.css, admin-premium.css)
-│   ├── js/                             # api.js, script.js, blog.js, stats.js
-│   └── data/data.json                  # Fallback portfolio data
-├── admin-src/                          # React admin panel
-│   ├── components/                     # Dashboard, PostsTab, UsersTab, ...
-│   ├── context/AuthContext.jsx
-│   └── lib/                            # toast, format, apiError
-├── worker/
-│   ├── src/                            # Hono API routes
-│   │   ├── index.ts
-│   │   ├── jwt.ts                      # Sign/verify JWT (HS256)
-│   │   ├── middleware.ts
-│   │   └── routes/                     # auth, posts, users, stats, ...
-│   └── schema.sql                      # Skema D1
-├── wrangler.toml                       # Konfigurasi Cloudflare Worker
-├── .github/workflows/                  # CI/CD GitHub Pages + Worker
-└── docs/                               # Dokumentasi lengkap
+├── src/                          # Site publik (Astro)
+│   ├── pages/                    # Route: /, /blog/, /project/, /404
+│   ├── layouts/BaseLayout.astro
+│   ├── components/layout/        # Head, Nav, Footer, Scripts
+│   └── content/home.html         # Konten landing (HTML mentah)
+├── admin/                        # Admin panel (React + Vite)
+│   ├── index.html                # Entry build admin
+│   ├── partials/                 # HTML inject (head, dll.)
+│   └── src/                      # React components & context
+├── public/assets/                # Static files (satu sumber kebenaran)
+│   ├── css/                      # style, blog, admin, 404
+│   ├── js/                       # api, script, blog, stats, tracker
+│   ├── images/
+│   └── data/data.json            # Fallback portfolio
+├── worker/                       # Cloudflare Worker API (Hono)
+├── database/                     # Skema SQL referensi
+├── scripts/                      # sync-portfolio, setup-cloudflare, ...
+├── legacy/vite-site/             # HTML lama (pre-Astro, arsip)
+├── docs/                         # Dokumentasi lengkap
+├── astro.config.mjs
+├── vite.admin.config.js
+└── wrangler.toml
 ```
 
 ---
@@ -118,7 +136,7 @@ myporto-api.*.workers.dev     →  Cloudflare Worker (API + D1 + R2)
 
 Push ke `master`/`main` memicu:
 
-- **GitHub Pages** — build Vite + deploy frontend (`deploy-pages.yml`)
+- **GitHub Pages** — build Astro + admin Vite (`deploy-pages.yml`)
 - **Cloudflare Worker** — deploy API jika `worker/` berubah (`deploy-api.yml`)
 
 GitHub Secrets yang diperlukan:

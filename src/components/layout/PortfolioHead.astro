@@ -1,0 +1,40 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  extraCss?: string[];
+}
+
+const { title, description, extraCss = [] } = Astro.props;
+const apiUrl =
+  import.meta.env.PUBLIC_API_URL ||
+  import.meta.env.VITE_API_URL ||
+  'https://myporto-api.lawlieth404.workers.dev';
+---
+
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="author" content="Lutfi Ihsan" />
+<meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#02094b" />
+{description && <meta name="description" content={description} />}
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+<link rel="stylesheet" href="/assets/css/style.css" />
+{extraCss.map((href) => <link rel="stylesheet" href={href} />)}
+<link id="favicon" rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-png" />
+
+<script is:inline define:vars={{ apiUrl }}>
+  window.__PORTO_API_URL__ = apiUrl;
+</script>
+
+<title>{title}</title>

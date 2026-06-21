@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import homeContent from '../content/home.html?raw';
+
+const html = homeContent
+  .replaceAll('./assets/', '/assets/')
+  .replaceAll('â€"', '—');
+---
+
+<BaseLayout
+  title="Lutfi Ihsan | Full Stack Developer & SysAdmin Portfolio"
+  description="Portfolio profesional Lutfi Ihsan — Full Stack Developer & SysAdmin dengan pengalaman 7+ tahun."
+  lang="en"
+>
+  <main id="main-content" set:html={html} />
+</BaseLayout>
