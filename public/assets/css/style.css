@@ -2782,18 +2782,20 @@ header .navbar ul li a.active {
 
 .repos-subtitle {
   text-align: center;
-  font-size: 1.5rem;
-  color: #666;
-  margin: 0.5rem 0 3rem;
+  font-size: 1.55rem;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.6;
+  margin: 1rem auto 3.5rem;
+  max-width: 640px;
+  padding: 0 2rem;
 }
 .repos-subtitle a {
-  color: #420177;
-  font-weight: 700;
+  color: #4dabff;
+  font-weight: 600;
   text-decoration: none;
-  transition: color 0.2s ease;
 }
 .repos-subtitle a:hover {
-  color: #0066ff;
+  color: #7cc4ff;
 }
 
 .repos-grid {

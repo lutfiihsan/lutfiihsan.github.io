@@ -175,96 +175,85 @@ async function fetchDataAndRender() {
     }
 }
 
-function renderSkills(skills) {
-    // Warna accent per kategori
-    const categoryColors = {
-        'BACKEND':  { gradient: 'linear-gradient(135deg, #667eea, #764ba2)', light: 'rgba(102,126,234,0.08)', border: 'rgba(102,126,234,0.25)' },
-        'FRONTEND': { gradient: 'linear-gradient(135deg, #f093fb, #f5576c)', light: 'rgba(245,87,108,0.07)', border: 'rgba(245,87,108,0.2)' },
-        'DATABASE': { gradient: 'linear-gradient(135deg, #4facfe, #00f2fe)', light: 'rgba(79,172,254,0.07)', border: 'rgba(79,172,254,0.2)' },
-        'DEVOPS':   { gradient: 'linear-gradient(135deg, #43e97b, #38f9d7)', light: 'rgba(67,233,123,0.07)', border: 'rgba(67,233,123,0.2)' },
-        'SECURITY': { gradient: 'linear-gradient(135deg, #fa709a, #fee140)', light: 'rgba(250,112,154,0.07)', border: 'rgba(250,112,154,0.2)' },
-        'MOBILE':   { gradient: 'linear-gradient(135deg, #a18cd1, #fbc2eb)', light: 'rgba(161,140,209,0.07)', border: 'rgba(161,140,209,0.2)' },
-        'TOOLS':    { gradient: 'linear-gradient(135deg, #6dd5ed, #2193b0)', light: 'rgba(109,213,237,0.07)', border: 'rgba(109,213,237,0.2)' },
-        'APPROACH': { gradient: 'linear-gradient(135deg, #a1c4fd, #c2e9fb)', light: 'rgba(161,196,253,0.07)', border: 'rgba(161,196,253,0.2)' },
+function formatSkillCategoryLabel(category) {
+    const labels = {
+        'BACKEND': 'Backend',
+        'FRONTEND': 'Frontend',
+        'DATABASE': 'Database',
+        'DEVOPS & INFRA': 'DevOps',
+        'GIS & DATA': 'GIS & Data',
+        'MOBILE': 'Mobile',
+        'TOOLS': 'Tools',
+        'APPROACH': 'Approach',
+        'SECURITY': 'Security',
     };
-    const VISIBLE_LIMIT = 5;
+    return labels[category] || category;
+}
 
-    let html = '';
-    skills.forEach((cat, catIdx) => {
-        const colors = categoryColors[cat.category] || { gradient: 'linear-gradient(135deg, #e0e0e0, #bdbdbd)', light: 'rgba(0,0,0,0.03)', border: 'rgba(0,0,0,0.1)' };
-        const hasMore = cat.items.length > VISIBLE_LIMIT;
-        const hiddenCount = cat.items.length - VISIBLE_LIMIT;
+function renderSkillsPanel(skills, activeIdx) {
+    const panel = document.getElementById('skills-panel');
+    if (!panel || !skills[activeIdx]) return;
 
-        let itemsHtml = '';
-        cat.items.forEach((item, idx) => {
-            let visual = '';
-            if (item.img) {
-                visual = `<img src="${item.img}" alt="${item.name}" class="skill-chip-img" loading="lazy">`;
-            } else {
-                let style = item.style ? ` style="${item.style}"` : '';
-                visual = `<i class="${item.icon}" aria-hidden="true"${style}></i>`;
-            }
-            const isHidden = idx >= VISIBLE_LIMIT ? ' chip-hidden' : '';
-            itemsHtml += `
-            <span class="skill-chip${item.learning ? ' skill-chip-learning' : ''}${isHidden}" title="${item.name}">
-                <span class="skill-chip-icon">${visual}</span>
-                <span class="skill-chip-name">${item.name}</span>${item.learning ? '<span class="learning-badge">Learning</span>' : ''}
-            </span>`;
-        });
-
-        const expandBtn = hasMore ? `
-            <button class="chip-expand-btn" aria-expanded="false"
-                onclick="toggleSkillCard(this)"
-                data-hidden-count="${hiddenCount}">
-                <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                <span>+${hiddenCount} more</span>
-            </button>` : '';
-
-        html += `
-        <div class="skill-card">
-            <div class="skill-card-accent" style="background:${colors.gradient}"></div>
-            <div class="skill-card-header">
-                <div class="skill-card-icon" style="background:${colors.gradient}">
-                    <i class="${cat.icon}" aria-hidden="true"></i>
-                </div>
-                <h3 class="skill-card-title">${cat.category}</h3>
-                <span class="skill-card-count">${cat.items.length} skills</span>
-            </div>
-            <div class="skill-chips" style="--chip-border:${colors.border}; --chip-bg:${colors.light}">
-                ${itemsHtml}
-            </div>
-            ${expandBtn}
+    const cat = skills[activeIdx];
+    const itemsHtml = cat.items.map(item => {
+        let visual = '';
+        if (item.img) {
+            visual = `<img src="${item.img}" alt="" class="skill-compact-img" loading="lazy">`;
+        } else {
+            const style = item.style ? ` style="${item.style}"` : '';
+            visual = `<i class="${item.icon}" aria-hidden="true"${style}></i>`;
+        }
+        const learning = item.learning ? '<span class="skill-learning-dot" title="Sedang dipelajari"></span>' : '';
+        return `
+        <div class="skill-compact-item" title="${item.name}">
+            <div class="skill-compact-icon">${visual}</div>
+            <span class="skill-compact-name">${item.name}</span>
+            ${learning}
         </div>`;
-    });
+    }).join('');
 
+    panel.innerHTML = `
+        <div class="skills-panel-head">
+            <div class="skills-panel-icon"><i class="${cat.icon}" aria-hidden="true"></i></div>
+            <h3 class="skills-panel-title">${formatSkillCategoryLabel(cat.category)}</h3>
+            <span class="skills-panel-count">${cat.items.length} skills</span>
+        </div>
+        <div class="skills-compact-grid">${itemsHtml}</div>
+    `;
+}
+
+function filterSkills(idx, btn) {
+    document.querySelectorAll('.skills-filter-btn').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+    });
+    btn.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
+    if (window.__skillsData) renderSkillsPanel(window.__skillsData, idx);
+}
+
+function renderSkills(skills) {
     const container = document.getElementById('skills-grid');
     if (!container) return;
-    container.innerHTML = html;
+
+    window.__skillsData = skills;
+
+    const filterHtml = skills.map((cat, i) => `
+        <button type="button" class="skills-filter-btn${i === 0 ? ' active' : ''}" role="tab"
+            aria-selected="${i === 0}" data-cat-idx="${i}" onclick="filterSkills(${i}, this)">
+            ${formatSkillCategoryLabel(cat.category)}
+        </button>
+    `).join('');
+
+    container.innerHTML = `
+        <div class="skills-filter" role="tablist">${filterHtml}</div>
+        <div class="skills-panel" id="skills-panel" role="tabpanel"></div>
+    `;
+
+    renderSkillsPanel(skills, 0);
 }
 
-function toggleSkillCard(btn) {
-    const card = btn.closest('.skill-card');
-    const hiddenChips = card.querySelectorAll('.chip-hidden, .chip-visible-extra');
-    const isExpanded = btn.getAttribute('aria-expanded') === 'true';
-    const hiddenCount = btn.dataset.hiddenCount;
-
-    if (isExpanded) {
-        hiddenChips.forEach(chip => {
-            chip.classList.remove('chip-visible-extra');
-            chip.classList.add('chip-hidden');
-        });
-        btn.setAttribute('aria-expanded', 'false');
-        btn.innerHTML = `<i class="fas fa-chevron-down" aria-hidden="true"></i><span>+${hiddenCount} more</span>`;
-    } else {
-        hiddenChips.forEach(chip => {
-            chip.classList.remove('chip-hidden');
-            chip.classList.add('chip-visible-extra');
-        });
-        btn.setAttribute('aria-expanded', 'true');
-        btn.innerHTML = `<i class="fas fa-chevron-up" aria-hidden="true"></i><span>Show less</span>`;
-    }
-}
-window.toggleSkillCard = toggleSkillCard;
+window.filterSkills = filterSkills;
 
 
 function renderProjects(projects) {
@@ -417,99 +406,92 @@ function renderExperience(experiences) {
     const container = document.getElementById("experience-container");
     if (!container) return;
 
-    // Create the Tab Layout Structure
-    let sidebarHtml = "";
-    let contentHtml = "";
-
-    experiences.forEach((exp, index) => {
-        const isActive = index === 0 ? "active" : "";
-        const expId = `exp-${index}`;
-
-        // Sidebar Tab button
-        sidebarHtml += `<button class="exp-tab ${isActive}" onclick="switchExperienceTab('${expId}', this)">
-            <span>${exp.company}</span>
-        </button>`;
-
-        // Content Panel Detail
+    const cardsHtml = experiences.map(exp => {
         let techHtml = "";
         if (exp.tech && exp.tech.length) {
-            techHtml = `<div class="exp-tech">${exp.tech.map(t => `<span class="tech-badge">${t}</span>`).join("")}</div>`;
+            techHtml = `<div class="tech-stack">${exp.tech.map(t => `<span class="tech-tag">${t}</span>`).join("")}</div>`;
         }
 
         let metaHtml = "";
         if (exp.location || exp.employmentType) {
-            let locPart = exp.location ? `<span><i class="fas fa-map-marker-alt"></i> ${exp.location}</span>` : "";
-            let typePart = exp.employmentType ? `<span><i class="fas fa-briefcase"></i> ${exp.employmentType}</span>` : "";
-            metaHtml = `<div class="exp-meta-tabs">${locPart}${typePart}</div>`;
+            const loc = exp.location ? `<span><i class="fas fa-map-marker-alt"></i> ${exp.location}</span>` : "";
+            const type = exp.employmentType ? `<span><i class="fas fa-briefcase"></i> ${exp.employmentType}</span>` : "";
+            metaHtml = `<div class="exp-card-meta">${loc}${type}</div>`;
         }
 
-        let innerContent = "";
+        let bodyHtml = "";
         if (exp.isGrouped && exp.roles) {
-            innerContent = exp.roles.map((role, rIndex) => {
-                let tasksHtml = role.tasks.map(task => `<li><i class="fas fa-check-circle"></i> ${task}</li>`).join("");
+            bodyHtml = exp.roles.map(role => {
+                const tasksHtml = role.tasks.map(task => `<li><i class="fas fa-chevron-right"></i> ${task}</li>`).join("");
                 return `
-                <div class="exp-role-group">
-                    <div class="role-header-tabs">
+                <div class="exp-role-block">
+                    <div class="exp-role-head">
                         <h4>${role.title}</h4>
-                        <span class="role-period-tabs">${role.period}</span>
+                        <span class="exp-role-period">${role.period}</span>
                     </div>
-                    <ul class="exp-tasks-tabs">${tasksHtml}</ul>
+                    <ul class="exp-tasks">${tasksHtml}</ul>
                 </div>`;
             }).join("");
         } else {
-            let tasksHtml = exp.tasks.map(task => `<li><i class="fas fa-check-circle"></i> ${task}</li>`).join("");
-            innerContent = `
-            <div class="exp-role-group">
-                <div class="role-header-tabs">
+            const tasksHtml = (exp.tasks || []).map(task => `<li><i class="fas fa-chevron-right"></i> ${task}</li>`).join("");
+            bodyHtml = `
+            <div class="exp-role-block">
+                <div class="exp-role-head">
                     <h4>${exp.role}</h4>
-                    <span class="role-period-tabs">${exp.period}</span>
                 </div>
-                <ul class="exp-tasks-tabs">${tasksHtml}</ul>
+                <ul class="exp-tasks">${tasksHtml}</ul>
             </div>`;
         }
 
-        contentHtml += `
-        <div class="exp-panel ${isActive}" id="${expId}">
-            <div class="exp-panel-header">
+        return `
+        <article class="exp-card" role="listitem">
+            <div class="exp-card-header">
                 <h3>${exp.company}</h3>
-                <p class="exp-total-period">${exp.period}</p>
-                ${metaHtml}
+                <span class="exp-card-period">${exp.period}</span>
             </div>
-            <div class="exp-panel-body">
-                ${innerContent}
-                ${techHtml}
-            </div>
-        </div>`;
-    });
+            ${metaHtml}
+            ${bodyHtml}
+            ${techHtml}
+        </article>`;
+    }).join("");
 
-    container.innerHTML = `
-        <div class="exp-tabs-layout">
-            <div class="exp-tabs-sidebar">
-                ${sidebarHtml}
-                <div class="active-indicator"></div>
-            </div>
-            <div class="exp-tabs-content">
-                ${contentHtml}
-            </div>
-        </div>
-    `;
+    container.innerHTML = `<div class="exp-timeline">${cardsHtml}</div>`;
+}
 
-    // Expose switch function to window
-    window.switchExperienceTab = function(id, btn) {
-        // Toggle Buttons
-        document.querySelectorAll('.exp-tab').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        // Toggle Panels
-        document.querySelectorAll('.exp-panel').forEach(p => p.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-
-        // Move active indicator (desktop)
-        const indicator = document.querySelector('.active-indicator');
-        if (indicator && window.innerWidth > 768) {
-            indicator.style.top = `${btn.offsetTop}px`;
-        }
+function renderRepoCard(repo, featured = false) {
+    const langColors = {
+        'JavaScript': '#f1e05a',
+        'PHP': '#4F5D95',
+        'Blade': '#f7523f',
+        'TypeScript': '#2b7489',
+        'Python': '#3572A5',
+        'Go': '#00ADD8'
     };
+    const color = repo.languageColor || langColors[repo.language] || '#8b949e';
+    const langDot = repo.language
+        ? `<span class="lang-dot" style="background:${color}" aria-hidden="true"></span><span>${repo.language}</span>`
+        : '';
+    const stars = `<span><i class="fas fa-star" aria-hidden="true"></i> ${repo.stars}</span>`;
+    const forks = `<span><i class="fas fa-code-branch" aria-hidden="true"></i> ${repo.forks}</span>`;
+    const cta = featured
+        ? `<a href="${repo.url}" target="_blank" rel="noopener noreferrer" class="repo-cta">View on GitHub <i class="fas fa-external-link-alt"></i></a>`
+        : '';
+
+    return `
+    <article class="repo-card${featured ? ' repo-card--featured' : ''}" role="listitem">
+        ${featured ? '<span class="repo-featured-label"><i class="fas fa-star"></i> Featured</span>' : ''}
+        <div class="repo-header">
+            <i class="fab fa-github" aria-hidden="true"></i>
+            <a href="${repo.url}" target="_blank" rel="noopener noreferrer" class="repo-name">${repo.name}</a>
+            <span class="repo-visibility">Public</span>
+        </div>
+        <p class="repo-desc">${repo.description}</p>
+        <div class="repo-footer">
+            <div class="repo-lang">${langDot}</div>
+            <div class="repo-stats">${stars}${forks}</div>
+        </div>
+        ${cta}
+    </article>`;
 }
 
 function renderGithubRepos(repos) {
@@ -520,35 +502,13 @@ function renderGithubRepos(repos) {
         return;
     }
 
-    const langColors = {
-        'JavaScript': '#f1e05a',
-        'PHP': '#4F5D95',
-        'Blade': '#f7523f',
-        'TypeScript': '#2b7489',
-        'Python': '#3572A5',
-        'Go': '#00ADD8'
-    };
-
-    let html = repos.map(repo => {
-        const color = repo.languageColor || langColors[repo.language] || '#8b949e';
-        const langDot = repo.language ? `<span class="lang-dot" style="background:${color}" aria-hidden="true"></span><span>${repo.language}</span>` : '';
-        const stars = `<span><i class="fas fa-star" aria-hidden="true"></i> ${repo.stars}</span>`;
-        const forks = `<span><i class="fas fa-code-branch" aria-hidden="true"></i> ${repo.forks}</span>`;
-        return `
-        <article class="repo-card" role="listitem">
-            <div class="repo-header">
-                <i class="fas fa-book-open" aria-hidden="true"></i>
-                <a href="${repo.url}" target="_blank" rel="noopener noreferrer" class="repo-name">${repo.name}</a>
-                <span class="repo-visibility">Public</span>
-            </div>
-            <p class="repo-desc">${repo.description}</p>
-            <div class="repo-footer">
-                <div class="repo-lang">${langDot}</div>
-                <div class="repo-stats">${stars}${forks}</div>
-            </div>
-        </article>`;
-    }).join("");
-    container.innerHTML = html;
+    const [featured, ...rest] = repos;
+    container.innerHTML = `
+        <div class="repos-layout">
+            <div class="repo-featured">${renderRepoCard(featured, true)}</div>
+            <div class="repos-grid">${rest.map(r => renderRepoCard(r)).join("")}</div>
+        </div>
+    `;
 }
 
 function renderCertifications(certs) {
@@ -556,7 +516,7 @@ function renderCertifications(certs) {
     certs.forEach(cert => {
         let credHtml = cert.id ? `<p class="credential-id">ID: ${cert.id}</p>` : "";
         html += `
-        <div class="box">
+        <div class="box cert-card">
             <i class="fas fa-certificate icon"></i>
             <div class="content">
                 <h3>${cert.name}</h3>
@@ -622,7 +582,7 @@ function initViewMoreLogic() {
     });
 
     // Certifications
-    const certItems = $('.certifications .box-container .box');
+    const certItems = $('.certifications .cert-card, .certifications .box-container .box');
     const viewMoreCertsBtn = $('#viewMoreCerts');
     const certsToShow = 3; 
     if (certItems.length > certsToShow) {
@@ -986,8 +946,10 @@ function initScrollReveal() {
     srtop.reveal('.skills .container', { interval: 200 });
     srtop.reveal('.education .box', { interval: 200 });
     srtop.reveal('.work .box', { interval: 200 });
-    srtop.reveal('.experience .timeline', { delay: 400 });
-    srtop.reveal('.experience .timeline .container', { interval: 400 });
+    srtop.reveal('.exp-card', { interval: 150, origin: 'left', distance: '40px' });
+    srtop.reveal('.skill-compact-item', { interval: 40, origin: 'bottom', distance: '20px' });
+    srtop.reveal('.repo-card', { interval: 100, origin: 'bottom', distance: '30px' });
+    srtop.reveal('.cert-card', { interval: 120 });
     srtop.reveal('.award-card', { interval: 150, origin: 'bottom', distance: '40px' });
     srtop.reveal('.contact .container', { delay: 400 });
 }
