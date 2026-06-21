@@ -7,7 +7,7 @@
     "dev:site": "astro dev",
     "dev:admin": "vite --config vite.admin.config.js",
     "dev:api": "wrangler dev",
-    "build": "astro build && vite build --config vite.admin.config.js",
+    "build": "astro build && node scripts/copy-sitemap.mjs && vite build --config vite.admin.config.js",
     "preview": "astro preview",
     "deploy:api": "wrangler deploy",
     "deploy:pages": "npm run build",

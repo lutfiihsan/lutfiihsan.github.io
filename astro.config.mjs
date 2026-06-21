@@ -16,7 +16,6 @@ export default defineConfig({
   },
   redirects: {
     '/admin': '/admin/',
-    '/sitemap.xml': '/sitemap-index.xml',
     '/blog-post': '/blog/post/',
     '/blog.html': '/blog/',
     '/project.html': '/project/',
