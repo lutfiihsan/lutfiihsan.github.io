@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import homeContent from '../content/home.html?raw';
+import { PERSON_JSON_LD, SITE, WEBSITE_JSON_LD } from '../lib/site';
 
 const html = homeContent
   .replaceAll('./assets/', '/assets/')
@@ -8,9 +9,11 @@ const html = homeContent
 ---
 
 <BaseLayout
-  title="Lutfi Ihsan | Full Stack Developer & SysAdmin Portfolio"
-  description="Portfolio profesional Lutfi Ihsan — Full Stack Developer & SysAdmin dengan pengalaman 7+ tahun."
+  title={SITE.title}
+  description={SITE.defaultDescription}
+  canonical="/"
   lang="en"
+  jsonLd={[PERSON_JSON_LD, WEBSITE_JSON_LD]}
 >
   <main id="main-content" set:html={html} />
 </BaseLayout>

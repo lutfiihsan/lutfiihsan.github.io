@@ -1097,8 +1097,35 @@ function renderProjectDetail(projects) {
 
     container.innerHTML = html;
 
-    
-    document.title = `${project.title} | Project Detail`;
+    const projTitle = `${project.title} | Project — Lutfi Ihsan`;
+    const projDesc = (project.fullDesc || project.desc || project.title).replace(/<[^>]+>/g, '').slice(0, 160);
+    const projUrl = `${window.location.origin}/project/?slug=${encodeURIComponent(project.id)}`;
+    const projImage = project.image?.startsWith('http')
+        ? project.image
+        : `${window.location.origin}${project.image?.startsWith('/') ? project.image : `/${project.image || ''}`}`;
+
+    document.title = projTitle;
+
+    function setMeta(name, content, attr = 'name') {
+        if (!content) return;
+        let el = document.querySelector(`meta[${attr}="${name}"]`);
+        if (!el) {
+            el = document.createElement('meta');
+            el.setAttribute(attr, name);
+            document.head.appendChild(el);
+        }
+        el.setAttribute('content', content);
+    }
+
+    setMeta('description', projDesc);
+    setMeta('og:title', projTitle, 'property');
+    setMeta('og:description', projDesc, 'property');
+    setMeta('og:url', projUrl, 'property');
+    setMeta('og:type', 'article', 'property');
+    if (projImage) setMeta('og:image', projImage, 'property');
+
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.href = projUrl;
 
     // Re-init vanilla tilt explicitly
     if (typeof VanillaTilt !== 'undefined') {

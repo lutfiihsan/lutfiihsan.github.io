@@ -1,15 +1,22 @@
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 const apiUrl = process.env.PUBLIC_API_URL || process.env.VITE_API_URL || '';
 
 export default defineConfig({
   site: 'https://lutfiihsan.github.io',
   output: 'static',
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes('/404'),
+    }),
+  ],
   build: {
     format: 'directory',
   },
   redirects: {
     '/admin': '/admin/',
+    '/sitemap.xml': '/sitemap-index.xml',
     '/blog-post': '/blog/post/',
     '/blog.html': '/blog/',
     '/project.html': '/project/',

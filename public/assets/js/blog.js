@@ -3,6 +3,67 @@
 // ============================================================
 import { fetchPublishedPosts, fetchPostBySlug, resolveMediaUrl } from './api.js';
 
+const SITE_ORIGIN = window.location.origin;
+
+function setMeta(name, content, attr = 'name') {
+    if (!content) return;
+    let el = document.querySelector(`meta[${attr}="${name}"]`);
+    if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute(attr, name);
+        document.head.appendChild(el);
+    }
+    el.setAttribute('content', content);
+}
+
+function updatePostSeo(post) {
+    const title = `${post.title} | Blog — Lutfi Ihsan`;
+    const desc = (post.excerpt || post.title).slice(0, 160);
+    const url = `${SITE_ORIGIN}/blog/post/?slug=${encodeURIComponent(post.slug)}`;
+    const image = post.cover_image
+        ? resolveMediaUrl(post.cover_image)
+        : `${SITE_ORIGIN}/assets/images/hero_anime.webp`;
+
+    document.title = title;
+    setMeta('description', desc);
+    setMeta('og:title', title, 'property');
+    setMeta('og:description', desc, 'property');
+    setMeta('og:url', url, 'property');
+    setMeta('og:type', 'article', 'property');
+    setMeta('og:image', image, 'property');
+    setMeta('twitter:title', title);
+    setMeta('twitter:description', desc);
+    setMeta('twitter:image', image);
+
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+        canonical = document.createElement('link');
+        canonical.rel = 'canonical';
+        document.head.appendChild(canonical);
+    }
+    canonical.href = url;
+
+    const ld = {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: post.title,
+        description: desc,
+        image,
+        datePublished: post.created_at,
+        author: { '@type': 'Person', name: 'Lutfi Ihsan' },
+        publisher: { '@type': 'Person', name: 'Lutfi Ihsan' },
+        mainEntityOfPage: url,
+    };
+    let ldScript = document.getElementById('post-jsonld');
+    if (!ldScript) {
+        ldScript = document.createElement('script');
+        ldScript.id = 'post-jsonld';
+        ldScript.type = 'application/ld+json';
+        document.head.appendChild(ldScript);
+    }
+    ldScript.textContent = JSON.stringify(ld);
+}
+
 // ── FORMAT DATE (Bahasa Indonesia) ──
 function formatDateBlog(iso) {
     if (!iso) return '';
@@ -60,7 +121,7 @@ function openPost(slug) {
 // ── RENDER SINGLE POST ──
 function renderSinglePost(post, container) {
     if (!container) return;
-    document.title = `${post.title} | Blog — Lutfi Ihsan`;
+    updatePostSeo(post);
 
     const tags = (post.tags || []).map(t => `<span class="blog-tag">${t}</span>`).join('');
     const renderedContent = post.content || '<p><em>Konten belum tersedia.</em></p>';

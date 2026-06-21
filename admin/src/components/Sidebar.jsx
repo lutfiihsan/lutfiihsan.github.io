@@ -26,12 +26,6 @@ export default function Sidebar({ activeTab, onTabChange, isAdmin, onLogout }) {
             <i className={`fas ${item.icon}`} /> {item.label}
           </a>
         ))}
-        <a href="blog" target="_blank" rel="noreferrer">
-          <i className="fas fa-globe" /> View Blog
-        </a>
-        <a href="index">
-          <i className="fas fa-home" /> Portfolio
-        </a>
       </nav>
       <div className="sidebar-logout">
         <button type="button" className="btn-logout" onClick={onLogout}>

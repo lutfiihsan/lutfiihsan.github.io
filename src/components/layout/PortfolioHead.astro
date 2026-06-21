@@ -1,24 +1,73 @@
 ---
+import { SITE } from '../../lib/site';
+
 interface Props {
   title: string;
   description?: string;
   extraCss?: string[];
+  canonical?: string;
+  ogImage?: string;
+  ogType?: string;
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { title, description, extraCss = [] } = Astro.props;
+const {
+  title,
+  description = SITE.defaultDescription,
+  extraCss = [],
+  canonical,
+  ogImage = SITE.defaultImage,
+  ogType = 'website',
+  noindex = false,
+  jsonLd,
+} = Astro.props;
+
+const siteUrl = Astro.site?.href.replace(/\/$/, '') ?? SITE.url;
+const canonicalUrl = canonical
+  ? canonical.startsWith('http')
+    ? canonical
+    : `${siteUrl}${canonical.startsWith('/') ? canonical : `/${canonical}`}`
+  : new URL(Astro.url.pathname, siteUrl).href;
+
+const imageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+
 const apiUrl =
   import.meta.env.PUBLIC_API_URL ||
   import.meta.env.VITE_API_URL ||
   'https://myporto-api.lawlieth404.workers.dev';
+
+const jsonLdBlocks = jsonLd
+  ? Array.isArray(jsonLd)
+    ? jsonLd
+    : [jsonLd]
+  : [];
 ---
 
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="author" content="Lutfi Ihsan" />
-<meta name="robots" content="index, follow" />
+<meta name="author" content={SITE.author} />
+<meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
 <meta name="theme-color" content="#02094b" />
-{description && <meta name="description" content={description} />}
+<meta name="description" content={description} />
+<meta name="keywords" content="Lutfi Ihsan, Full Stack Developer, SysAdmin, Laravel, PHP, JavaScript, Portfolio, Bogor, Indonesia" />
+
+<link rel="canonical" href={canonicalUrl} />
+
+<meta property="og:type" content={ogType} />
+<meta property="og:site_name" content={SITE.name} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:locale" content={SITE.locale} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
+<meta name="twitter:creator" content={SITE.twitter} />
 
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -32,9 +81,14 @@ const apiUrl =
 <link rel="stylesheet" href="/assets/css/style.css" />
 {extraCss.map((href) => <link rel="stylesheet" href={href} />)}
 <link id="favicon" rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-png" />
+<link rel="apple-touch-icon" href="/assets/images/favicon.png" />
 
 <script is:inline define:vars={{ apiUrl }}>
   window.__PORTO_API_URL__ = apiUrl;
 </script>
+
+{jsonLdBlocks.map((block) => (
+  <script type="application/ld+json" set:html={JSON.stringify(block)} />
+))}
 
 <title>{title}</title>

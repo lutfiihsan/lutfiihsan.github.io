@@ -11,6 +11,11 @@ interface Props {
   extraScripts?: string[];
   lang?: string;
   disableContextMenu?: boolean;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: string;
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
@@ -20,13 +25,27 @@ const {
   extraScripts = [],
   lang = 'id',
   disableContextMenu = false,
+  canonical,
+  ogImage,
+  ogType,
+  noindex,
+  jsonLd,
 } = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html lang={lang}>
   <head>
-    <PortfolioHead title={title} description={description} extraCss={extraCss} />
+    <PortfolioHead
+      title={title}
+      description={description}
+      extraCss={extraCss}
+      canonical={canonical}
+      ogImage={ogImage}
+      ogType={ogType}
+      noindex={noindex}
+      jsonLd={jsonLd}
+    />
   </head>
   <body {...disableContextMenu ? { oncontextmenu: 'return false' } : {}}>
     <PortfolioNav />

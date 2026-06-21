@@ -81,7 +81,7 @@ export default function LoginPage() {
           )}
         </form>
 
-        <a href="index" className="back-to-home">
+        <a href="/" className="back-to-home">
           <i className="fas fa-arrow-left" /> Kembali ke Portfolio
         </a>
       </div>
